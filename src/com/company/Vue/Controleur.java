@@ -28,7 +28,7 @@ public class Controleur implements ActionListener {
      * méthode [avance] du modèle.
      */
     public void actionPerformed(ActionEvent e) {
-        modele.avance();
+        modele.nextRound();
     }
 }
 /** Fin du contrôleur. */

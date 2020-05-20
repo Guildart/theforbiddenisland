@@ -1,4 +1,14 @@
 package com.company;
+/**
+ * @auteur: MOULOUA Ramdane
+ * Classe qui s'occupe de du de gérer le Modèle et conteint notamment la Zone
+ *
+ * Update of Mai 20 :
+ *     - Mise à jour de la fonction init.
+ *
+ */
+
+
 
 /**
  * Le modèle : le coeur de l'application.
@@ -10,7 +20,7 @@ package com.company;
  */
 public class Island extends Observable {
     /** On fixe la taille de la grille. */
-    public static final int HAUTEUR=40, LARGEUR=60;
+    public static final int HAUTEUR=8, LARGEUR=10;
     /** On stocke un tableau de cellules. */
     private Zone[][] zones;
 
@@ -34,19 +44,24 @@ public class Island extends Observable {
      * ont été ajoutés.
      */
     public void init() {
-        for(int i=1; i<=LARGEUR; i++) {
-            for(int j=1; j<=HAUTEUR; j++) {
-                if (Math.random() < .2) {
-                    zones[i][j].etat = true;
-                }
+
+        for(int j=0; j<=HAUTEUR; j++) {
+            int j_p;
+            if (j >= HAUTEUR/2)
+                j_p = HAUTEUR -1 - j;
+            else
+                j_p = j;
+            for(int i= LARGEUR/2   - j_p%(HAUTEUR/2) - 1; i<=LARGEUR/2 + j_p%(HAUTEUR/2) ; i++) {
+                zones[i+1][j+1].etat = true;
             }
         }
+
     }
 
     /**
      * Calcul de la génération suivante.
      */
-    public void avance() {
+    public void nextRound() {
         /**
          * On procède en deux étapes.
          *  - D'abord, pour chaque cellule on évalue ce que sera son état à la
@@ -108,4 +123,19 @@ public class Island extends Observable {
     public Zone getCellule(int x, int y) {
         return zones[x][y];
     }
+
+    /**
+     * Une méthode pour tester l'état de victoire
+     */
+    public boolean Win(){
+        return true;
+    }
+
+    /**
+     * Une méthode pour tester l'état de jeu perdu
+     */
+    public boolean Lose(){
+        return false;
+    }
+
 }

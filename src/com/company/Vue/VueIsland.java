@@ -20,7 +20,7 @@ public class VueIsland extends JPanel implements com.company.Observer {
     /** On maintient une référence vers le modèle. */
     private Island modele;
     /** Définition d'une taille (en pixels) pour l'affichage des cellules. */
-    private final static int TAILLE = 12;
+    private final static int TAILLE = 50;
 
     /** Constructeur. */
     public VueIsland(Island modele) {
