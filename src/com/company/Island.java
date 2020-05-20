@@ -8,22 +8,22 @@ package com.company;
  * et devra les prévenir avec [notifyObservers] lors des modifications.
  * Voir la méthode [avance()] pour cela.
  */
-public class CModele extends Observable {
+public class Island extends Observable {
     /** On fixe la taille de la grille. */
     public static final int HAUTEUR=40, LARGEUR=60;
     /** On stocke un tableau de cellules. */
-    private Cellule[][] cellules;
+    private Zone[][] zones;
 
     /** Construction : on initialise un tableau de cellules. */
-    public CModele() {
+    public Island() {
         /**
          * Pour éviter les problèmes aux bords, on ajoute une ligne et une
          * colonne de chaque côté, dont les cellules n'évolueront pas.
          */
-        cellules = new Cellule[LARGEUR+2][HAUTEUR+2];
+        zones = new Zone[LARGEUR+2][HAUTEUR+2];
         for(int i=0; i<LARGEUR+2; i++) {
             for(int j=0; j<HAUTEUR+2; j++) {
-                cellules[i][j] = new Cellule(this,i, j);
+                zones[i][j] = new Zone(this,i, j);
             }
         }
         init();
@@ -37,7 +37,7 @@ public class CModele extends Observable {
         for(int i=1; i<=LARGEUR; i++) {
             for(int j=1; j<=HAUTEUR; j++) {
                 if (Math.random() < .2) {
-                    cellules[i][j].etat = true;
+                    zones[i][j].etat = true;
                 }
             }
         }
@@ -55,12 +55,12 @@ public class CModele extends Observable {
          */
         for(int i=1; i<LARGEUR+1; i++) {
             for(int j=1; j<HAUTEUR+1; j++) {
-                cellules[i][j].evalue();
+                zones[i][j].evalue();
             }
         }
         for(int i=1; i<LARGEUR+1; i++) {
             for(int j=1; j<HAUTEUR+1; j++) {
-                cellules[i][j].evolue();
+                zones[i][j].evolue();
             }
         }
         /**
@@ -86,10 +86,10 @@ public class CModele extends Observable {
          */
         for(int i=x-1; i<=x+1; i++) {
             for(int j=y-1; j<=y+1; j++) {
-                if (cellules[i][j].etat) { res++; }
+                if (zones[i][j].etat) { res++; }
             }
         }
-        return (res - ((cellules[x][y].etat)?1:0));
+        return (res - ((zones[x][y].etat)?1:0));
         /**
          * L'expression [(c)?e1:e2] prend la valeur de [e1] si [c] vaut [true]
          * et celle de [e2] si [c] vaut [false].
@@ -105,7 +105,7 @@ public class CModele extends Observable {
      * Une méthode pour renvoyer la cellule aux coordonnées choisies (sera
      * utilisée par la vue).
      */
-    public Cellule getCellule(int x, int y) {
-        return cellules[x][y];
+    public Zone getCellule(int x, int y) {
+        return zones[x][y];
     }
 }

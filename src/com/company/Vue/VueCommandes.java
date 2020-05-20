@@ -1,6 +1,6 @@
 package com.company.Vue;
 
-import com.company.CModele;
+import com.company.Island;
 
 import javax.swing.*;
 
@@ -15,10 +15,10 @@ class VueCommandes extends JPanel {
      * Pour que le bouton puisse transmettre ses ordres, on garde une
      * référence au modèle.
      */
-    private CModele modele;
+    private Island modele;
 
     /** Constructeur. */
-    public VueCommandes(CModele modele) {
+    public VueCommandes(Island modele) {
         this.modele = modele;
         /**
          * On crée un nouveau bouton, de classe [JButton], en précisant le

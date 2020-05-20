@@ -4,9 +4,9 @@ package com.company;
  * Définition d'une classe pour les cellules.
  * Cette classe fait encore partie du modèle.
  */
-public class Cellule {
+public class Zone {
     /** On conserve un pointeur vers la classe principale du modèle. */
-    private CModele modele;
+    private Island modele;
 
     /** L'état d'une cellule est donné par un booléen. */
     protected boolean etat;
@@ -15,7 +15,7 @@ public class Cellule {
      * de l'appel à [compteVoisines].
      */
     private final int x, y;
-    public Cellule(CModele modele, int x, int y) {
+    public Zone(Island modele, int x, int y) {
         this.modele = modele;
         this.etat = false;
         this.x = x; this.y = y;

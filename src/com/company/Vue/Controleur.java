@@ -1,6 +1,6 @@
 package com.company.Vue;
 
-import com.company.CModele;
+import com.company.Island;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,8 +21,8 @@ public class Controleur implements ActionListener {
      * faire directement référence au modèle enregistré pour la classe
      * englobante [VueCommandes].
      */
-    CModele modele;
-    public Controleur(CModele modele) { this.modele = modele; }
+    Island modele;
+    public Controleur(Island modele) { this.modele = modele; }
     /**
      * Action effectuée à réception d'un événement : appeler la
      * méthode [avance] du modèle.

@@ -23,7 +23,7 @@ public class TheForbiddenIsland {
          */
         EventQueue.invokeLater(() -> {
             /** Voici le contenu qui nous intéresse. */
-            CModele modele = new CModele();
+            Island modele = new Island();
             CVue vue = new CVue(modele);
         });
     }

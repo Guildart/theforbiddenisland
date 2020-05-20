@@ -1,6 +1,6 @@
 package com.company.Vue;
 
-import com.company.CModele;
+import com.company.Island;
 
 import java.awt.*;
 import javax.swing.*;
@@ -27,7 +27,7 @@ public class CVue {
     private VueCommandes commandes;
 
     /** Construction d'une vue attachée à un modèle. */
-    public CVue(CModele modele) {
+    public CVue(Island modele) {
         /** Définition de la fenêtre principale. */
         frame = new JFrame();
         frame.setTitle("Jeu de la vie de Conway");
