@@ -53,3 +53,14 @@ Class Player:
         - Set Player (lui passer une zone)
         - Actions (une des trois actions )
         - RechercheClé (tirage de carte )
+        
+        
+Update Romain 20/05/2020:
+
+    - Suppression de l'attribut modele dans Zone car inutile (pour l'instant)
+    - Modification VueIsland paintComponent pour afficher à partir de la case (0,0)
+    - Modification dimension de zones dans Island (10*8 --> 6*6)
+    - Creation (private) zonesNonSubmergee dans Island : renvoie la liste des zones non submergée
+    - Modification NextRound: Innondation de 3 zones non inondés
+    - Creation de la methode nextEtat dans zones, une classe Etat serait peut être
+    plus approprié ?

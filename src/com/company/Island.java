@@ -9,6 +9,8 @@ package com.company;
  */
 
 
+import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Le modèle : le coeur de l'application.
@@ -20,9 +22,11 @@ package com.company;
  */
 public class Island extends Observable {
     /** On fixe la taille de la grille. */
-    public static final int HAUTEUR=8, LARGEUR=10;
+    public static final int HAUTEUR=6, LARGEUR=6;
     /** On stocke un tableau de cellules. */
     private Zone[][] zones;
+
+    public final Random randomGen = new Random();
 
     /** Construction : on initialise un tableau de cellules. */
     public Island() {
@@ -30,15 +34,13 @@ public class Island extends Observable {
          * Pour éviter les problèmes aux bords, on ajoute une ligne et une
          * colonne de chaque côté, dont les cellules n'évolueront pas.
          */
-        zones = new Zone[LARGEUR+2][HAUTEUR+2];
-        for(int i=0; i<LARGEUR+2; i++) {
-            for(int j=0; j<HAUTEUR+2; j++) {
-                zones[i][j] = new Zone(Etat.none, Artefacts.none, new Position(i,j), false);
+        zones = new Zone[LARGEUR][HAUTEUR];
+        for(int i=0; i<LARGEUR; i++) {
+            for(int j=0; j<HAUTEUR; j++) {
+                zones[i][j] = new Zone(Etat.normale, Artefacts.none, new Position(i,j), false);
             }
         }
-        //zones[0][0] = new Zone(Etat.normale, Artefacts.none, new Position(0,0), false);
-        zones[0][0].setEtat(Etat.normale);
-        //init();
+        init();
     }
 
     /**
@@ -46,18 +48,31 @@ public class Island extends Observable {
      * ont été ajoutés.
      */
     public void init() {
+        zones[0][0].setEtat(Etat.none);
+        zones[0][1].setEtat(Etat.none);
+        zones[1][0].setEtat(Etat.none);
 
-        for(int j=0; j<=HAUTEUR; j++) {
-            int j_p;
-            if (j >= HAUTEUR/2)
-                j_p = HAUTEUR -1 - j;
-            else
-                j_p = j;
-            for(int i= LARGEUR/2   - j_p%(HAUTEUR/2) - 1; i<=LARGEUR/2 + j_p%(HAUTEUR/2) ; i++) {
-                //zones[i+1][j+1].etat = true;
-            }
-        }
+        zones[0][HAUTEUR-1].setEtat(Etat.none);
+        zones[1][HAUTEUR-1].setEtat(Etat.none);
+        zones[0][HAUTEUR-2].setEtat(Etat.none);
 
+        zones[LARGEUR-1][HAUTEUR-1].setEtat(Etat.none);
+        zones[LARGEUR-1][HAUTEUR-2].setEtat(Etat.none);
+        zones[LARGEUR-2][HAUTEUR-1].setEtat(Etat.none);
+
+        zones[LARGEUR-1][0].setEtat(Etat.none);
+        zones[LARGEUR-1][1].setEtat(Etat.none);
+        zones[LARGEUR-2][0].setEtat(Etat.none);
+    }
+
+    /**Renvoie la liste des zones non submergée**/
+    private ArrayList<Zone> zonesNonSubmergee(){
+        ArrayList<Zone> listZone = new ArrayList<>();
+        for(int i=0; i<LARGEUR; i++)
+            for(int j=0; j<HAUTEUR; j++)
+                if (zones[i][j].getEtat() != Etat.none && zones[i][j].getEtat() != Etat.submergee)
+                    listZone.add(zones[i][j]);
+        return listZone;
     }
 
     /**
@@ -70,21 +85,16 @@ public class Island extends Observable {
          *    prochaine génération.
          *  - Ensuite, on applique les évolutions qui ont été calculées.
          */
-        for(int i=1; i<LARGEUR+1; i++) {
-            for(int j=1; j<HAUTEUR+1; j++) {
-                //zones[i][j].evalue();
+        ArrayList<Zone> listZone = zonesNonSubmergee();
+        for(int i = 0; i < 3; i++){
+            if(listZone.size() != 0){
+                int rd = randomGen.nextInt(listZone.size());
+                Zone newZone = listZone.get(rd);
+                Etat etat = newZone.getEtat();
+                newZone.setEtat(Zone.nextEtat(etat));
+                listZone.remove(newZone);
             }
         }
-        for(int i=1; i<LARGEUR+1; i++) {
-            for(int j=1; j<HAUTEUR+1; j++) {
-                //zones[i][j].evolue();
-            }
-        }
-        /**
-         * Pour finir, le modèle ayant changé, on signale aux observateurs
-         * qu'ils doivent se mettre à jour.
-         */
-        notifyObservers();
     }
 
     /**

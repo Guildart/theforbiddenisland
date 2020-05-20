@@ -19,7 +19,6 @@ public class Zone {
      */
 
     public Zone(Etat etat, Artefacts artefacts, Position position, boolean heliport) {
-        this.modele = modele;
         this.etat = etat;
         this.artefacts = artefacts;
         this.heliport = heliport;
@@ -56,6 +55,21 @@ public class Zone {
 
     public String toString(){
         return "C";
+    }
+
+    public static Etat nextEtat(Etat etat){
+
+        switch (etat){
+            case none:
+                return Etat.none;
+            case normale:
+                return Etat.inondee;
+            case inondee:
+                return Etat.submergee;
+            case submergee:
+                return Etat.submergee;
+        }
+        return Etat.none;
     }
 }
 /** Fin de la classe Cellule, et du modèle en général. */

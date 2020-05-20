@@ -57,14 +57,14 @@ public class VueIsland extends JPanel implements com.company.Observer {
     public void paintComponent(Graphics g) {
         super.repaint();
         /** Pour chaque cellule... */
-        for(int i = 1; i<= Island.LARGEUR; i++) {
-            for(int j = 1; j<= Island.HAUTEUR; j++) {
+        for(int i = 0; i< Island.LARGEUR; i++) {
+            for(int j = 0; j< Island.HAUTEUR; j++) {
                 /**
                  * ... Appeler une fonction d'affichage auxiliaire.
                  * On lui fournit les informations de dessin [g] et les
                  * coordonnées du coin en haut à gauche.
                  */
-                paint(g, modele.getCellule(i, j), (i-1)*TAILLE, (j-1)*TAILLE);
+                paint(g, modele.getCellule(i, j), (i)*TAILLE, (j)*TAILLE);
             }
         }
     }
@@ -78,9 +78,13 @@ public class VueIsland extends JPanel implements com.company.Observer {
     private void paint(Graphics g, Zone c, int x, int y) {
         /** Sélection d'une couleur. */
         if (c.getEtat() == Etat.none) {
-            g.setColor(Color.WHITE);
-        } else {
             g.setColor(Color.BLACK);
+        } else if (c.getEtat() == Etat.normale){
+            g.setColor(Color.GREEN);
+        } else if (c.getEtat() == Etat.inondee){
+            g.setColor(Color.CYAN);
+        } else{
+            g.setColor(Color.BLUE);
         }
         /** Coloration d'un rectangle. */
         g.fillRect(x, y, TAILLE, TAILLE);
