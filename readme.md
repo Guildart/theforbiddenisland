@@ -39,7 +39,7 @@ Class Zone:
         - getPosition
         - getArtefacts
         - getEtat
-        - getHeliport 
+        - isHeliport 
         
         
 Class Player:

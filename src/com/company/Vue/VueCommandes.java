@@ -25,7 +25,7 @@ class VueCommandes extends JPanel {
          * texte qui doit l'étiqueter.
          * Puis on ajoute ce bouton au panneau [this].
          */
-        JButton boutonAvance = new JButton(">");
+        JButton boutonAvance = new JButton("Fin de Tour");
         this.add(boutonAvance);
 
 
