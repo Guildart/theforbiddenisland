@@ -54,7 +54,7 @@ public class Zone {
     }
 
     public String toString(){
-        return "C";
+        return etat.toString();
     }
 
 }

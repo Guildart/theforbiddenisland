@@ -75,3 +75,5 @@ Update Ramdane 20/05/2020:
     - utilisation de getZone partout dans le code
     - Modification de enum
     - Déplacement de nextEtat de la classe Zone à la classe Etat
+    - retour à la version précédente de la méthode nextRound() dans Island de
+    - toString dans Zone(=) et print dans VueIsland à l'aide de toString()

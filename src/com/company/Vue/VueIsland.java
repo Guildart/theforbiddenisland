@@ -67,6 +67,8 @@ public class VueIsland extends JPanel implements com.company.Observer {
                 paint(g, modele.getZone(i, j), (i)*TAILLE, (j)*TAILLE);
             }
         }
+
+        //System.out.println(this.toString()); // code utilisé pour afficher les éléments
     }
     /**
      * Fonction auxiliaire de dessin d'une cellule.
@@ -92,8 +94,8 @@ public class VueIsland extends JPanel implements com.company.Observer {
 
     public String toString(){
         String islandString = "";
-        for(int i = 1; i<= Island.LARGEUR; i++) {
-            for(int j = 1; j<= Island.HAUTEUR; j++) {
+        for(int i = 0; i< Island.LARGEUR; i++) {
+            for(int j = 0; j< Island.HAUTEUR; j++) {
                 islandString =islandString +" "+ modele.getZone(i, j).toString();
             }
             islandString = islandString + "\n";

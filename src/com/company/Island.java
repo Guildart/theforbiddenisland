@@ -29,8 +29,8 @@ public class Island extends Observable {
     /** On fixe la taille de la grille. */
     public static final int HAUTEUR=6, LARGEUR=6;
     /** On stocke un tableau de cellules. */
-    private Zone[][] zones;
-
+    public Zone[][] zones;
+    ArrayList<Zone> listZone;
     public final Random randomGen = new Random();
 
     /** Construction : on initialise un tableau de cellules. */
@@ -45,6 +45,7 @@ public class Island extends Observable {
                 zones[i][j] = new Zone(none, Artefacts.none, new Position(i,j), false);
             }
         }
+        listZone = new ArrayList<>();
         init();
     }
 
@@ -61,6 +62,7 @@ public class Island extends Observable {
                 j_p = j;
             for(int i= LARGEUR/2   - j_p%(HAUTEUR/2) - 1; i<=LARGEUR/2 + j_p%(HAUTEUR/2) ; i++) {
                 zones[i][j].setEtat(Etat.normale);
+                listZone.add(zones[i][j]);
             }
         }
     }
@@ -85,6 +87,16 @@ public class Island extends Observable {
         return tab;
     }
 
+    /**Renvoie la liste des zones non submergée**/
+   /* private ArrayList<Zone> zonesNonSubmergee(){
+        ArrayList<Zone> listZone = new ArrayList<>();
+        for(int i=0; i<LARGEUR; i++)
+            for(int j=0; j<HAUTEUR; j++)
+                if (zones[i][j].getEtat() != Etat.none && zones[i][j].getEtat() != Etat.submergee)
+                    listZone.add(zones[i][j]);
+        return listZone;
+    }*/
+
     /**
      * Inondation de trois zones tirées au hsard selon les règles
      */
@@ -97,16 +109,20 @@ public class Island extends Observable {
          */
 
         for(int i = 0; i < 3; i++){
-            int[] tab = getRandomZone();
-            Zone newZone = this.getZone(tab[0],tab[1]);
-            Etat etat = newZone.getEtat();
-            newZone.setEtat(Etat.nextEtat(etat));
+            if(listZone.size() != 0){
+                int rd = randomGen.nextInt(listZone.size());
+                Zone newZone = listZone.get(rd);
+                Etat etat = newZone.getEtat();
+                newZone.setEtat(Etat.nextEtat(etat));
+                if (newZone.getEtat()==Etat.submergee)
+                    listZone.remove(newZone);
+            }
         }
 
     }
 
     /**
-     * Méthode auxiliaire : compte le nombre de voisines vivantes d'une
+     * Méthode auxiliaire : compte le nombre de voisichnes vivantes d'une
      * cellule désignée par ses coordonnées.
      */
     protected int compteVoisines(int x, int y) {
