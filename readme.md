@@ -64,3 +64,12 @@ Update Romain 20/05/2020:
     - Modification NextRound: Innondation de 3 zones non inondés
     - Creation de la methode nextEtat dans zones, une classe Etat serait peut être
     plus approprié ?
+    
+Update Ramdane 20/05/2020:
+    
+    - Modifications de Island:
+    - Croix achevée : fonction init adaptée + constructeur
+    - zonesNonSubmergee retirées
+    - nextRound() modifée
+    - getRandomZone() renvoie une zone à inonder
+    - utilisation de getZone partout dans le code

@@ -64,7 +64,7 @@ public class VueIsland extends JPanel implements com.company.Observer {
                  * On lui fournit les informations de dessin [g] et les
                  * coordonnées du coin en haut à gauche.
                  */
-                paint(g, modele.getCellule(i, j), (i)*TAILLE, (j)*TAILLE);
+                paint(g, modele.getZone(i, j), (i)*TAILLE, (j)*TAILLE);
             }
         }
     }
@@ -94,7 +94,7 @@ public class VueIsland extends JPanel implements com.company.Observer {
         String islandString = "";
         for(int i = 1; i<= Island.LARGEUR; i++) {
             for(int j = 1; j<= Island.HAUTEUR; j++) {
-                islandString =islandString +" "+ modele.getCellule(i, j).toString();
+                islandString =islandString +" "+ modele.getZone(i, j).toString();
             }
             islandString = islandString + "\n";
         }
