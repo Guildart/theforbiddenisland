@@ -1,6 +1,7 @@
 package com.company.Vue;
 
 
+import com.company.Etat;
 import com.company.Island;
 import com.company.Zone;
 
@@ -76,10 +77,10 @@ public class VueIsland extends JPanel implements com.company.Observer {
      */
     private void paint(Graphics g, Zone c, int x, int y) {
         /** Sélection d'une couleur. */
-        if (c.estVivante()) {
-            g.setColor(Color.BLACK);
-        } else {
+        if (c.getEtat() == Etat.none) {
             g.setColor(Color.WHITE);
+        } else {
+            g.setColor(Color.BLACK);
         }
         /** Coloration d'un rectangle. */
         g.fillRect(x, y, TAILLE, TAILLE);

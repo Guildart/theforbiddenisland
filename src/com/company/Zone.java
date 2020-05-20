@@ -18,7 +18,7 @@ public class Zone {
      * de l'appel à [compteVoisines].
      */
 
-    public Zone(Island modele, Etat etat, Artefacts artefacts, Position position, boolean heliport) {
+    public Zone(Etat etat, Artefacts artefacts, Position position, boolean heliport) {
         this.modele = modele;
         this.etat = etat;
         this.artefacts = artefacts;
@@ -27,14 +27,14 @@ public class Zone {
     }
 
     public Zone(Island modele, Etat etat, Artefacts artefacts, Position position) {
-        this(modele, etat, artefacts, position, false);
+        this(etat, artefacts, position, false);
     }
 
     public void setEtat(Etat etat){
         this.etat = etat;
     }
 
-    public void removeArtefacts(Etat etat){
+    public void removeArtefacts(){
         this.artefacts = Artefacts.none;
     }
 

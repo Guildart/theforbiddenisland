@@ -33,10 +33,12 @@ public class Island extends Observable {
         zones = new Zone[LARGEUR+2][HAUTEUR+2];
         for(int i=0; i<LARGEUR+2; i++) {
             for(int j=0; j<HAUTEUR+2; j++) {
-                zones[i][j] = new Zone(this,i, j);
+                zones[i][j] = new Zone(Etat.none, Artefacts.none, new Position(i,j), false);
             }
         }
-        init();
+        //zones[0][0] = new Zone(Etat.normale, Artefacts.none, new Position(0,0), false);
+        zones[0][0].setEtat(Etat.normale);
+        //init();
     }
 
     /**
@@ -52,7 +54,7 @@ public class Island extends Observable {
             else
                 j_p = j;
             for(int i= LARGEUR/2   - j_p%(HAUTEUR/2) - 1; i<=LARGEUR/2 + j_p%(HAUTEUR/2) ; i++) {
-                zones[i+1][j+1].etat = true;
+                //zones[i+1][j+1].etat = true;
             }
         }
 
@@ -70,12 +72,12 @@ public class Island extends Observable {
          */
         for(int i=1; i<LARGEUR+1; i++) {
             for(int j=1; j<HAUTEUR+1; j++) {
-                zones[i][j].evalue();
+                //zones[i][j].evalue();
             }
         }
         for(int i=1; i<LARGEUR+1; i++) {
             for(int j=1; j<HAUTEUR+1; j++) {
-                zones[i][j].evolue();
+                //zones[i][j].evolue();
             }
         }
         /**
@@ -101,10 +103,11 @@ public class Island extends Observable {
          */
         for(int i=x-1; i<=x+1; i++) {
             for(int j=y-1; j<=y+1; j++) {
-                if (zones[i][j].etat) { res++; }
+                //if (zones[i][j].etat) { res++; }
             }
         }
-        return (res - ((zones[x][y].etat)?1:0));
+        //return (res - ((zones[x][y].etat)?1:0));
+        return 0;
         /**
          * L'expression [(c)?e1:e2] prend la valeur de [e1] si [c] vaut [true]
          * et celle de [e2] si [c] vaut [false].
