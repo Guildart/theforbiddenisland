@@ -57,19 +57,5 @@ public class Zone {
         return "C";
     }
 
-    public static Etat nextEtat(Etat etat){
-
-        switch (etat){
-            case none:
-                return Etat.none;
-            case normale:
-                return Etat.inondee;
-            case inondee:
-                return Etat.submergee;
-            case submergee:
-                return Etat.submergee;
-        }
-        return Etat.none;
-    }
 }
 /** Fin de la classe Cellule, et du modèle en général. */

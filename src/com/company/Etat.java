@@ -26,6 +26,20 @@ public enum Etat {
         }
     };
 
+    public static Etat nextEtat(Etat etat){
+
+        switch (etat){
+            case none:
+                return Etat.none;
+            case normale:
+                return Etat.inondee;
+            case inondee:
+                return Etat.submergee;
+            case submergee:
+                return Etat.submergee;
+        }
+        return Etat.none;
+    }
     public static Etat randomEtat()  {
         return Etat.values()[new Random().nextInt(Etat.values().length)];
     }

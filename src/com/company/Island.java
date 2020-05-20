@@ -100,7 +100,7 @@ public class Island extends Observable {
             int[] tab = getRandomZone();
             Zone newZone = this.getZone(tab[0],tab[1]);
             Etat etat = newZone.getEtat();
-            newZone.setEtat(Zone.nextEtat(etat));
+            newZone.setEtat(Etat.nextEtat(etat));
         }
 
     }

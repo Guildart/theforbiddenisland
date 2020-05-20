@@ -73,3 +73,5 @@ Update Ramdane 20/05/2020:
     - nextRound() modifée
     - getRandomZone() renvoie une zone à inonder
     - utilisation de getZone partout dans le code
+    - Modification de enum
+    - Déplacement de nextEtat de la classe Zone à la classe Etat
