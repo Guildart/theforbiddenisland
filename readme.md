@@ -105,3 +105,5 @@ Update Romain 21/05/2020:
 
     - Ajout Enum Key
     - Modif dans player de artefactsKey (ArrayList -> Tableau)
+    - Implementation de searchKey dans Player
+    - Utilisation de searchKey dans nextRound (Island)
