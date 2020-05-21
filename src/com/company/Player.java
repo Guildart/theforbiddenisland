@@ -34,9 +34,18 @@ public class Player {
     }
 
     /**
-     * récuperer une clée donnée par un joueur
+     * change la quantite de clé d'un joueur
      **/
-    private void addKey(){
+    private void setQuantiteKey(Key k, int quantite){
+        if(k == Key.air)
+            this.artefactsCles[0].setQuantity(this.artefactsCles[0].getQuantity() + quantite);
+        else if (k == Key.eau)
+            this.artefactsCles[1].setQuantity(this.artefactsCles[1].getQuantity() + quantite);
+        else if (k == Key.feu)
+            this.artefactsCles[2].setQuantity(this.artefactsCles[2].getQuantity() + quantite);
+       else
+           this.artefactsCles[3].setQuantity(this.artefactsCles[3].getQuantity() + quantite);
+
 
     }
 
