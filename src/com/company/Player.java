@@ -6,12 +6,11 @@ import java.util.ArrayList;
 public class Player {
     Zone zone;
     Color color;
-    ArrayList<Artefacts> artefactsCles;
+    Key[] artefactsCles = {Key.air, Key.eau, Key.feu, Key.vent};
 
     public Player(Zone zone, Color color){
         zone = zone;
         color = color;
-        artefactsCles = new ArrayList<>();
     }
     /**
     * Deplacer le joueur
