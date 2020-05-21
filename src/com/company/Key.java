@@ -16,4 +16,10 @@ public enum Key {
     public void setQuantity(){
         this.Qte+=1;
     }
+
+    @Override
+    public String toString() {
+        return "push";
+    }
+
 }
