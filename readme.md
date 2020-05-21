@@ -13,6 +13,9 @@ Class Island:
         - Hauteur de la grille 6
         - Largeur de la grille 6 
         - Players 
+        (-Arraylist piocheJoueur)
+        (-Arraylist piocheEnvironnement)
+        (-Arraylist défausseEnvironnement)
     
     - Méthodes:
         - init() pour initiliaser la grille
@@ -39,19 +42,35 @@ Class Zone:
         - getPosition
         - getArtefacts
         - getEtat
-        - isHeliport 
-        
-        
+        - getHeliport 
+
+
+class VueIsland:
+    
+    -    
+
+
+
+
 Class Player:
 
     - Attributs:
+        - Couleur (https://docs.oracle.com/javase/7/docs/api/java/awt/Color.html)
         - Zone
         - ArrayList de clés
         - ArrayList d'artefacts
+        (-ArrayList mainCarte)
+        (-ArrayList défausse) (commune aux joueurs un static, partagés par tous les joueurs ou dans Island))
         
     - Méthodes:
         - Set Player (lui passer une zone)
-        - Actions (une des trois actions )
+        - deplaceJoueur
+        - assecheZone
+        - recupArtefacts
+        - donnerCle ( avec un autre joueur)
+        (- addArtefacts)
+        - addCle
+        - 
         - RechercheClé (tirage de carte )
         
         
@@ -79,4 +98,10 @@ Update Ramdane 20/05/2020:
     - toString dans Zone(=) et print dans VueIsland à l'aide de toString()
    
 Update Ramdane 21/05/2020:
+
     - Ajout class Player
+    
+Update Romain 21/05/2020:
+
+    - Ajout Enum Key
+    - Modif dans player de artefactsKey (ArrayList -> Tableau)
