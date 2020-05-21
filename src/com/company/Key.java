@@ -16,5 +16,4 @@ public enum Key {
     public void setQuantity(int Qte){
         this.Qte = Qte;
     }
-
 }
