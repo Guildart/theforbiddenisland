@@ -26,6 +26,7 @@ public class CVue {
     private VueIsland grille;
     private VueCommandes commandes;
 
+
     /** Construction d'une vue attachée à un modèle. */
     public CVue(Island modele) {
         /** Définition de la fenêtre principale. */
@@ -53,6 +54,7 @@ public class CVue {
         frame.add(grille);
         commandes = new VueCommandes(modele);
         frame.add(commandes);
+
 
         System.out.print(this.toString());
 

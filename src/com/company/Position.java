@@ -8,4 +8,8 @@ public class Position {
         this.x = absc;
         this.y = ord;
     }
+
+    public String toSrring(){
+        return "x: " + x + " y: " + y;
+    }
 }

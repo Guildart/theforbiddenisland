@@ -1,8 +1,10 @@
 package com.company.Vue;
 
-import com.company.Island;
+import com.company.*;
 
 import javax.swing.*;
+import java.awt.*;
+
 
 /**
  * Une classe pour représenter la zone contenant le bouton.
@@ -16,6 +18,7 @@ class VueCommandes extends JPanel {
      * référence au modèle.
      */
     private Island modele;
+    private final static int TAILLE = 50;
 
     /** Constructeur. */
     public VueCommandes(Island modele) {
@@ -27,8 +30,9 @@ class VueCommandes extends JPanel {
          */
         JButton boutonAvance = new JButton("Fin de Tour");
         this.add(boutonAvance);
-
-
+        Dimension dim = new Dimension(TAILLE* Island.LARGEUR,
+                TAILLE* Island.HAUTEUR);
+        this.setPreferredSize(dim);
         /**
          * Le bouton, lorsqu'il est cliqué par l'utilisateur, produit un
          * événement, de classe [ActionEvent].
@@ -65,7 +69,19 @@ class VueCommandes extends JPanel {
          *
          */
 
+
     }
+
+    public void paintComponent(Graphics g) {
+       // paint(g, new Color(255,255,255), 20,30);
+
+    }
+
+    private void paint(Graphics g, Color c, int x, int y) {
+
+       // g.fillRect(x, y, 100, 100);
+    }
+
 }
 /** Fin de la vue. */
 

@@ -9,14 +9,14 @@ public class Player {
     Key[] artefactsCles = {Key.air, Key.eau, Key.feu, Key.vent};
 
     public Player(Zone zone, Color color){
-        zone = zone;
-        color = color;
+        this.zone = zone;
+        this.color = color;
     }
     /**
     * Deplacer le joueur
     **/
     public void movePlayer(Zone z){
-        zone = z;
+        this.zone = z;
     }
 
     /**
@@ -45,15 +45,20 @@ public class Player {
             this.artefactsCles[2].setQuantity(this.artefactsCles[2].getQuantity() + quantite);
        else
            this.artefactsCles[3].setQuantity(this.artefactsCles[3].getQuantity() + quantite);
-
-
     }
 
     /**
-     * rechercher une clé
+     * rechercher une clé avec proba de 0.5 d'en trouver
      **/
-    public void searchKery(){
+    public void searchKey(){
+        float rd = randomGen.nextFloat();
+        if(rd < 0.5)
+            setQuantiteKey(artefactsCles[randomGen.nextInt(4)],1);
+    }
 
+    public Color getColor(){return color;}
+    public Zone getZone(){
+        return zone;
     }
 
 

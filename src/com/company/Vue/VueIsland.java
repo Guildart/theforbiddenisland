@@ -1,11 +1,12 @@
 package com.company.Vue;
 
 
-import com.company.Etat;
-import com.company.Island;
-import com.company.Zone;
+import com.company.*;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import javax.swing.*;
 
 /**
@@ -17,7 +18,7 @@ import javax.swing.*;
  * Cette vue va être un observateur du modèle et sera mise à jour à chaque
  * nouvelle génération des cellules.
  */
-public class VueIsland extends JPanel implements com.company.Observer {
+public class VueIsland extends JPanel implements com.company.Observer, MouseListener {
     /** On maintient une référence vers le modèle. */
     private Island modele;
     /** Définition d'une taille (en pixels) pour l'affichage des cellules. */
@@ -28,6 +29,9 @@ public class VueIsland extends JPanel implements com.company.Observer {
         this.modele = modele;
         /** On enregistre la vue [this] en tant qu'observateur de [modele]. */
         modele.addObserver(this);
+
+        //J'ajoute au MouseListener notre objet
+        addMouseListener(this);
         /**
          * Définition et application d'une taille fixe pour cette zone de
          * l'interface, calculée en fonction du nombre de cellules et de la
@@ -68,6 +72,13 @@ public class VueIsland extends JPanel implements com.company.Observer {
             }
         }
 
+        ArrayList<Player> liste = modele.getListPlayers();
+        for(Player p: liste){
+            Position pos = p.getZone().getPosition();
+            paint(g, p.getColor(), pos.x*TAILLE, pos.y*TAILLE);
+        }
+
+
         //System.out.println(this.toString()); // code utilisé pour afficher les éléments
     }
     /**
@@ -92,6 +103,13 @@ public class VueIsland extends JPanel implements com.company.Observer {
         g.fillRect(x, y, TAILLE, TAILLE);
     }
 
+    private void paint(Graphics g, Color c, int x, int y) {
+        /** Sélection d'une couleur. */
+        g.setColor(c);
+        /** Coloration d'un rectangle. */
+        g.fillRect(x, y, TAILLE, TAILLE);
+    }
+
     public String toString(){
         String islandString = "";
         for(int i = 0; i< Island.LARGEUR; i++) {
@@ -105,4 +123,30 @@ public class VueIsland extends JPanel implements com.company.Observer {
     }
 
 
+    @Override
+    public void mouseClicked(MouseEvent mouseEvent) {
+        System.out.println(mouseEvent.getX()/TAILLE + " " + mouseEvent.getY()/TAILLE);
+        Player p = modele.getRoundOf();
+        p.movePlayer(modele.getZone(mouseEvent.getX()/TAILLE, mouseEvent.getY()/TAILLE));
+    }
+
+    @Override
+    public void mousePressed(MouseEvent mouseEvent) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent mouseEvent) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent mouseEvent) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent mouseEvent) {
+
+    }
 }

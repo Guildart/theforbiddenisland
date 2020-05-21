@@ -11,6 +11,7 @@ package com.company;
  */
 
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -33,6 +34,7 @@ public class Island extends Observable {
     ArrayList<Zone> listZone;
     private Player RoundOf;
     public final Random randomGen = new Random();
+    ArrayList<Player> listPlayers;
 
     /** Construction : on initialise un tableau de cellules. */
     public Island() {
@@ -47,6 +49,7 @@ public class Island extends Observable {
             }
         }
         listZone = new ArrayList<>();
+        listPlayers = new ArrayList<>();
         init();
     }
 
@@ -66,13 +69,25 @@ public class Island extends Observable {
                 listZone.add(zones[i][j]);
             }
         }
+        Color c1 = new Color(17, 51, 236, 232);
+        addPlayer(c1);
+        this.setRoundOf(listPlayers.get(0));
+        Color c2 = new Color(168, 0, 53, 232);
+        addPlayer(c2);
     }
+
+    private void addPlayer(Color c){
+        int[] tab = getRandomPoint();
+        Player p = new Player(zones[tab[0]][tab[1]],c);
+        listPlayers.add(p);
+    }
+
 
     /**
     * Fonction qui renvoie les coordonnées dans un tab
     * de trois zones à modifier se situant dans la croix
     */
-     private int[] getRandomZone(){
+     private int[] getRandomPoint(){
         int[] tab= new int[2];
         int j = randomGen.nextInt(HAUTEUR);
         int j_p;
@@ -119,6 +134,7 @@ public class Island extends Observable {
                     listZone.remove(newZone);
             }
         }
+        RoundOf.searchKey();
 
     }
 
@@ -181,4 +197,19 @@ public class Island extends Observable {
     public void setRoundOf(Player p){
         this.RoundOf = p;
     }
+
+    /**
+     * Une méthode pour récuperer le joueur qui joue actuellement
+     */
+    public Player getRoundOf(){
+        return this.RoundOf;
+    }
+
+    /**
+     * Une méthode pour récuperer la liste des joueurs
+     */
+    public ArrayList<Player> getListPlayers(){
+        return listPlayers;
+    }
+
 }
