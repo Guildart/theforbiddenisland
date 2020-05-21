@@ -22,7 +22,7 @@ public class VueIsland extends JPanel implements com.company.Observer, MouseList
     /** On maintient une référence vers le modèle. */
     private Island modele;
     /** Définition d'une taille (en pixels) pour l'affichage des cellules. */
-    private final static int TAILLE = 50;
+    private final static int TAILLE = 100;
 
     /** Constructeur. */
     public VueIsland(Island modele) {
@@ -75,7 +75,7 @@ public class VueIsland extends JPanel implements com.company.Observer, MouseList
         ArrayList<Player> liste = modele.getListPlayers();
         for(Player p: liste){
             Position pos = p.getZone().getPosition();
-            paint(g, p.getColor(), pos.x*TAILLE, pos.y*TAILLE);
+            paintPlayer(g, p.getColor(), pos.x*TAILLE, pos.y*TAILLE);
         }
 
 
@@ -103,11 +103,11 @@ public class VueIsland extends JPanel implements com.company.Observer, MouseList
         g.fillRect(x, y, TAILLE, TAILLE);
     }
 
-    private void paint(Graphics g, Color c, int x, int y) {
+    private void paintPlayer(Graphics g, Color c, int x, int y) {
         /** Sélection d'une couleur. */
         g.setColor(c);
         /** Coloration d'un rectangle. */
-        g.fillRect(x, y, TAILLE, TAILLE);
+        g.fillRect(x, y, TAILLE/2, TAILLE/2);
     }
 
     public String toString(){
@@ -125,9 +125,13 @@ public class VueIsland extends JPanel implements com.company.Observer, MouseList
 
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
-        System.out.println(mouseEvent.getX()/TAILLE + " " + mouseEvent.getY()/TAILLE);
+        //System.out.println(mouseEvent.getX()/TAILLE + " " + mouseEvent.getY()/TAILLE);
         Player p = modele.getRoundOf();
-        p.movePlayer(modele.getZone(mouseEvent.getX()/TAILLE, mouseEvent.getY()/TAILLE));
+        Zone z = modele.getZone(mouseEvent.getX()/TAILLE, mouseEvent.getY()/TAILLE);
+        if(modele.zoneSafeToMove(modele.getRoundOf().getZone(),z))
+            p.movePlayer(modele.getZone(mouseEvent.getX()/TAILLE, mouseEvent.getY()/TAILLE));
+        else
+            System.out.println("Mouvement interdit");
     }
 
     @Override

@@ -100,6 +100,14 @@ Update Ramdane 20/05/2020:
 Update Ramdane 21/05/2020:
 
     - Ajout class Player
+    - Class Zone ajout isSafe
+    - Class position ajout des méthodes toString et equals
+    - Class Vueisland ajout de paintPlayer
+    - Class Vueisland  ajout de mouseClicked qui permet de cliquer sur une case adjacente "safe"
+    - Class Island ajout de zoneSafeToMove, getListPlayers 
+    - Class Island ajout de l'attribut listPlayers
+    - Class Island dans init instanciation de deux players
+    - Ajout d'autres méthodes minimes non détaillées
     
 Update Romain 21/05/2020:
 

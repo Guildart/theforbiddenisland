@@ -57,5 +57,8 @@ public class Zone {
         return etat.toString();
     }
 
+    public boolean isSafe(){
+        return this.etat==Etat.normale || this.etat==Etat.inondee;
+    }
 }
 /** Fin de la classe Cellule, et du modèle en général. */

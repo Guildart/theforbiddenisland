@@ -31,10 +31,10 @@ public class Island extends Observable {
     public static final int HAUTEUR=6, LARGEUR=6;
     /** On stocke un tableau de cellules. */
     public Zone[][] zones;
-    ArrayList<Zone> listZone;
+    private ArrayList<Zone> listZone;
     private Player RoundOf;
     public final Random randomGen = new Random();
-    ArrayList<Player> listPlayers;
+    private ArrayList<Player> listPlayers;
 
     /** Construction : on initialise un tableau de cellules. */
     public Island() {
@@ -210,6 +210,45 @@ public class Island extends Observable {
      */
     public ArrayList<Player> getListPlayers(){
         return listPlayers;
+    }
+
+    /**
+     * @param zP zone ou se trouve le joueur
+     * @param zM zone ou l'on veut se déplacer
+     * @return vrai si on peut se déplacer sur zM
+     */
+    public boolean zoneSafeToMove(Zone zP, Zone zM){
+        Position pos = zP.getPosition();
+        ArrayList<Zone> zonesSafe = new ArrayList<>();
+
+        if (pos.y-1>=0)
+            if(zones[pos.x][pos.y-1].isSafe()){
+                zonesSafe.add(zones[pos.x][pos.y-1]);
+             }
+        if(pos.x-1>=0)
+            if(zones[pos.x-1][pos.y].isSafe()){
+                zonesSafe.add(zones[pos.x-1][pos.y]);
+            }
+
+        if(pos.y+1<HAUTEUR)
+        if(zones[pos.x][pos.y+1].isSafe()){
+            zonesSafe.add(zones[pos.x][pos.y+1]);
+        }
+
+        if(pos.x+1<LARGEUR)
+        if(zones[pos.x+1][pos.y].isSafe()){
+            zonesSafe.add(zones[pos.x+1][pos.y]);
+        }
+
+        for( Zone z : zonesSafe){
+            if(z.getPosition().equals( zM.getPosition())) {
+                //System.out.println("TRUE TRUE TRUE");
+                return true;
+            }
+            //System.out.println(z.getPosition().toString() + " " + zM.getPosition().toString());
+        }
+
+        return false;
     }
 
 }
