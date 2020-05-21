@@ -13,14 +13,8 @@ public enum Key {
         return this.Qte;
     }
 
-    public void setQuantity(){
-        this.Qte+=1;
-    }
-
-    @Override
-    public String toString() {
-        this.Qte += 974;
-        return "MussCachette le Reunionnais";
+    public void setQuantity(int Qte){
+        this.Qte = Qte;
     }
 
 }
