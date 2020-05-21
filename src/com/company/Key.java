@@ -19,7 +19,8 @@ public enum Key {
 
     @Override
     public String toString() {
-        return "push";
+        this.Qte += 1;
+        return "pull";
     }
 
 }
