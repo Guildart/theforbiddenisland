@@ -77,3 +77,6 @@ Update Ramdane 20/05/2020:
     - Déplacement de nextEtat de la classe Zone à la classe Etat
     - retour à la version précédente de la méthode nextRound() dans Island de
     - toString dans Zone(=) et print dans VueIsland à l'aide de toString()
+   
+Update Ramdane 21/05/2020:
+    - Ajout class Player
