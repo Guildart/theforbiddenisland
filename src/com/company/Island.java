@@ -108,7 +108,6 @@ public class Island extends Observable {
          *    prochaine génération.
          *  - Ensuite, on applique les évolutions qui ont été calculées.
          */
-
         for(int i = 0; i < 3; i++){
             if(listZone.size() != 0){
                 int rd = randomGen.nextInt(listZone.size());
@@ -119,7 +118,7 @@ public class Island extends Observable {
                     listZone.remove(newZone);
             }
         }
-
+        RoundOf.searchKey();
     }
 
     /**

@@ -2,11 +2,14 @@ package com.company;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Player {
-    Zone zone;
-    Color color;
-    Key[] artefactsCles = {Key.air, Key.eau, Key.feu, Key.vent};
+    public final Random randomGen = new Random();
+
+    private Zone zone;
+    private Color color;
+    private Key[] artefactsCles = {Key.air, Key.eau, Key.feu, Key.vent};
 
     public Player(Zone zone, Color color){
         zone = zone;
@@ -45,15 +48,15 @@ public class Player {
             this.artefactsCles[2].setQuantity(this.artefactsCles[2].getQuantity() + quantite);
        else
            this.artefactsCles[3].setQuantity(this.artefactsCles[3].getQuantity() + quantite);
-
-
     }
 
     /**
-     * rechercher une clé
+     * rechercher une clé avec proba de 0.5 d'en trouver
      **/
-    public void searchKery(){
-
+    public void searchKey(){
+        float rd = randomGen.nextFloat();
+        if(rd < 0.5)
+            setQuantiteKey(artefactsCles[randomGen.nextInt(4)],1);
     }
 
 
