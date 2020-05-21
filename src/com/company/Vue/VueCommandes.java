@@ -70,6 +70,7 @@ class VueCommandes extends JPanel {
          */
 
 
+
     }
 
     public void paintComponent(Graphics g) {

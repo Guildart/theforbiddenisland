@@ -108,6 +108,10 @@ Update Ramdane 21/05/2020:
     - Class Island ajout de l'attribut listPlayers
     - Class Island dans init instanciation de deux players
     - Ajout d'autres méthodes minimes non détaillées
+    - Possibilité de 3 actions (uniquement le mouvemnt pour le moment) puis obligation de passer le tour
+    - Class Island ajout de l'attribut actions qui compte le nombre d'action + des méthdoes
+    - modification donc de VueIsland
+    - ajout d'une croix jaune autour du joueur pour le déplcament
     
 Update Romain 21/05/2020:
 

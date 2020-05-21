@@ -35,6 +35,7 @@ public class Island extends Observable {
     private Player RoundOf;
     public final Random randomGen = new Random();
     private ArrayList<Player> listPlayers;
+    private static int actions;
 
     /** Construction : on initialise un tableau de cellules. */
     public Island() {
@@ -74,6 +75,8 @@ public class Island extends Observable {
         this.setRoundOf(listPlayers.get(0));
         Color c2 = new Color(168, 0, 53, 232);
         addPlayer(c2);
+        Color c3 = new Color(255, 230, 9, 232);
+        addPlayer(c3);
     }
 
     private void addPlayer(Color c){
@@ -136,6 +139,10 @@ public class Island extends Observable {
         }
         RoundOf.searchKey();
 
+        //Round du prochain joueur
+        ArrayList<Player> players = this.listPlayers;
+        this.setRoundOf(players.get( (players.indexOf(this.getRoundOf())+1)%players.size()));
+
     }
 
     /**
@@ -195,6 +202,7 @@ public class Island extends Observable {
     }
 
     public void setRoundOf(Player p){
+        this.actions=0;
         this.RoundOf = p;
     }
 
@@ -214,10 +222,9 @@ public class Island extends Observable {
 
     /**
      * @param zP zone ou se trouve le joueur
-     * @param zM zone ou l'on veut se déplacer
-     * @return vrai si on peut se déplacer sur zM
+     * @return une liste de zone
      */
-    public boolean zoneSafeToMove(Zone zP, Zone zM){
+    public ArrayList<Zone>  zoneSafeToMove(Zone zP){
         Position pos = zP.getPosition();
         ArrayList<Zone> zonesSafe = new ArrayList<>();
 
@@ -240,15 +247,30 @@ public class Island extends Observable {
             zonesSafe.add(zones[pos.x+1][pos.y]);
         }
 
-        for( Zone z : zonesSafe){
+        return zonesSafe;
+    }
+
+    public boolean rightToMove( ArrayList<Zone> listZone, Zone zM){
+        for( Zone z : listZone){
             if(z.getPosition().equals( zM.getPosition())) {
-                //System.out.println("TRUE TRUE TRUE");
                 return true;
             }
-            //System.out.println(z.getPosition().toString() + " " + zM.getPosition().toString());
         }
 
         return false;
+    }
+
+    public void addAction(){
+        if(this.actions<3){
+            actions+=1;
+        }
+        else{
+            System.out.println("PLUS DE DEPLACEMENT POSSIBLE");
+        }
+    }
+
+    public boolean canAct(){
+        return this.actions<3;
     }
 
 }

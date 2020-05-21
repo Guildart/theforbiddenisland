@@ -72,14 +72,21 @@ public class VueIsland extends JPanel implements com.company.Observer, MouseList
             }
         }
 
-        ArrayList<Player> liste = modele.getListPlayers();
-        for(Player p: liste){
-            Position pos = p.getZone().getPosition();
-            paintPlayer(g, p.getColor(), pos.x*TAILLE, pos.y*TAILLE);
+        // on dessine les cases autour
+        Player p = modele.getRoundOf();
+        ArrayList<Zone> listZones = modele.zoneSafeToMove(p.getZone());
+
+        for(Zone z: listZones){
+            Position pos = z.getPosition();
+            paintSafeZone(g, new Color(255,255,0), pos.x*TAILLE, pos.y*TAILLE);
         }
 
+        ArrayList<Player> liste = modele.getListPlayers();
+        for(Player p1: liste){
+            Position pos = p1.getZone().getPosition();
+            paintPlayer(g, p1.getColor(), pos.x*TAILLE, pos.y*TAILLE);
+        }
 
-        //System.out.println(this.toString()); // code utilisé pour afficher les éléments
     }
     /**
      * Fonction auxiliaire de dessin d'une cellule.
@@ -108,6 +115,16 @@ public class VueIsland extends JPanel implements com.company.Observer, MouseList
         g.setColor(c);
         /** Coloration d'un rectangle. */
         g.fillRect(x, y, TAILLE/2, TAILLE/2);
+
+    }
+
+    private void paintSafeZone(Graphics g, Color c, int x, int y) {
+        /** Sélection d'une couleur. */
+        g.setColor(c);
+        /** Coloration d'un rectangle. */
+        //g.drawRect(x, y, TAILLE, TAILLE);
+        g.fillRect(x, y, TAILLE, TAILLE);
+
     }
 
     public String toString(){
@@ -128,8 +145,11 @@ public class VueIsland extends JPanel implements com.company.Observer, MouseList
         //System.out.println(mouseEvent.getX()/TAILLE + " " + mouseEvent.getY()/TAILLE);
         Player p = modele.getRoundOf();
         Zone z = modele.getZone(mouseEvent.getX()/TAILLE, mouseEvent.getY()/TAILLE);
-        if(modele.zoneSafeToMove(modele.getRoundOf().getZone(),z))
+        ArrayList<Zone> listZones = modele.zoneSafeToMove(modele.getRoundOf().getZone());
+        if(modele.rightToMove(listZones, z) && modele.canAct()){
             p.movePlayer(modele.getZone(mouseEvent.getX()/TAILLE, mouseEvent.getY()/TAILLE));
+            modele.addAction();
+        }
         else
             System.out.println("Mouvement interdit");
     }
