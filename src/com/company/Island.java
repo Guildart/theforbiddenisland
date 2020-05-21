@@ -31,6 +31,7 @@ public class Island extends Observable {
     /** On stocke un tableau de cellules. */
     public Zone[][] zones;
     ArrayList<Zone> listZone;
+    private Player RoundOf;
     public final Random randomGen = new Random();
 
     /** Construction : on initialise un tableau de cellules. */
@@ -177,4 +178,7 @@ public class Island extends Observable {
         return false;
     }
 
+    public void setRoundOf(Player p){
+        this.RoundOf = p;
+    }
 }
