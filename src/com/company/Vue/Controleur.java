@@ -1,6 +1,9 @@
 package com.company.Vue;
 
+import com.company.Artefacts;
 import com.company.Island;
+import com.company.Player;
+import com.company.Zone;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -44,6 +47,18 @@ public class Controleur implements ActionListener {
     public void actionDrainWater(ActionEvent e){
         modele.setTypeAction(2);
 
+    }
+
+    public void actionTakeArtefact(ActionEvent e){
+        modele.setTypeAction(3);
+        Player p = modele.getRoundOf();
+        Zone z1 = p.getZone();
+        if(z1.getArtefacts() != Artefacts.none){
+            System.out.println("Artefact"+z1.getArtefacts()+"  récupéré");
+            modele.addArtefact(z1.getArtefacts());
+            z1.removeArtefacts();
+            p.addAction();
+        }
     }
 
 

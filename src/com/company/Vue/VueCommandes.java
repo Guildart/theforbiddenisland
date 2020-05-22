@@ -36,7 +36,7 @@ class VueCommandes extends JPanel {
         this.add(boutonMovePlayer);
         JRadioButton boutonDrainWater = new JRadioButton("Drain Water");
         this.add(boutonDrainWater);
-        JRadioButton boutonTakeArtefact = new JRadioButton("Take Tresor");
+        JRadioButton boutonTakeArtefact = new JRadioButton("Take Artefact");
         this.add(boutonTakeArtefact);
         JRadioButton boutonSwapCard = new JRadioButton("Swap Card");
         this.add(boutonSwapCard);
@@ -81,7 +81,7 @@ class VueCommandes extends JPanel {
         boutonNextRound.addActionListener(ctrl);
         boutonMovePlayer.addActionListener(ctrl::actionMovePlayer);
         boutonDrainWater.addActionListener(ctrl::actionDrainWater);
-        boutonTakeArtefact.addActionListener(ctrl::actionDrainWater); //Remplacer actionDrainWater
+        boutonTakeArtefact.addActionListener(ctrl::actionTakeArtefact); //Remplacer actionDrainWater
         boutonSwapCard.addActionListener(ctrl::actionDrainWater); //Remplacer actionDrainWater
 
 

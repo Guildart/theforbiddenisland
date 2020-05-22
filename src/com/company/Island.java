@@ -35,8 +35,8 @@ public class Island extends Observable {
     private Player RoundOf;
     public final Random randomGen = new Random();
     private ArrayList<Player> listPlayers;
-    private static int nbActionsRestant;
     private int typeAction = 1; // Move Player:1, Drain Water: 2, Take Artfc: 3, Swap cards: 4 TODO : creation d'un type ?
+    private ArrayList<Artefacts> listArtefacts;
 
     /** Construction : on initialise un tableau de cellules. */
     public Island() {
@@ -50,8 +50,10 @@ public class Island extends Observable {
                 zones[i][j] = new Zone(none, Artefacts.none, new Position(i,j), false);
             }
         }
+
         listZone = new ArrayList<>();
         listPlayers = new ArrayList<>();
+        listArtefacts = new ArrayList<>();
         init();
     }
 
@@ -134,6 +136,7 @@ public class Island extends Observable {
         ArrayList<Player> players = this.listPlayers;
         this.setRoundOf(players.get( (players.indexOf(this.getRoundOf())+1)%players.size()));
 
+
     }
 
     /**
@@ -178,23 +181,42 @@ public class Island extends Observable {
 
     /**
      * Une méthode pour tester l'état de victoire
-     * provisoire : return false comme ca le jeu continue
      */
     public boolean Win(){
-        return false;
+        Player p1 = listPlayers.get(0);
+        if(!p1.getZone().isHeliport())
+            return false;
+
+        for(Player p: listPlayers){ // les joueurs doivent être sur la même zone
+            if(!p1.getZone().equals(p.getZone()))
+                return false;
+            p1=p;
+        }
+        return true;
     }
 
     /**
      * Une méthode pour tester l'état de jeu perdu
-     * provisoire : return false comme ca le jeu continue
      */
     public boolean Lose(){
+        for(Player p: listPlayers) { // test si un joueur est noyé
+            if(!p.getZone().isSafe())
+                return true;
+        }
+
+        for(int i=0; i<LARGEUR; i++) {
+            for (int j = 0; j < HAUTEUR; j++) {
+                if(!zones[i][j].isSafe() && zones[i][j].isHeliport()) // test si l'heliport est inondé
+                    return true;
+            }
+        }
+
         return false;
     }
 
     public void setRoundOf(Player p){
-        this.nbActionsRestant =0;
         this.RoundOf = p;
+        p.resetNbActionRestant();
     }
 
     /**
@@ -260,9 +282,12 @@ public class Island extends Observable {
             return zoneSafeToMove(zp);
         else if(this.typeAction == 2)
             return zonesDrainable(zp);
+        else if(this.typeAction == 3)
+            return zonesDrainable(zp);
         else
             return zoneSafeToMove(zp); //à modifer quand rajout d'action
     }
+
 
     public boolean isReachable(ArrayList<Zone> listZone, Zone zM){
         for( Zone z : listZone){
@@ -274,6 +299,7 @@ public class Island extends Observable {
         return false;
     }
 
+
     public void setTypeAction(int action){
         if(action < 1 || action > 2)
             this.typeAction = 1; //TODO : Creer une exceptions, peut causer des bug graphique (ne sera normalement jamais le cas)
@@ -284,17 +310,13 @@ public class Island extends Observable {
         return this.typeAction;
     }
 
-    public void addAction(){
-        if(nbActionsRestant <3){
-            nbActionsRestant +=1;
-        }
-        else{
-            System.out.println("PLUS DE DEPLACEMENT POSSIBLE");
-        }
+    public void addArtefact(Artefacts art){
+        listArtefacts.add(art);
     }
 
-    public boolean canAct(){
-        return nbActionsRestant <3;
+    public ArrayList<Artefacts> getListArtefacts(){
+        return listArtefacts;
     }
+
 
 }

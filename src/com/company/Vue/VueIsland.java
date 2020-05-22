@@ -148,12 +148,12 @@ public class VueIsland extends JPanel implements com.company.Observer, MouseList
         Player p = modele.getRoundOf();
         Zone z = modele.getZone(mouseEvent.getX()/TAILLE, mouseEvent.getY()/TAILLE);
         ArrayList<Zone> listZones = modele.zonesReachable(modele.getRoundOf().getZone());
-        if(modele.isReachable(listZones, z) && modele.canAct() && modele.getTypeAction() == 1){
+        if(modele.isReachable(listZones, z) && p.canAct() && modele.getTypeAction() == 1){
             p.movePlayer(modele.getZone(mouseEvent.getX()/TAILLE, mouseEvent.getY()/TAILLE));
-            modele.addAction();
-        } else if(modele.isReachable(listZones, z) && modele.canAct() && modele.getTypeAction() == 2){
+            p.addAction();
+        } else if(modele.isReachable(listZones, z) && p.canAct() && modele.getTypeAction() == 2){
             p.drainWaterZone(modele.getZone(mouseEvent.getX()/TAILLE, mouseEvent.getY()/TAILLE));
-            modele.addAction();
+            p.addAction();
         }
         else
             System.out.println("Mouvement interdit");

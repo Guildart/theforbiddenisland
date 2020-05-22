@@ -132,3 +132,9 @@ Update Romain 21/05/2020:
       la methode selon le type d'action pour renvoyer les cases ou peut s'appliquer l'action
     - Mise en place de group button dans VueCommandes pour avoir une liste "à puce" d'action possible
     - Rajout de nouvelle methode dans Controleur selon le type d'action sélectionné par player
+    
+ Update Ramdane 22/05/2020:
+ 
+     - séléctionner un artefact
+     - Class Island fonctions win et lose
+     - 

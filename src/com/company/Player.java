@@ -10,6 +10,7 @@ public class Player {
     private Zone zone;
     private Color color;
     private Key[] artefactsCles = {Key.air, Key.eau, Key.feu, Key.vent};
+    private static int nbActionsRestant;
 
     public Player(Zone zone, Color color){
         this.zone = zone;
@@ -40,6 +41,8 @@ public class Player {
      * change la quantite de clé d'un joueur
      **/
     private void setQuantiteKey(Key k, int quantite){
+        System.out.println(k);
+        System.out.println(quantite);
         if(k == Key.air)
             this.artefactsCles[0].setQuantity(this.artefactsCles[0].getQuantity() + quantite);
         else if (k == Key.eau)
@@ -55,7 +58,7 @@ public class Player {
      **/
     public void searchKey(){
         float rd = randomGen.nextFloat();
-        if(rd < 0.5)
+        if(rd < 100)
             setQuantiteKey(artefactsCles[randomGen.nextInt(4)],1);
     }
 
@@ -65,5 +68,21 @@ public class Player {
         return this.zone;
     }
 
+    public void addAction(){
+        if(nbActionsRestant <3){
+            nbActionsRestant +=1;
+        }
+        else{
+            System.out.println("PLUS DE DEPLACEMENT POSSIBLE");
+        }
+    }
+
+    public boolean canAct(){
+        return nbActionsRestant <3;
+    }
+
+    public void resetNbActionRestant(){
+        nbActionsRestant = 0;
+    }
 
 }
