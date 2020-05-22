@@ -74,7 +74,7 @@ public class VueIsland extends JPanel implements com.company.Observer, MouseList
 
         // on dessine les cases autour
         Player p = modele.getRoundOf();
-        ArrayList<Zone> listZones = modele.zoneSafeToMove(p.getZone());
+        ArrayList<Zone> listZones = modele.zonesReachable(p.getZone());
 
         for(Zone z: listZones){
             Position pos = z.getPosition();
@@ -114,7 +114,7 @@ public class VueIsland extends JPanel implements com.company.Observer, MouseList
         /** Sélection d'une couleur. */
         g.setColor(c);
         /** Coloration d'un rectangle. */
-        g.fillRect(x, y, TAILLE/2, TAILLE/2);
+        g.fillOval(x, y, TAILLE/2, TAILLE/2);
 
     }
 
@@ -122,9 +122,11 @@ public class VueIsland extends JPanel implements com.company.Observer, MouseList
         /** Sélection d'une couleur. */
         g.setColor(c);
         /** Coloration d'un rectangle. */
-        //g.drawRect(x, y, TAILLE, TAILLE);
-        g.fillRect(x, y, TAILLE, TAILLE);
-
+        Graphics2D g2 = (Graphics2D) g;
+        Stroke s = g2.getStroke();
+        g2.setStroke(new BasicStroke(4));
+        g2.drawRect(x, y, TAILLE, TAILLE);
+        g2.setStroke(s);
     }
 
     public String toString(){
@@ -145,9 +147,12 @@ public class VueIsland extends JPanel implements com.company.Observer, MouseList
         //System.out.println(mouseEvent.getX()/TAILLE + " " + mouseEvent.getY()/TAILLE);
         Player p = modele.getRoundOf();
         Zone z = modele.getZone(mouseEvent.getX()/TAILLE, mouseEvent.getY()/TAILLE);
-        ArrayList<Zone> listZones = modele.zoneSafeToMove(modele.getRoundOf().getZone());
-        if(modele.rightToMove(listZones, z) && modele.canAct()){
+        ArrayList<Zone> listZones = modele.zonesReachable(modele.getRoundOf().getZone());
+        if(modele.isReachable(listZones, z) && modele.canAct() && modele.getTypeAction() == 1){
             p.movePlayer(modele.getZone(mouseEvent.getX()/TAILLE, mouseEvent.getY()/TAILLE));
+            modele.addAction();
+        } else if(modele.isReachable(listZones, z) && modele.canAct() && modele.getTypeAction() == 2){
+            p.drainWaterZone(modele.getZone(mouseEvent.getX()/TAILLE, mouseEvent.getY()/TAILLE));
             modele.addAction();
         }
         else

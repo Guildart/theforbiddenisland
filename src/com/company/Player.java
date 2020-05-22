@@ -26,7 +26,7 @@ public class Player {
      * assecher zone zone
      **/
     public void drainWaterZone(Zone z){
-
+        z.setEtat(Etat.normale); //TODO: Vérifier si la zone est bien innondée et rien d'autres ? Normalment verifier avant utilisation donc est ce nécessaire ?
     }
 
     /**
@@ -48,8 +48,6 @@ public class Player {
             this.artefactsCles[2].setQuantity(this.artefactsCles[2].getQuantity() + quantite);
        else
            this.artefactsCles[3].setQuantity(this.artefactsCles[3].getQuantity() + quantite);
-
-
     }
 
     /**
@@ -64,7 +62,7 @@ public class Player {
     public Color getColor(){return color;}
 
     public Zone getZone(){
-        return zone;
+        return this.zone;
     }
 
 

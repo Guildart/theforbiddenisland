@@ -31,7 +31,7 @@ public class CVue {
     public CVue(Island modele) {
         /** Définition de la fenêtre principale. */
         frame = new JFrame();
-        frame.setTitle("Jeu de la vie de Conway");
+        frame.setTitle("The Forbidden Island");
         /**
          * On précise un mode pour disposer les différents éléments à
          * l'intérieur de la fenêtre. Quelques possibilités sont :

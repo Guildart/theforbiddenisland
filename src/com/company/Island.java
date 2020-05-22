@@ -15,8 +15,8 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 
+import static com.company.Etat.inondee;
 import static com.company.Etat.none;
-import static com.company.Etat.normale;
 
 /**
  * Le modèle : le coeur de l'application.
@@ -35,7 +35,8 @@ public class Island extends Observable {
     private Player RoundOf;
     public final Random randomGen = new Random();
     private ArrayList<Player> listPlayers;
-    private static int actions;
+    private static int nbActionsRestant;
+    private int typeAction = 1; // Move Player:1, Drain Water: 2, Take Artfc: 3, Swap cards: 4 TODO : creation d'un type ?
 
     /** Construction : on initialise un tableau de cellules. */
     public Island() {
@@ -105,16 +106,6 @@ public class Island extends Observable {
         tab[1] = j;
         return tab;
     }
-
-    /**Renvoie la liste des zones non submergée**/
-   /* private ArrayList<Zone> zonesNonSubmergee(){
-        ArrayList<Zone> listZone = new ArrayList<>();
-        for(int i=0; i<LARGEUR; i++)
-            for(int j=0; j<HAUTEUR; j++)
-                if (zones[i][j].getEtat() != Etat.none && zones[i][j].getEtat() != Etat.submergee)
-                    listZone.add(zones[i][j]);
-        return listZone;
-    }*/
 
     /**
      * Inondation de trois zones tirées au hsard selon les règles
@@ -202,7 +193,7 @@ public class Island extends Observable {
     }
 
     public void setRoundOf(Player p){
-        this.actions=0;
+        this.nbActionsRestant =0;
         this.RoundOf = p;
     }
 
@@ -250,7 +241,30 @@ public class Island extends Observable {
         return zonesSafe;
     }
 
-    public boolean rightToMove( ArrayList<Zone> listZone, Zone zM){
+
+    /**Renvoie une liste des zones que le joueurs peut assécher = zones voisines et inondée**/
+    public ArrayList<Zone> zonesDrainable(Zone zp){
+        ArrayList<Zone> zonesSafe = zoneSafeToMove(zp);
+        ArrayList<Zone> zonesDrainable = new ArrayList<>(); //ne SURTOUT pas modifier directement zonesSafes car crée une ERREUR
+        if(RoundOf.getZone().getEtat() == inondee)
+            zonesDrainable.add(RoundOf.getZone()); //on ajoute la case ou se trouve le joueurs
+        for(Zone z : zonesSafe)
+            if(z.getEtat() == Etat.inondee)
+                zonesDrainable.add(z);
+        return zonesDrainable;
+    }
+
+    /**Renvoie une liste des zones sur lesquels le joueurs peut agir selon le type d'action qui est activée**/
+    public ArrayList<Zone> zonesReachable(Zone zp){
+        if(this.typeAction == 1)
+            return zoneSafeToMove(zp);
+        else if(this.typeAction == 2)
+            return zonesDrainable(zp);
+        else
+            return zoneSafeToMove(zp); //à modifer quand rajout d'action
+    }
+
+    public boolean isReachable(ArrayList<Zone> listZone, Zone zM){
         for( Zone z : listZone){
             if(z.getPosition().equals( zM.getPosition())) {
                 return true;
@@ -260,9 +274,19 @@ public class Island extends Observable {
         return false;
     }
 
+    public void setTypeAction(int action){
+        if(action < 1 || action > 2)
+            this.typeAction = 1; //TODO : Creer une exceptions, peut causer des bug graphique (ne sera normalement jamais le cas)
+        this.typeAction = action;
+    }
+
+    public int getTypeAction(){
+        return this.typeAction;
+    }
+
     public void addAction(){
-        if(this.actions<3){
-            actions+=1;
+        if(nbActionsRestant <3){
+            nbActionsRestant +=1;
         }
         else{
             System.out.println("PLUS DE DEPLACEMENT POSSIBLE");
@@ -270,7 +294,7 @@ public class Island extends Observable {
     }
 
     public boolean canAct(){
-        return this.actions<3;
+        return nbActionsRestant <3;
     }
 
 }

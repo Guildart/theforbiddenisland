@@ -2,6 +2,7 @@ package com.company.Vue;
 
 import com.company.Island;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -22,7 +23,11 @@ public class Controleur implements ActionListener {
      * englobante [VueCommandes].
      */
     Island modele;
-    public Controleur(Island modele) { this.modele = modele; }
+    VueIsland vueIsland;
+    public Controleur(Island modele) {
+        this.modele = modele;
+
+    }
     /**
      * Action effectuée à réception d'un événement : appeler la
      * méthode [avance] du modèle.
@@ -30,5 +35,17 @@ public class Controleur implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         modele.nextRound();
     }
+
+    public void actionMovePlayer(ActionEvent e){
+        modele.setTypeAction(1);
+
+    }
+
+    public void actionDrainWater(ActionEvent e){
+        modele.setTypeAction(2);
+
+    }
+
+
 }
 /** Fin du contrôleur. */

@@ -28,8 +28,29 @@ class VueCommandes extends JPanel {
          * texte qui doit l'étiqueter.
          * Puis on ajoute ce bouton au panneau [this].
          */
-        JButton boutonAvance = new JButton("Fin de Tour");
-        this.add(boutonAvance);
+        JButton boutonNextRound = new JButton("Fin de Tour");
+        this.add(boutonNextRound);
+
+        /**JRadioButton est un bouton de type selet/Unselect, on les ajoute directement au Jpanel comme un JButton**/
+        JRadioButton boutonMovePlayer = new JRadioButton("Move");
+        this.add(boutonMovePlayer);
+        JRadioButton boutonDrainWater = new JRadioButton("Drain Water");
+        this.add(boutonDrainWater);
+        JRadioButton boutonTakeArtefact = new JRadioButton("Take Tresor");
+        this.add(boutonTakeArtefact);
+        JRadioButton boutonSwapCard = new JRadioButton("Swap Card");
+        this.add(boutonSwapCard);
+
+        /**On crée un ButtonGroup pour réunir les bouton qui ne doivent jamais être sélectionné en même temps
+         * On obtiens une liste à puce avec un unique élément sélectionné
+         */
+        ButtonGroup bg = new ButtonGroup();
+        bg.add(boutonMovePlayer);
+        bg.add(boutonDrainWater);
+        bg.add(boutonTakeArtefact);
+        bg.add(boutonSwapCard);
+
+
         Dimension dim = new Dimension(TAILLE* Island.LARGEUR,
                 TAILLE* Island.HAUTEUR);
         this.setPreferredSize(dim);
@@ -57,15 +78,20 @@ class VueCommandes extends JPanel {
          */
         Controleur ctrl = new Controleur(modele);
         /** Enregistrement du contrôleur comme auditeur du bouton. */
-        boutonAvance.addActionListener(ctrl);
+        boutonNextRound.addActionListener(ctrl);
+        boutonMovePlayer.addActionListener(ctrl::actionMovePlayer);
+        boutonDrainWater.addActionListener(ctrl::actionDrainWater);
+        boutonTakeArtefact.addActionListener(ctrl::actionDrainWater); //Remplacer actionDrainWater
+        boutonSwapCard.addActionListener(ctrl::actionDrainWater); //Remplacer actionDrainWater
+
 
         /**
          * Variante : une lambda-expression qui évite de créer une classe
          * spécifique pour un contrôleur simplissime.
          *
-         JButton boutonAvance = new JButton(">");
-         this.add(boutonAvance);
-         boutonAvance.addActionListener(e -> { modele.avance(); });
+         JButton boutonNextRound = new JButton(">");
+         this.add(boutonNextRound);
+         boutonNextRound.addActionListener(e -> { modele.avance(); });
          *
          */
 

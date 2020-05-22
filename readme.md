@@ -119,3 +119,16 @@ Update Romain 21/05/2020:
     - Modif dans player de artefactsKey (ArrayList -> Tableau)
     - Implementation de searchKey dans Player
     - Utilisation de searchKey dans nextRound (Island)
+    - Joueur représenter par rond
+    - Case avec mouve posible entouré en jaune
+    - renomage attribut actions en nbActionsRestant dans Island
+    - Ajout de l'attribut int typeAction qui indique quelles actions le joueurs à choisit
+      (depalcement = 1, assechement d'une zone = 2 ...)
+    - rajout methode zonesDrainable qui renvoie les zones qui peuvent être assécher par un joueur
+    - rajout de methode zonesReachable = zones sur lesquelles le joueurs peut agir selon sont mode d'action
+      (elle sera appelé dans les calsse externes à la place de zoneSafeToMove pour généraliser
+      les actions du joueurs)
+    - renommage methode rightToMove en isReachable (colle plus à l'action) + qlq modif pour généraliser
+      la methode selon le type d'action pour renvoyer les cases ou peut s'appliquer l'action
+    - Mise en place de group button dans VueCommandes pour avoir une liste "à puce" d'action possible
+    - Rajout de nouvelle methode dans Controleur selon le type d'action sélectionné par player
