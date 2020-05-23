@@ -1,7 +1,6 @@
-package com.company;
-/**
+package IleInterdite; /**
  * @auteur: MOULOUA Ramdane
- * Classe qui s'occupe de du de gérer le Modèle et conteint notamment la Zone
+ * Classe qui s'occupe de du de gérer le Modèle et conteint notamment la IleInterdite.Zone
  *
  * Update of Mai 20 :
  *     - Croix achevée : fonction init adaptée + constructeur
@@ -11,17 +10,21 @@ package com.company;
  */
 
 
+import Card.Card;
+import Enumeration.SpecialZone;
+import Enumeration.Etat;
+import Enumeration.TresorCard;
+import Card.*;
+import java.util.Collections;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 
-import static com.company.Etat.inondee;
-import static com.company.Etat.none;
-
 /**
  * Le modèle : le coeur de l'application.
  *
- * Le modèle étend la classe [Observable] : il va posséder un certain nombre
+ * Le modèle étend la classe [IleInterdite.Observable] : il va posséder un certain nombre
  * d'observateurs (ici, un : la partie de la vue responsable de l'affichage)
  * et devra les prévenir avec [notifyObservers] lors des modifications.
  * Voir la méthode [avance()] pour cela.
@@ -31,12 +34,16 @@ public class Island extends Observable {
     public static final int HAUTEUR=6, LARGEUR=6;
     /** On stocke un tableau de cellules. */
     public Zone[][] zones;
-    private ArrayList<Zone> listZone;
     private Player RoundOf;
     public final Random randomGen = new Random();
-    private ArrayList<Player> listPlayers;
-    private int typeAction = 1; // Move Player:1, Drain Water: 2, Take Artfc: 3, Swap cards: 4 TODO : creation d'un type ?
-    private ArrayList<Artefacts> listArtefacts;
+    private ArrayList<Player> listPlayers = new ArrayList<>();
+    private int typeAction = 1; // Move IleInterdite.Player:1, Drain Water: 2, Take Artfc: 3, Swap cards: 4 TODO : creation d'un type ?
+    private ArrayList<SpecialZone> listArtefacts;
+    private ArrayList<Card<TresorCard>> tasCarteTresor = new ArrayList<>();
+    private ArrayList<Card<TresorCard>> defausseCarteTresor = new ArrayList<>();
+    private ArrayList<Zone> tasCarteInnondation = new ArrayList<>();
+    private ArrayList<Zone> defausseCarteInnondation = new ArrayList<>();
+
 
     /** Construction : on initialise un tableau de cellules. */
     public Island() {
@@ -47,13 +54,9 @@ public class Island extends Observable {
         zones = new Zone[LARGEUR][HAUTEUR];
         for(int i=0; i<LARGEUR; i++) {
             for(int j=0; j<HAUTEUR; j++) {
-                zones[i][j] = new Zone(none, Artefacts.none, new Position(i,j), false);
+                zones[i][j] = new Zone(Etat.none, new Position(i,j), SpecialZone.none);
             }
         }
-
-        listZone = new ArrayList<>();
-        listPlayers = new ArrayList<>();
-        listArtefacts = new ArrayList<>();
         init();
     }
 
@@ -61,7 +64,12 @@ public class Island extends Observable {
      * Initialisation aléatoire des cellules, exceptées celle des bords qui
      * ont été ajoutés.
      */
+
     public void init() {
+
+        initTasCarteInnondation();
+        initTasCarteTresor();
+
         for(int j=0; j<=HAUTEUR; j++) {
             int j_p;
             if (j >= HAUTEUR/2)
@@ -69,23 +77,68 @@ public class Island extends Observable {
             else
                 j_p = j;
             for(int i= LARGEUR/2   - j_p%(HAUTEUR/2) - 1; i<=LARGEUR/2 + j_p%(HAUTEUR/2) ; i++) {
-                zones[i][j].setEtat(Etat.normale);
-                listZone.add(zones[i][j]);
+                Zone z = tasCarteInnondation.get(0);
+                z.setPosition(new Position(i,j));
+                zones[i][j] = z;
+                defausseCarteInnondation.add(z); //Todo: Une classe qui géré les tas de carte (une classe = un tas + une defausse)
+                tasCarteInnondation.remove(z);
             }
         }
+
+        /***On retransfert toutes les cartes**/
+        Collections.shuffle(defausseCarteInnondation); //on melange avant
+        tasCarteInnondation.addAll(defausseCarteInnondation);
+        defausseCarteInnondation.clear();
+
+
         Color c1 = new Color(17, 51, 236, 232);
         addPlayer(c1);
         this.setRoundOf(listPlayers.get(0));
+
         Color c2 = new Color(168, 0, 53, 232);
         addPlayer(c2);
         Color c3 = new Color(255, 230, 9, 232);
         addPlayer(c3);
     }
 
+    private void initTasCarteInnondation(){
+        tasCarteInnondation.add(new Zone(Etat.normale, new Position(0,0), SpecialZone.heliport));
+        for(int i = 0; i < 2; i++) {
+            tasCarteInnondation.add(new Zone(Etat.normale, new Position(0,0),SpecialZone.feu));
+            tasCarteInnondation.add(new Zone(Etat.normale, new Position(0,0),SpecialZone.eau));
+            tasCarteInnondation.add(new Zone(Etat.normale, new Position(0,0),SpecialZone.terre));
+            tasCarteInnondation.add(new Zone(Etat.normale, new Position(0,0),SpecialZone.air));
+        }
+
+        for(int i = 0; i < 15; i++){
+            tasCarteInnondation.add(new Zone(Etat.normale, new Position(0,0), SpecialZone.none));
+        }
+        Collections.shuffle(tasCarteInnondation); //Pour mélanger
+    }
+
+    private void initTasCarteTresor(){
+
+        //3 * Chaque Cartes spéciale
+        for(int i = 0; i < 3; i++){
+            tasCarteTresor.add(new HelicoCard());
+            tasCarteTresor.add(new SandbagCard());
+            tasCarteTresor.add(new WaterRise());
+        }
+
+        //5 * Clé pour chaque artefacts
+        for(int i = 0; i < 5; i++){
+            tasCarteTresor.add(new KeyCard(TresorCard.air));
+            tasCarteTresor.add(new KeyCard(TresorCard.eau));
+            tasCarteTresor.add(new KeyCard(TresorCard.feu));
+            tasCarteTresor.add(new KeyCard(TresorCard.terre));
+        }
+        Collections.shuffle(tasCarteTresor);
+    }
+
     private void addPlayer(Color c){
         int[] tab = getRandomPoint();
         Player p = new Player(zones[tab[0]][tab[1]],c);
-        listPlayers.add(p);
+        this.listPlayers.add(p);
     }
 
 
@@ -121,22 +174,26 @@ public class Island extends Observable {
          */
 
         for(int i = 0; i < 3; i++){
-            if(listZone.size() != 0){
-                int rd = randomGen.nextInt(listZone.size());
-                Zone newZone = listZone.get(rd);
-                Etat etat = newZone.getEtat();
-                newZone.setEtat(Etat.nextEtat(etat));
-                if (newZone.getEtat()==Etat.submergee)
-                    listZone.remove(newZone);
+            if(tasCarteInnondation.size() == 0){ //si tas vide on remet la defausse dans le tas
+                Collections.shuffle(defausseCarteInnondation); //on melange avant
+                tasCarteInnondation.addAll(defausseCarteInnondation);
+                defausseCarteInnondation.clear();
             }
-        }
-        RoundOf.searchKey();
 
+            Zone z = tasCarteInnondation.get(0);
+            Etat etat = z.getEtat();
+            z.setEtat(Etat.nextEtat(etat));
+            if (z.getEtat()!=Etat.submergee)
+                defausseCarteInnondation.add(z);
+            tasCarteInnondation.remove(z);
+        }
+
+        RoundOf.searchKey(this.tasCarteTresor, this.defausseCarteTresor);
+
+        System.out.println(tasCarteTresor.size());
         //Round du prochain joueur
         ArrayList<Player> players = this.listPlayers;
         this.setRoundOf(players.get( (players.indexOf(this.getRoundOf())+1)%players.size()));
-
-
     }
 
     /**
@@ -268,7 +325,7 @@ public class Island extends Observable {
     public ArrayList<Zone> zonesDrainable(Zone zp){
         ArrayList<Zone> zonesSafe = zoneSafeToMove(zp);
         ArrayList<Zone> zonesDrainable = new ArrayList<>(); //ne SURTOUT pas modifier directement zonesSafes car crée une ERREUR
-        if(RoundOf.getZone().getEtat() == inondee)
+        if(RoundOf.getZone().getEtat() == Etat.inondee)
             zonesDrainable.add(RoundOf.getZone()); //on ajoute la case ou se trouve le joueurs
         for(Zone z : zonesSafe)
             if(z.getEtat() == Etat.inondee)
@@ -310,11 +367,11 @@ public class Island extends Observable {
         return this.typeAction;
     }
 
-    public void addArtefact(Artefacts art){
-        listArtefacts.add(art);
+    public void addArtefact(SpecialZone art){
+        //listArtefacts.add(art); //Todo : bug
     }
 
-    public ArrayList<Artefacts> getListArtefacts(){
+    public ArrayList<SpecialZone> getListArtefacts(){
         return listArtefacts;
     }
 

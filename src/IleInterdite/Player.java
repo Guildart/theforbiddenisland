@@ -1,15 +1,20 @@
-package com.company;
+package IleInterdite;
+
+import Card.Card;
+import Enumeration.SpecialZone;
+import Enumeration.Etat;
+import Enumeration.TresorCard;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
-public class Player {
-    public final Random randomGen = new Random();
+public class Player extends Observable{
 
     private Zone zone;
     private Color color;
-    private Key[] artefactsCles = {Key.air, Key.eau, Key.feu, Key.vent};
+    private ArrayList<Card<TresorCard>> playerCards = new ArrayList<>(); //Todo : Instancier un tas de carte
     private static int nbActionsRestant;
 
     public Player(Zone zone, Color color){
@@ -33,33 +38,41 @@ public class Player {
     /**
      * récuperer un Artefact
      **/
-    public void getArtefact( Artefacts art){
+    public void getArtefact( SpecialZone art){
 
     }
 
     /**
      * change la quantite de clé d'un joueur
      **/
-    private void setQuantiteKey(Key k, int quantite){
-        System.out.println(k);
-        System.out.println(quantite);
-        if(k == Key.air)
-            this.artefactsCles[0].setQuantity(this.artefactsCles[0].getQuantity() + quantite);
-        else if (k == Key.eau)
-            this.artefactsCles[1].setQuantity(this.artefactsCles[1].getQuantity() + quantite);
-        else if (k == Key.feu)
-            this.artefactsCles[2].setQuantity(this.artefactsCles[2].getQuantity() + quantite);
-       else
-           this.artefactsCles[3].setQuantity(this.artefactsCles[3].getQuantity() + quantite);
-    }
 
     /**
      * rechercher une clé avec proba de 0.5 d'en trouver
      **/
-    public void searchKey(){
-        float rd = randomGen.nextFloat();
-        if(rd < 100)
-            setQuantiteKey(artefactsCles[randomGen.nextInt(4)],1);
+    public void searchKey(ArrayList<Card<TresorCard>> tas, ArrayList<Card<TresorCard>> defausse){
+        if(tas.size() == 0){
+            Collections.shuffle(defausse);
+            tas.addAll(defausse);
+            defausse.clear();
+        }
+
+        Card<TresorCard> card = tas.get(0);
+
+        if(card.getType() == TresorCard.water) {
+            //card.doAction(this.zone); //Todo : à implemnter, pas besoin d'attribut normalement
+            defausse.add(card);
+            tas.remove(card);
+        }else{
+            this.playerCards.add(card);
+            System.out.println(card.getType().toString());
+            tas.remove(card);
+        }
+
+        if(this.playerCards.size() > 6){
+            card = playerCards.get(0);
+            defausse.add(card);
+            playerCards.remove(card);
+        }
     }
 
     public Color getColor(){return color;}
@@ -83,6 +96,10 @@ public class Player {
 
     public void resetNbActionRestant(){
         nbActionsRestant = 0;
+    }
+
+    public ArrayList<Card<TresorCard>> getCards(){
+        return this.playerCards;
     }
 
 }

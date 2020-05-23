@@ -1,6 +1,6 @@
-package com.company;
+package IleInterdite;
 
-import com.company.Vue.CVue;
+import Vue.*;
 
 import java.awt.*;
 

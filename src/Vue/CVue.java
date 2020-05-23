@@ -1,8 +1,11 @@
-package com.company.Vue;
+package Vue;
 
-import com.company.Island;
+import IleInterdite.*;
+import Enumeration.*;
+import Card.*;
 
 import java.awt.*;
+import java.util.ArrayList;
 import javax.swing.*;
 
 /**
@@ -23,15 +26,20 @@ public class CVue {
      * VueGrille et VueCommandes sont deux classes définies plus loin, pour
      * nos deux parties de l'interface graphique.
      */
+
     private VueIsland grille;
     private VueCommandes commandes;
-
+    private VueCommandes commandes2;
+    private VueCommandes commandes3;
+    private VueCommandes commandes4;
+    private ArrayList<VuePlayer> players = new ArrayList<>();
+    private VuePlayer p;
 
     /** Construction d'une vue attachée à un modèle. */
     public CVue(Island modele) {
         /** Définition de la fenêtre principale. */
         frame = new JFrame();
-        frame.setTitle("The Forbidden Island");
+        frame.setTitle("The Forbidden IleInterdite.Island");
         /**
          * On précise un mode pour disposer les différents éléments à
          * l'intérieur de la fenêtre. Quelques possibilités sont :
@@ -47,16 +55,98 @@ public class CVue {
          *    même dimension. Cette dimension est calculée en fonction du
          *    nombre de cases à placer et de la dimension du contenant.
          */
-        frame.setLayout(new FlowLayout());
 
-        /** Définition des deux vues et ajout à la fenêtre. */
+        grille = new VueIsland(modele);
+        commandes = new VueCommandes(modele);
+        commandes2 = new VueCommandes(modele);
+        commandes3 = new VueCommandes(modele);
+        commandes4 = new VueCommandes(modele);
+        p = new VuePlayer(modele.getListPlayers().get(0));
+
+        for(Player p : modele.getListPlayers()) {
+            players.add(new VuePlayer(p));
+        }
+
+        frame.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.weightx = 1;
+        gbc.weighty = 1;
+        gbc.fill = GridBagConstraints.BOTH;
+
+
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 1;
+        gbc.gridheight = 1;
+        frame.add(players.get(0), gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.gridwidth = 1;
+        gbc.gridheight = 1;
+
+        frame.add(commandes2, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.gridwidth = 1;
+        gbc.gridheight = 1;
+
+        frame.add(players.get(1), gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        gbc.gridwidth = 1;
+        gbc.gridheight = 1;
+        frame.add(commandes3, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        gbc.gridwidth = 1;
+        gbc.gridheight = 1;
+        frame.add(grille, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+        gbc.gridwidth = 1;
+        gbc.gridheight = 1;
+        frame.add(commandes4, gbc);
+
+        gbc.gridx = 2;
+        gbc.gridy = 0;
+        gbc.gridwidth = 1;
+        gbc.gridheight = 1;
+
+        frame.add(players.get(2), gbc);
+
+        gbc.gridx = 2;
+        gbc.gridy = 1;
+        gbc.gridwidth = 1;
+        gbc.gridheight = 1;
+        frame.add(commandes, gbc);
+
+        gbc.gridx = 2;
+        gbc.gridy = 2;
+        gbc.gridwidth = 1;
+        gbc.gridheight = 1;
+        frame.add(p, gbc);
+
+
+
+
+
+
+        /** Ancien layout */
+        /*frame.setLayout(new FlowLayout());
         grille = new VueIsland(modele);
         frame.add(grille);
         commandes = new VueCommandes(modele);
         frame.add(commandes);
-
-
-        System.out.print(this.toString());
+        commandes2 = new VueCommandes(modele);
+        frame.add(commandes2);
+        commandes3 = new VueCommandes(modele);
+        frame.add(commandes3);
+        System.out.print(this.toString());*/
 
 
         /**

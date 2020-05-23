@@ -1,4 +1,5 @@
-package com.company;
+package Enumeration;
+
 import java.util.Random;
 
 public enum Etat {

@@ -1,11 +1,10 @@
-package com.company.Vue;
+package Vue;
 
-import com.company.Artefacts;
-import com.company.Island;
-import com.company.Player;
-import com.company.Zone;
+import Enumeration.SpecialZone;
+import IleInterdite.Island;
+import IleInterdite.Player;
+import IleInterdite.Zone;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -53,9 +52,9 @@ public class Controleur implements ActionListener {
         modele.setTypeAction(3);
         Player p = modele.getRoundOf();
         Zone z1 = p.getZone();
-        if(z1.getArtefacts() != Artefacts.none){
-            System.out.println("Artefact"+z1.getArtefacts()+"  récupéré");
-            modele.addArtefact(z1.getArtefacts());
+        if(z1.getSpecialZone() != SpecialZone.none){
+            System.out.println("Artefact"+z1.getSpecialZone()+"  récupéré");
+            modele.addArtefact(z1.getSpecialZone());
             z1.removeArtefacts();
             p.addAction();
         }

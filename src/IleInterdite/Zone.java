@@ -1,4 +1,7 @@
-package com.company;
+package IleInterdite;
+
+import Enumeration.SpecialZone;
+import Enumeration.Etat;
 
 /**
  * Définition d'une classe pour les cellules.
@@ -10,39 +13,37 @@ public class Zone {
 
     /** L'état d'une cellule est donné par un booléen. */
     private Etat etat;
-    private Artefacts artefacts;
-    private boolean heliport;
+    private SpecialZone specialZone;
     private Position position;
     /**
      * On stocke les coordonnées pour pouvoir les passer au modèle lors
      * de l'appel à [compteVoisines].
      */
 
-    public Zone(Etat etat, Artefacts artefacts, Position position, boolean heliport) {
+    public Zone(Etat etat, Position position,  SpecialZone specialZone) {
         this.etat = etat;
-        this.artefacts = artefacts;
-        this.heliport = heliport;
+        this.specialZone = specialZone;
         this.position = position;
     }
 
-    public Zone(Island modele, Etat etat, Artefacts artefacts, Position position) {
-        this(etat, artefacts, position, false);
-    }
 
+    public void setPosition(Position p){
+        this.position = p;
+    }
     public void setEtat(Etat etat){
         this.etat = etat;
     }
 
     public void removeArtefacts(){
-        this.artefacts = Artefacts.none;
+        this.specialZone = SpecialZone.none;
     }
 
     public Position getPosition(){
         return this.position;
     }
 
-    public Artefacts getArtefacts(){
-        return this.artefacts;
+    public SpecialZone getSpecialZone(){
+        return this.specialZone;
     }
 
     public Etat getEtat(){
@@ -50,7 +51,7 @@ public class Zone {
     }
 
     public boolean isHeliport(){
-        return this.heliport;
+        return this.specialZone == SpecialZone.heliport;
     }
 
     public String toString(){

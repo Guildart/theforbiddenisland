@@ -1,6 +1,6 @@
-package com.company.Vue;
+package Vue;
 
-import com.company.*;
+import IleInterdite.Island;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,7 +18,7 @@ class VueCommandes extends JPanel {
      * référence au modèle.
      */
     private Island modele;
-    private final static int TAILLE = 50;
+    private final static int TAILLE = 5;
 
     /** Constructeur. */
     public VueCommandes(Island modele) {
@@ -45,6 +45,7 @@ class VueCommandes extends JPanel {
          * On obtiens une liste à puce avec un unique élément sélectionné
          */
         ButtonGroup bg = new ButtonGroup();
+        boutonMovePlayer.doClick(); //on active boutonMovePlayer par defaut
         bg.add(boutonMovePlayer);
         bg.add(boutonDrainWater);
         bg.add(boutonTakeArtefact);

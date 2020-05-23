@@ -1,4 +1,4 @@
-package com.company;
+package IleInterdite;
 
 public class Position {
     public final int x;

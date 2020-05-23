@@ -1,4 +1,4 @@
-package com.company;
+package IleInterdite;
 
 import java.util.*;
 import java.awt.*;
@@ -35,8 +35,8 @@ import javax.swing.*;
  *  - Un observé est lié à un ensemble d'objets observateurs et les notifie de
  *    tout changement de son propre état.
  *
- * Java fournit une interface [Observer] (observateur) et une classe
- * [Observable] (observé) assurant cette jonction.
+ * Java fournit une interface [IleInterdite.Observer] (observateur) et une classe
+ * [IleInterdite.Observable] (observé) assurant cette jonction.
  * Voici une manière sommaire de les recoder.
  */
 

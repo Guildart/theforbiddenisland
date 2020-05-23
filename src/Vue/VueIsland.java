@@ -1,7 +1,8 @@
-package com.company.Vue;
+package Vue;
 
 
-import com.company.*;
+import IleInterdite.*;
+import Enumeration.*;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -18,7 +19,7 @@ import javax.swing.*;
  * Cette vue va être un observateur du modèle et sera mise à jour à chaque
  * nouvelle génération des cellules.
  */
-public class VueIsland extends JPanel implements com.company.Observer, MouseListener {
+public class VueIsland extends JPanel implements Observer, MouseListener {
     /** On maintient une référence vers le modèle. */
     private Island modele;
     /** Définition d'une taille (en pixels) pour l'affichage des cellules. */
@@ -38,12 +39,12 @@ public class VueIsland extends JPanel implements com.company.Observer, MouseList
          * taille d'affichage.
          */
         Dimension dim = new Dimension(TAILLE* Island.LARGEUR,
-                TAILLE* Island.HAUTEUR);
+                TAILLE * Island.HAUTEUR);
         this.setPreferredSize(dim);
     }
 
     /**
-     * L'interface [Observer] demande de fournir une méthode [update], qui
+     * L'interface [IleInterdite.Observer] demande de fournir une méthode [update], qui
      * sera appelée lorsque la vue sera notifiée d'un changement dans le
      * modèle. Ici on se content de réafficher toute la grille avec la méthode
      * prédéfinie [repaint].
@@ -86,7 +87,6 @@ public class VueIsland extends JPanel implements com.company.Observer, MouseList
             Position pos = p1.getZone().getPosition();
             paintPlayer(g, p1.getColor(), pos.x*TAILLE, pos.y*TAILLE);
         }
-
     }
     /**
      * Fonction auxiliaire de dessin d'une cellule.
@@ -96,7 +96,7 @@ public class VueIsland extends JPanel implements com.company.Observer, MouseList
      * Ceci serait impossible si [Cellule] était déclarée privée dans [CModele].
      */
     private void paint(Graphics g, Zone c, int x, int y) {
-        /** Sélection d'une couleur. */
+        /** Sélection d'une couleur. TODO: Fonction qui renvoie couleur */
         if (c.getEtat() == Etat.none) {
             g.setColor(Color.BLACK);
         } else if (c.getEtat() == Etat.normale){

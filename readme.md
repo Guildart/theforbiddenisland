@@ -1,4 +1,4 @@
-# The Forbidden Island
+# The Forbidden IleInterdite.Island
 ## MOULOUA Ramdane & MUSSARD Romain
 
 
@@ -6,7 +6,7 @@ UML : https://app.genmymodel.com/api/projects/_0W4BgJnWEeqEM7mFKilpXw/diagrams/_
 
 La classe cellule = cases
 
-Class Island:
+Class IleInterdite.Island:
 
     - Attributs:
         - Grille de zone
@@ -28,13 +28,13 @@ Class Island:
                 * Recherche de clé (dans player)
                 * Immersion de 3 zones aléatoires
                 
-Class Zone:
+Class IleInterdite.Zone:
 
     -Attributs:
         - pos x et y
         - Boolean Heliport 
-        - Etat enum (none, normale,inondée ou submergée)
-        - Artefacts enum (air, eau, feu, vent, none)
+        - Enumeration.Etat enum (none, normale,inondée ou submergée)
+        - Enumeration.SpecialZone enum (air, eau, feu, vent, none)
 
     -Méthodes:
         - setEtat
@@ -52,18 +52,18 @@ class VueIsland:
 
 
 
-Class Player:
+Class IleInterdite.Player:
 
     - Attributs:
         - Couleur (https://docs.oracle.com/javase/7/docs/api/java/awt/Color.html)
-        - Zone
+        - IleInterdite.Zone
         - ArrayList de clés
-        - ArrayList d'artefacts
+        - ArrayList d'specialZone
         (-ArrayList mainCarte)
-        (-ArrayList défausse) (commune aux joueurs un static, partagés par tous les joueurs ou dans Island))
+        (-ArrayList défausse) (commune aux joueurs un static, partagés par tous les joueurs ou dans IleInterdite.Island))
         
     - Méthodes:
-        - Set Player (lui passer une zone)
+        - Set IleInterdite.Player (lui passer une zone)
         - deplaceJoueur
         - assecheZone
         - recupArtefacts
@@ -76,52 +76,52 @@ Class Player:
         
 Update Romain 20/05/2020:
 
-    - Suppression de l'attribut modele dans Zone car inutile (pour l'instant)
+    - Suppression de l'attribut modele dans IleInterdite.Zone car inutile (pour l'instant)
     - Modification VueIsland paintComponent pour afficher à partir de la case (0,0)
-    - Modification dimension de zones dans Island (10*8 --> 6*6)
-    - Creation (private) zonesNonSubmergee dans Island : renvoie la liste des zones non submergée
+    - Modification dimension de zones dans IleInterdite.Island (10*8 --> 6*6)
+    - Creation (private) zonesNonSubmergee dans IleInterdite.Island : renvoie la liste des zones non submergée
     - Modification NextRound: Innondation de 3 zones non inondés
-    - Creation de la methode nextEtat dans zones, une classe Etat serait peut être
+    - Creation de la methode nextEtat dans zones, une classe Enumeration.Etat serait peut être
     plus approprié ?
     
 Update Ramdane 20/05/2020:
     
-    - Modifications de Island:
+    - Modifications de IleInterdite.Island:
     - Croix achevée : fonction init adaptée + constructeur
     - zonesNonSubmergee retirées
     - nextRound() modifée
     - getRandomZone() renvoie une zone à inonder
     - utilisation de getZone partout dans le code
     - Modification de enum
-    - Déplacement de nextEtat de la classe Zone à la classe Etat
-    - retour à la version précédente de la méthode nextRound() dans Island de
-    - toString dans Zone(=) et print dans VueIsland à l'aide de toString()
+    - Déplacement de nextEtat de la classe IleInterdite.Zone à la classe Enumeration.Etat
+    - retour à la version précédente de la méthode nextRound() dans IleInterdite.Island de
+    - toString dans IleInterdite.Zone(=) et print dans VueIsland à l'aide de toString()
    
 Update Ramdane 21/05/2020:
 
-    - Ajout class Player
-    - Class Zone ajout isSafe
+    - Ajout class IleInterdite.Player
+    - Class IleInterdite.Zone ajout isSafe
     - Class position ajout des méthodes toString et equals
     - Class Vueisland ajout de paintPlayer
     - Class Vueisland  ajout de mouseClicked qui permet de cliquer sur une case adjacente "safe"
-    - Class Island ajout de zoneSafeToMove, getListPlayers 
-    - Class Island ajout de l'attribut listPlayers
-    - Class Island dans init instanciation de deux players
+    - Class IleInterdite.Island ajout de zoneSafeToMove, getListPlayers 
+    - Class IleInterdite.Island ajout de l'attribut listPlayers
+    - Class IleInterdite.Island dans init instanciation de deux players
     - Ajout d'autres méthodes minimes non détaillées
     - Possibilité de 3 actions (uniquement le mouvemnt pour le moment) puis obligation de passer le tour
-    - Class Island ajout de l'attribut actions qui compte le nombre d'action + des méthdoes
+    - Class IleInterdite.Island ajout de l'attribut actions qui compte le nombre d'action + des méthdoes
     - modification donc de VueIsland
     - ajout d'une croix jaune autour du joueur pour le déplcament
     
 Update Romain 21/05/2020:
 
-    - Ajout Enum Key
+    - Ajout Enum Enumeration.TresorCard
     - Modif dans player de artefactsKey (ArrayList -> Tableau)
-    - Implementation de searchKey dans Player
-    - Utilisation de searchKey dans nextRound (Island)
+    - Implementation de searchKey dans IleInterdite.Player
+    - Utilisation de searchKey dans nextRound (IleInterdite.Island)
     - Joueur représenter par rond
     - Case avec mouve posible entouré en jaune
-    - renomage attribut actions en nbActionsRestant dans Island
+    - renomage attribut actions en nbActionsRestant dans IleInterdite.Island
     - Ajout de l'attribut int typeAction qui indique quelles actions le joueurs à choisit
       (depalcement = 1, assechement d'une zone = 2 ...)
     - rajout methode zonesDrainable qui renvoie les zones qui peuvent être assécher par un joueur
@@ -136,5 +136,56 @@ Update Romain 21/05/2020:
  Update Ramdane 22/05/2020:
  
      - séléctionner un artefact
-     - Class Island fonctions win et lose
+     - Class IleInterdite.Island fonctions win et lose
      - 
+     
+Update Romain 23/05/2020:
+
+    - IleInterdite.Player herite de observable
+    - Creation VuePlayer pour afficher les info d'un joueur
+    - debut implementation vrai jeu de carte
+        - Creation d'un package card
+        - Creation classe abstraite Card
+        - Creation Classe fille pour représenter les cartes Tresors
+        - Creation enum Tresor Card pour enumerer les cartes tresor que
+        le joueur peut tirer (remplace enum Key)
+        - Creation enum SpecialZone pour lsiter les zones spécial contenant
+        éliport ou Trésors (= artefacts)
+        - Supression du booleen isHelicopter car enum dans SpecialZone
+        - Supression ArrayList de Key pour le remplacer par une ArrayList de
+        Card<TresorCard>
+        - Ajout à Island d'un tas de carte innondation (=array de zones normal ou
+        innonée) et de la defausse associer
+        - Ajout d'un tas de carte Card<TresorCard> et de la defausse associé
+        - Ajout de deux methode pour initialiser les 2 tas de carte et leur defausse
+        initTasCarteInnondation et initTasCarteTresor
+        - Modif init pour initialiser la grille selon le tas de carte innondation
+        (avant c'était l'inverse)
+        - Rajout de setPosition dans Zone pour les besoin ci dessus
+        - Affichage du tas de carte joueur en temps réelle
+        - Limite de la main du joueurs à 6 cartes, on remplace les plus anciennes
+        cartes de la main si le joueur à trop de carte
+        - Modification des methodes NextRound et Searchkey pour utiliser le system
+        de carte
+   
+        
+TODO LIST :
+
+    **Priorité : High**
+    - Résoudre Bug graphique
+    - Faire en sorte que le joueurs puisse choisir quelles cartes défaussé si il a
+    plus de 6 cartes
+    - Retravailler le package carte qui n'est pas optimal et implementer 
+    les cartes special WaterRise, Sandbag et Helico
+    
+    **Priorité : Medium**
+    - Faire un classe qui gére un tas de cartes et sa défausse ???
+    - Utiliser l'héritage pour faire des Zones spécial plutot que de les enuméré
+    dans SpecialZone ?
+    
+    **Priorité : Low**
+    - Ceation de personnage (hérite de Joueurs), comme chaque joueurs à des mouv
+    particuliers attribuer cetaines de méthodes de Island dans Joueurs
+    Notamment zonesReachable (et donc toutes les sous méthodes associé zonesDrainable,
+    zoneSafeToMove ....)
+        
