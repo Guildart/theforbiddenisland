@@ -41,6 +41,7 @@ class VueCommandes extends JPanel {
         JRadioButton boutonSwapCard = new JRadioButton("Swap Card");
         this.add(boutonSwapCard);
 
+
         /**On crée un ButtonGroup pour réunir les bouton qui ne doivent jamais être sélectionné en même temps
          * On obtiens une liste à puce avec un unique élément sélectionné
          */
