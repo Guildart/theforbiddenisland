@@ -7,6 +7,7 @@ import Enumeration.Etat;
 import Enumeration.SpecialZone;
 import IleInterdite.Position;
 import IleInterdite.Zone;
+import javafx.beans.binding.IntegerBinding;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.value.ChangeListener;
@@ -23,11 +24,12 @@ public class ObservableListDemo {
 
 
         ObservableList<Zone> observableList = FXCollections.observableList(list);
+
         observableList.addListener(new ListChangeListener() {
 
 
             @Override
-            public void onChanged(ListChangeListener.Change change) {
+            public void onChanged(Change change) {
 
                 System.out.println("Detected a change! ");
 
@@ -82,7 +84,7 @@ public class ObservableListDemo {
         System.out.println("FIN: \n\n\n");
 
 
-        IntegerProperty age1 = observableList.get(0).age;
+       /* IntegerBinding age1 = observableList.get(0).age;
         age1.addListener(new ChangeListener() {
              @Override
              public void changed(ObservableValue observableValue, Object o, Object t1) {
@@ -91,12 +93,13 @@ public class ObservableListDemo {
              }
 
 
-         });
+         });*/
 
-        age1.set(10);
+        //observableList.get(0).age.bind(observableList);
+
         //observableList.get(0).age.set(10);
 
-        System.out.println("observableList:"+ observableList.get(0).age + ", age1 = " + age1);
+        //System.out.println("observableList:"+ observableList.get(0).age + ", age1 = " + age1);
 
 
     }

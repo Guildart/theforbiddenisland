@@ -6,7 +6,7 @@ import javafx.collections.ObservableMap;
 import javafx.collections.MapChangeListener;
 import javafx.collections.FXCollections;
 
-public class ObservableMapDemo {
+public class ObservableMapDemo  {
 
     public static void main(String[] args) {
 

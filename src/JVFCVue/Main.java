@@ -1,5 +1,6 @@
 package JVFCVue;
 
+import IleInterdite.Island;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
@@ -20,19 +21,28 @@ public class Main extends Application {
         Parent root = loader.load();
         primaryStage.setTitle("Hello World");
         primaryStage.setScene(new Scene(root, 900, 900));
+       /* Island modele = new Island();
+        Controller controller = new Controller(modele);
+        loader.setController(controller);*/
 
        // System.out.println(canvas);
         ObservableList<Node> n = root.getChildrenUnmodifiable();
-        Controller l= loader.getController(); // accès à l'instance controlleur
-        System.out.println("ca affiche "+ l.maVAR);
-        l.getGrilleController().setStage(primaryStage);
+        Controller FXVue= loader.getController(); // accès à l'instance controlleur
+        System.out.println("ca affiche "+ FXVue.maVAR);
+        Island modele = new Island();
+        FXVue.Controller1(modele);
+        //FXVue.update();
+
+        //l.getGrilleController().setStage(primaryStage);
 
 
         for(Node t: n){
             System.out.println("noeuds "+ t);
             if(t.getId().equals("grille")){ // acces a la grille ( mais pas à l'instance)
                 System.out.println("match "+ t);
-
+            }
+            if(t.getId().equals("anch")){ // acces a la grille ( mais pas à l'instance)
+                //Grille g = t.
             }
         }
         /*Canvas canvas = new Canvas(300, 100);

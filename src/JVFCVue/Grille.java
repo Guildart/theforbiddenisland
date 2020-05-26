@@ -1,13 +1,16 @@
 package JVFCVue;
 
-import javafx.collections.ListChangeListener;
+import IleInterdite.Island;
+import IleInterdite.Observer;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -16,7 +19,7 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class Grille implements Initializable {
+public class Grille implements Initializable, Observer {
 
     public AnchorPane anch;
     @FXML
@@ -30,17 +33,16 @@ public class Grille implements Initializable {
     //private ChangeListenerIsnald_bis a ;
 
     private GraphicsContext gcF;
+    private Island modele;
     public void affiche(){
 
     }
 
-    private Stage stage;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //System.out.println(10);
         System.out.println("grille");
-
         Canvas canvas = new Canvas(300, 100);
         gcF = canvas1.getGraphicsContext2D();
 
@@ -55,24 +57,24 @@ public class Grille implements Initializable {
         gcF.fillRect(100,0,100,100);
         gcF.drawImage(image, 200, 0);
         gcF.drawImage(image1, 300, 200);
+        System.out.println(modele);
+
+        //modele.addObserver(this);
+
+        //System.out.println("\n\n\n\n"+canvas1.getParent().lookup("#anch"));
+
 
 
         //gcF.fillOval(70, 10, 50, 20);
 
         //gcF.strokeText("Hello Canvas", 150, 20);
-        Pane root1 = new Pane();
-        root1.getChildren().add(canvas);
-        Scene scene = new Scene(root1);
-
-
+       // Pane root1 = new Pane();
+       // root1.getChildren().add(canvas);
+       // Scene scene = new Scene(root1);
 
         /*System.out.println("pane1 "+pane1);
         System.out.println("pane1 "+pane1Controller);*/
 
-    }
-
-    public void setStage(Stage stage){
-        this.stage = stage;
     }
 
     public void getAffiche(){
@@ -98,5 +100,61 @@ public class Grille implements Initializable {
 
     }
 
+    public void repaint(){
+        System.out.println("repaint grille");
 
+        Canvas canvas = new Canvas(300, 100);
+        gcF = canvas1.getGraphicsContext2D();
+
+
+        /*gcF.setFill(Color.GREEN);
+
+        gcF.fillRect(0,0,500,500);
+        gcF.setFill(Color.GREEN);
+        gcF.fillRect(0,0,100,100);
+        gcF.setFill(Color.GREEN);
+
+        gcF.fillRect(100,0,100,100);
+        gcF.drawImage(image, 200, 0);
+        gcF.drawImage(image1, 300, 200);*/
+
+
+        //gcF.fillOval(70, 10, 50, 20);
+
+        //gcF.strokeText("Hello Canvas", 150, 20);
+        Pane root1 = new Pane();
+        root1.getChildren().add(canvas);
+        Scene scene = new Scene(root1);
+
+    }
+
+    public void setModel(Island modele){
+        this.modele = modele;
+        modele.addObserver(this); //l'instance de GRILLE existe avnat le reste, on set le modèle après
+        System.out.println("grille modele: "+ modele);
+        this.update();
+
+    }
+
+    @FXML
+    private void handleOnMouseClicked(MouseEvent event)
+    {
+
+
+        Canvas canvas = new Canvas(30, 30);
+        gcF = canvas1.getGraphicsContext2D();
+
+
+        gcF.setFill(Color.RED);
+
+        gcF.fillRect(event.getX(),event.getY(),30,30);
+
+        modele.notifyObservers();
+    }
+
+
+    @Override
+    public void update() {
+        repaint();
+    }
 }

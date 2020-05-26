@@ -2,6 +2,8 @@ package IleInterdite;
 
 import Enumeration.SpecialZone;
 import Enumeration.Etat;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.beans.property.*;
 import javafx.beans.property.SimpleBooleanProperty;
 
@@ -19,7 +21,6 @@ public class Zone {
     private Position position;
     public BooleanProperty test;
     public final IntegerProperty age = new SimpleIntegerProperty();
-
 
     /**
      * On stocke les coordonnées pour pouvoir les passer au modèle lors

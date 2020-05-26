@@ -1,5 +1,7 @@
 package JVFCVue;
 
+import IleInterdite.Island;
+import IleInterdite.Observer;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -8,7 +10,7 @@ import javafx.scene.layout.GridPane;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class Controller implements Initializable {
+public class Controller implements Initializable, Observer {
     @FXML
     public GridPane gridTest;
     @FXML
@@ -24,6 +26,9 @@ public class Controller implements Initializable {
 
     public int maVAR;
     private Grille grilleRef;
+
+    private Island modele;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.out.println(bouton1);
@@ -33,6 +38,17 @@ public class Controller implements Initializable {
         System.out.println("gridTest"+gridTest);
         maVAR=213;
         bouton1Controller.affiche();
+        modele = new Island();
+        modele.addObserver(this);
+
+        grilleController.setModel(this.modele); // ici je set le model dans la grille
+
+    }
+
+    public void Controller1(Island modele){
+        //System.out.println("modele "+gridTest);
+        //this.modele = modele;
+        //grilleController.setModel(modele);
     }
 
 
@@ -42,4 +58,9 @@ public class Controller implements Initializable {
 }
 
 
+
+    @Override
+    public void update() {
+
+    }
 }
