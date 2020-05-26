@@ -15,7 +15,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("sample.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("cvuefx.fxml"));
 
 
         Parent root = loader.load();
@@ -27,7 +27,7 @@ public class Main extends Application {
 
        // System.out.println(canvas);
         ObservableList<Node> n = root.getChildrenUnmodifiable();
-        Controller FXVue= loader.getController(); // accès à l'instance controlleur
+        CVueFX FXVue= loader.getController(); // accès à l'instance controlleur
         System.out.println("ca affiche "+ FXVue.maVAR);
         Island modele = new Island();
         FXVue.Controller1(modele);

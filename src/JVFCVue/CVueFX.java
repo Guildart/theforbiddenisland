@@ -10,7 +10,7 @@ import javafx.scene.layout.GridPane;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class Controller implements Initializable, Observer {
+public class CVueFX implements Initializable, Observer {
     @FXML
     public GridPane gridTest;
     @FXML
