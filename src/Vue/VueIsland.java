@@ -85,7 +85,7 @@ public class VueIsland extends JPanel implements Observer, MouseListener {
         ArrayList<Player> liste = modele.getListPlayers();
         for(Player p1: liste){
             Position pos = p1.getZone().getPosition();
-            paintPlayer(g, p1.getColor(), pos.x*TAILLE, pos.y*TAILLE);
+            //paintPlayer(g, p1.getColor(), pos.x*TAILLE, pos.y*TAILLE);
         }
     }
     /**

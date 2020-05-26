@@ -15,9 +15,10 @@ import Enumeration.SpecialZone;
 import Enumeration.Etat;
 import Enumeration.TresorCard;
 import Card.*;
+import javafx.scene.paint.Color;
+
 import java.util.Collections;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -91,13 +92,13 @@ public class Island extends Observable {
         defausseCarteInnondation.clear();
 
 
-        Color c1 = new Color(17, 51, 236, 232);
+        Color c1 = Color.RED;
         addPlayer(c1);
         this.setRoundOf(listPlayers.get(0));
 
-        Color c2 = new Color(168, 0, 53, 232);
+        Color c2 = Color.BLACK;
         addPlayer(c2);
-        Color c3 = new Color(255, 230, 9, 232);
+        Color c3 = Color.PURPLE;
         addPlayer(c3);
     }
 

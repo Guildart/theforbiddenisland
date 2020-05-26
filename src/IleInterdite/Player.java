@@ -4,8 +4,8 @@ import Card.Card;
 import Enumeration.SpecialZone;
 import Enumeration.Etat;
 import Enumeration.TresorCard;
+import javafx.scene.paint.Color;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;

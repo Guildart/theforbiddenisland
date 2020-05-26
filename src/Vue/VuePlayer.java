@@ -34,7 +34,7 @@ public class VuePlayer extends JPanel implements Observer, MouseListener{
     public void paintComponent(Graphics g) {
         super.repaint();
         paintCard(g);
-        paintPlayer(g,player.getColor());
+        //paintPlayer(g,player.getColor());
         Color c = Color.YELLOW;
         g.setColor(c);
         /** Coloration d'un rectangle. */

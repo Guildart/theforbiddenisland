@@ -1,7 +1,7 @@
 package JVFCVue;
 
-import IleInterdite.Island;
-import IleInterdite.Observer;
+import Enumeration.Etat;
+import IleInterdite.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -17,13 +17,16 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class Grille implements Initializable, Observer {
 
     public AnchorPane anch;
+
     @FXML
     Canvas canvas1;
+
     @FXML
     Label label;
     private static final String IMAGE_LOC = "http://icons.iconarchive.com/icons/uiconstock/flat-halloween/128/Halloween-Bat-icon.png";
@@ -32,100 +35,97 @@ public class Grille implements Initializable, Observer {
     final Image image1 = new Image(IMAGE_LOC1);
     //private ChangeListenerIsnald_bis a ;
 
+    private int TAILLE = 100;
     private GraphicsContext gcF;
     private Island modele;
-    public void affiche(){
-
-    }
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //System.out.println(10);
-        System.out.println("grille");
-        Canvas canvas = new Canvas(300, 100);
-        gcF = canvas1.getGraphicsContext2D();
+    }
 
+    public void repaint() {
+        /** Pour chaque cellule... */
 
-        gcF.setFill(Color.RED);
+        gcF = this.canvas1.getGraphicsContext2D();
+        for(int i = 0; i< Island.LARGEUR; i++) {
+            for(int j = 0; j< Island.HAUTEUR; j++) {
+                /**
+                 * ... Appeler une fonction d'affichage auxiliaire.
+                 * On lui fournit les informations de dessin [g] et les
+                 * coordonnées du coin en haut à gauche.
+                 */
+                paintZone(gcF, modele.getZone(i, j), (i)*TAILLE, (j)*TAILLE);
+            }
+        }
 
-        gcF.fillRect(0,0,500,500);
-        gcF.setFill(Color.GREEN);
-        gcF.fillRect(0,0,100,100);
-        gcF.setFill(Color.BLUE);
+        // on dessine les cases autour
+        Player p = modele.getRoundOf();
+        ArrayList<Zone> listZones = modele.zonesReachable(p.getZone());
 
-        gcF.fillRect(100,0,100,100);
-        gcF.drawImage(image, 200, 0);
-        gcF.drawImage(image1, 300, 200);
-        System.out.println(modele);
+        for(Zone z: listZones){
+            Position pos = z.getPosition();
+            paintSafeZone(gcF, Color.AQUA, pos.x*TAILLE, pos.y*TAILLE);
+        }
 
-        //modele.addObserver(this);
+        ArrayList<Player> liste = modele.getListPlayers();
+        for(Player p1: liste){
+            Position pos = p1.getZone().getPosition();
+            paintPlayer(gcF, p1.getColor(), pos.x*TAILLE, pos.y*TAILLE);
+        }
+    }
 
-        //System.out.println("\n\n\n\n"+canvas1.getParent().lookup("#anch"));
+    private void paintZone(GraphicsContext g, Zone c, int x, int y) {
+        /** Sélection d'une couleur. TODO: Fonction qui renvoie couleur */
 
+        if (c.getEtat() == Etat.none) {
+            g.setFill(Color.BLACK);
+        } else if (c.getEtat() == Etat.normale){
+            g.setFill(Color.GREEN);
+        } else if (c.getEtat() == Etat.inondee){
+            g.setFill(Color.CYAN);
+        } else{
+            g.setFill(Color.BLUE);
+        }
+        /** Coloration d'un rectangle. */
+        g.fillRect(x, y, TAILLE, TAILLE);
+    }
 
-
-        //gcF.fillOval(70, 10, 50, 20);
-
-        //gcF.strokeText("Hello Canvas", 150, 20);
-       // Pane root1 = new Pane();
-       // root1.getChildren().add(canvas);
-       // Scene scene = new Scene(root1);
-
-        /*System.out.println("pane1 "+pane1);
-        System.out.println("pane1 "+pane1Controller);*/
+    private void paintPlayer(GraphicsContext g, Color c, int x, int y) {
+        /** Sélection d'une couleur. */
+        g.setFill(c);
+        /** Coloration d'un rectangle. */
+        g.fillOval(x, y, TAILLE/2, TAILLE/2);
 
     }
 
-    public void getAffiche(){
-       /*Canvas canvas = new Canvas(300, 100);
-
-        GraphicsContext gc = canvas.getGraphicsContext2D();
-
-        gc.setLineWidth(2.0);
-        gc.setFill(Color.RED);
-
-        gc.strokeRoundRect(10, 10, 50, 50, 10, 10);
-
-        gc.fillOval(70, 10, 50, 20);
-
-        Pane root1 = new Pane();
-        root1.getChildren().add(canvas);
-        canvas1.getScene();*/
-        //Scene scene = new Scene(root1);
+    private void paintSafeZone(GraphicsContext g, Color c, int x, int y) {
+        /** Sélection d'une couleur. */
+        double old = g.getLineWidth();
+        g.setLineWidth(2.0);
+        g.setFill(c);
+        /** Coloration d'un rectangle. */
+        g.strokeRect(x, y, TAILLE, TAILLE);
+        g.setLineWidth(old);
     }
 
-    public void setGrille() {
-       // ListChangeListener.Change Island_bis = new ListChangeListener.Change;
-
-    }
-
-    public void repaint(){
-        System.out.println("repaint grille");
-
-        Canvas canvas = new Canvas(300, 100);
-        gcF = canvas1.getGraphicsContext2D();
-
-
-        /*gcF.setFill(Color.GREEN);
-
-        gcF.fillRect(0,0,500,500);
-        gcF.setFill(Color.GREEN);
-        gcF.fillRect(0,0,100,100);
-        gcF.setFill(Color.GREEN);
-
-        gcF.fillRect(100,0,100,100);
-        gcF.drawImage(image, 200, 0);
-        gcF.drawImage(image1, 300, 200);*/
-
-
-        //gcF.fillOval(70, 10, 50, 20);
-
-        //gcF.strokeText("Hello Canvas", 150, 20);
-        Pane root1 = new Pane();
-        root1.getChildren().add(canvas);
-        Scene scene = new Scene(root1);
-
+    public void handleOnMouseClicked(MouseEvent mouseEvent) {
+        Player p = modele.getRoundOf();
+        int x = (int) mouseEvent.getX()/TAILLE;
+        int y = (int) mouseEvent.getY()/TAILLE;
+        System.out.println("pos x : " + x + "pos y : " + y);
+        Zone z = modele.getZone(x, y);
+        ArrayList<Zone> listZones = modele.zonesReachable(modele.getRoundOf().getZone());
+        if(modele.isReachable(listZones, z) && p.canAct() && modele.getTypeAction() == 1){
+            p.movePlayer(modele.getZone(x, y));
+            p.addAction();
+        } else if(modele.isReachable(listZones, z) && p.canAct() && modele.getTypeAction() == 2){
+            p.drainWaterZone(modele.getZone(x, y));
+            p.addAction();
+        }
+        else
+            System.out.println("Mouvement interdit");
+        update();
     }
 
     public void setModel(Island modele){
@@ -134,22 +134,6 @@ public class Grille implements Initializable, Observer {
         System.out.println("grille modele: "+ modele);
         this.update();
 
-    }
-
-    @FXML
-    private void handleOnMouseClicked(MouseEvent event)
-    {
-
-
-        Canvas canvas = new Canvas(30, 30);
-        gcF = canvas1.getGraphicsContext2D();
-
-
-        gcF.setFill(Color.RED);
-
-        gcF.fillRect(event.getX(),event.getY(),30,30);
-
-        modele.notifyObservers();
     }
 
 
