@@ -2,6 +2,15 @@ package JVFCVue;
 
 import java.util.List;
 import java.util.ArrayList;
+
+import Enumeration.Etat;
+import Enumeration.SpecialZone;
+import IleInterdite.Position;
+import IleInterdite.Zone;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.collections.ListChangeListener;
 import javafx.collections.FXCollections;
@@ -10,9 +19,13 @@ public class ObservableListDemo {
 
     public static void main(String[] args) {
 
-        List<String> list = new ArrayList<String>();
-        ObservableList<String> observableList = FXCollections.observableList(list);
+        List<Zone> list = new ArrayList<Zone>();
+
+
+        ObservableList<Zone> observableList = FXCollections.observableList(list);
         observableList.addListener(new ListChangeListener() {
+
+
             @Override
             public void onChanged(ListChangeListener.Change change) {
 
@@ -29,23 +42,23 @@ public class ObservableListDemo {
             }
 
         });
-        observableList.add("a : item one");
+        observableList.add(new Zone(Etat.normale, new Position(0,0), SpecialZone.none));
 
         System.out.println("Size: " + observableList.size()+observableList.toString());
 
 
 
-        list.add("d : item two");
+        list.add(new Zone(Etat.none, new Position(0,0), SpecialZone.none));
 
         System.out.println("Size: " + observableList.size()+observableList.toString());
 
-        observableList.add("f : item Three");
+        observableList.add(new Zone(Etat.normale, new Position(0,0), SpecialZone.none));
 
         System.out.println("Size: " + observableList.size()+observableList.toString());
 
 
 
-        list.add("b : item four");
+        list.add(new Zone(Etat.submergee, new Position(0,0), SpecialZone.none));
 
         System.out.println("Size: " + observableList.size()+observableList.toString());
 
@@ -57,15 +70,33 @@ public class ObservableListDemo {
 
 
 
-        observableList.sort(null);
+        //observableList.sort(null);
 
         System.out.println("Size: " + observableList.size()+observableList.toString());
 
 
 
-        observableList.set(2, "c : item five");
+        observableList.set(2, new Zone(Etat.submergee, new Position(0,0), SpecialZone.none));
 
         System.out.println("Size: " + observableList.size()+observableList.toString());
+        System.out.println("FIN: \n\n\n");
+
+
+        IntegerProperty age1 = observableList.get(0).age;
+        age1.addListener(new ChangeListener() {
+             @Override
+             public void changed(ObservableValue observableValue, Object o, Object t1) {
+                 System.out.println("oldValue:"+ o + ", newValue = " + t1);
+
+             }
+
+
+         });
+
+        age1.set(10);
+        //observableList.get(0).age.set(10);
+
+        System.out.println("observableList:"+ observableList.get(0).age + ", age1 = " + age1);
 
 
     }

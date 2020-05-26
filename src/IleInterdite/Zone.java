@@ -2,6 +2,8 @@ package IleInterdite;
 
 import Enumeration.SpecialZone;
 import Enumeration.Etat;
+import javafx.beans.property.*;
+import javafx.beans.property.SimpleBooleanProperty;
 
 /**
  * Définition d'une classe pour les cellules.
@@ -15,6 +17,10 @@ public class Zone {
     private Etat etat;
     private SpecialZone specialZone;
     private Position position;
+    public BooleanProperty test;
+    public final IntegerProperty age = new SimpleIntegerProperty();
+
+
     /**
      * On stocke les coordonnées pour pouvoir les passer au modèle lors
      * de l'appel à [compteVoisines].
@@ -24,7 +30,11 @@ public class Zone {
         this.etat = etat;
         this.specialZone = specialZone;
         this.position = position;
+        test = new SimpleBooleanProperty();
+
+        test.setValue(true);
     }
+
 
 
     public void setPosition(Position p){

@@ -20,6 +20,7 @@ public class ObservableMapDemo {
             }
         });
 
+
 // Changes to the observableMap WILL be reported.
         observableMap.put("key 1","value 1");
         System.out.println("Size: "+observableMap.size() + observableMap.toString());
