@@ -168,7 +168,15 @@ Update Romain 23/05/2020:
         - Modification des methodes NextRound et Searchkey pour utiliser le system
         de carte
    
-        
+   
+
+Update Romain 27/05/2020:
+
+    - Debut d'implementation de l'interface avec java fx : Grille + action deplacement
+    et assechement de zone.
+        - Creation de la classe CButton qui est le controleur des Buttons et du
+        fichier FXML associé
+          
 TODO LIST :
 
     **Priorité : High**
