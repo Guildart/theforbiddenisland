@@ -21,6 +21,6 @@
 
     <children>
         <fx:include fx:id="grille" source="grille.fxml" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      <fx:include fx:id="vbox" source="cbutton.fxml" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+      <fx:include fx:id="butVBOX" source="cbutton.fxml" GridPane.columnIndex="2" GridPane.rowIndex="1" />
     </children>
 </GridPane>

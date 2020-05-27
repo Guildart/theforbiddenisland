@@ -38,7 +38,7 @@ public class Island extends Observable {
     private Player RoundOf;
     public final Random randomGen = new Random();
     private ArrayList<Player> listPlayers = new ArrayList<>();
-    private int typeAction = 1; // Move IleInterdite.Player:1, Drain Water: 2, Take Artfc: 3, Swap cards: 4 TODO : creation d'un type ?
+    private int typeAction = 0; // Move IleInterdite.Player:0, Drain Water: 1, Take Artfc: 2, Swap cards: 3 TODO : creation d'un type ?
     private ArrayList<SpecialZone> listArtefacts;
     private ArrayList<Card<TresorCard>> tasCarteTresor = new ArrayList<>();
     private ArrayList<Card<TresorCard>> defausseCarteTresor = new ArrayList<>();
@@ -336,11 +336,11 @@ public class Island extends Observable {
 
     /**Renvoie une liste des zones sur lesquels le joueurs peut agir selon le type d'action qui est activée**/
     public ArrayList<Zone> zonesReachable(Zone zp){
-        if(this.typeAction == 1)
+        if(this.typeAction == 0)
             return zoneSafeToMove(zp);
-        else if(this.typeAction == 2)
+        else if(this.typeAction == 1)
             return zonesDrainable(zp);
-        else if(this.typeAction == 3)
+        else if(this.typeAction == 2) //Todo improve
             return zonesDrainable(zp);
         else
             return zoneSafeToMove(zp); //à modifer quand rajout d'action
@@ -359,7 +359,7 @@ public class Island extends Observable {
 
 
     public void setTypeAction(int action){
-        if(action < 1 || action > 2)
+        if(action < 0 || action > 1)
             this.typeAction = 1; //TODO : Creer une exceptions, peut causer des bug graphique (ne sera normalement jamais le cas)
         this.typeAction = action;
     }

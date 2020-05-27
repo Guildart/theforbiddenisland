@@ -79,17 +79,6 @@ public class Grille implements Initializable, Observer {
             Position pos = p1.getZone().getPosition();
             paintPlayer(gcF, p1.getColor(), pos.x*TAILLE, pos.y*TAILLE);
         }
-
-        ImageView image = new ImageView(getClass().getResource("image.jpg").toExternalForm());
-        image.setFitHeight(100);
-        image.setFitWidth(100);
-        Image image2 = new Image(getClass().getResource("image.png").toExternalForm(), 100, 100, false, false);
-        gcF.drawImage(image2,0,0);
-
-        String curDir = System.getProperty("user.dir");
-        System.out.println ("Le répertoire courant est: "+curDir);
-
-
     }
 
     private void paintZone(GraphicsContext g, Zone c, int x, int y) {
@@ -133,16 +122,16 @@ public class Grille implements Initializable, Observer {
         System.out.println("pos x : " + x + "pos y : " + y);
         Zone z = modele.getZone(x, y);
         ArrayList<Zone> listZones = modele.zonesReachable(modele.getRoundOf().getZone());
-        if(modele.isReachable(listZones, z) && p.canAct() && modele.getTypeAction() == 1){
+        if(modele.isReachable(listZones, z) && p.canAct() && modele.getTypeAction() == 0){
             p.movePlayer(modele.getZone(x, y));
             p.addAction();
-        } else if(modele.isReachable(listZones, z) && p.canAct() && modele.getTypeAction() == 2){
+        } else if(modele.isReachable(listZones, z) && p.canAct() && modele.getTypeAction() == 1){
             p.drainWaterZone(modele.getZone(x, y));
             p.addAction();
         }
         else
             System.out.println("Mouvement interdit");
-        update();
+        modele.notifyObservers();
     }
 
     public void setModel(Island modele){

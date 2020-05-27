@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -18,10 +19,13 @@ public class CVueFX implements Initializable, Observer {
     private Parent grille;
 
     @FXML
-    private Grille grilleController = new Grille();
+    private Parent butVBOX;
 
     @FXML
-    private CButton buttonController = new CButton();
+    private Grille grilleController;
+
+    @FXML
+    private CButton butVBOXController;
 
     public int maVAR;
 
@@ -31,18 +35,19 @@ public class CVueFX implements Initializable, Observer {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        System.out.println(butVBOX);
         System.out.println(grille);
         System.out.println(grilleController);
         System.out.println("gridTest"+gridTest);
-        System.out.println(buttonController);
+        System.out.println(butVBOXController );
         maVAR=213;
         modele = new Island();
         modele.addObserver(this);
         System.out.println("test");
-        buttonController.setModele(this.modele);
+        butVBOXController .setModele(this.modele);
         grilleController.setModel(this.modele); // ici je set le model dans la grille
 
-        Island mod = buttonController.getModele();
+        Island mod = butVBOXController.getModele();
         Island mod2 = grilleController.getModele();
         System.out.println(mod);
         System.out.println(mod2);
