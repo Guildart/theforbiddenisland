@@ -14,6 +14,8 @@ import java.util.ResourceBundle;
 public class CVueFX implements Initializable, Observer {
     @FXML
     public GridPane gridTest;
+    @FXML
+    private Parent bouton1;
 
     @FXML
     private Parent grille;
