@@ -27,12 +27,11 @@ public class Zone {
      * de l'appel à [compteVoisines].
      */
 
-    public Zone(Etat etat, Position position,  SpecialZone specialZone) {
+    public Zone(Etat etat, Position position,  SpecialZone specialZon) {
         this.etat = etat;
         this.specialZone = specialZone;
         this.position = position;
         test = new SimpleBooleanProperty();
-
         test.setValue(true);
     }
 

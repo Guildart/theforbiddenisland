@@ -137,7 +137,8 @@ Update Romain 21/05/2020:
  
      - séléctionner un artefact
      - Class IleInterdite.Island fonctions win et lose
-     - 
+     - deboggage de fonctions
+     - début de recherche JavaFX
      
 Update Romain 23/05/2020:
 
@@ -168,7 +169,14 @@ Update Romain 23/05/2020:
         - Modification des methodes NextRound et Searchkey pour utiliser le system
         de carte
    
-   
+          
+Update Ramdane 26/05/2020:
+
+    - Nouvelle Vranche
+    - Ajout de JavaFX
+    - structure MVC 
+    
+  
 
 Update Romain 27/05/2020:
 
@@ -176,6 +184,10 @@ Update Romain 27/05/2020:
     et assechement de zone.
         - Creation de la classe CButton qui est le controleur des Buttons et du
         fichier FXML associé
+
+Update Ramdane 27/05/2020:
+
+    - Ajout de code css pour les boutons
           
 TODO LIST :
 

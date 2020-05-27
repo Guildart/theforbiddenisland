@@ -14,7 +14,7 @@
             <Insets right="20.0" />
          </VBox.margin>
       </Button>
-      <ToggleButton fx:id="selectAction" mnemonicParsing="false" onMouseClicked="#moveOrDrain" text="DrainWater">
+      <ToggleButton fx:id="selectAction" mnemonicParsing="false" onMouseClicked="#moveOrDrain" stylesheets="@../css/Button.css" text="DrainWater">
          <VBox.margin>
             <Insets right="20.0" top="20.0" />
          </VBox.margin>
