@@ -6,7 +6,7 @@
 
 <VBox fx:id="vbox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="200" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="JVFCVue.CButton">
    <children>
-      <Button fx:id="butNextRound" mnemonicParsing="false" onMouseClicked="#nextRound" text="Next Round">
+      <Button fx:id="butNextRound" mnemonicParsing="false" onMouseClicked="#nextRound" stylesheets="@../css/Button.css" text="Next Round">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
@@ -19,7 +19,7 @@
             <Insets right="20.0" top="20.0" />
          </VBox.margin>
       </ToggleButton>
-      <Button fx:id="butTakeTresor" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#takeTresor" text="Take Tresor">
+      <Button fx:id="butTakeTresor" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#takeTresor" stylesheets="@../css/Button.css" text="Take Tresor">
          <VBox.margin>
             <Insets right="20.0" top="20.0" />
          </VBox.margin>
