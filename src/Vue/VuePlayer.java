@@ -14,8 +14,8 @@ import java.util.ArrayList;
 public class VuePlayer extends JPanel implements Observer, MouseListener{
 
     private Player player;
-    private final static int HAUTEUR = 150;
-    private final static int LARGEUR = 395;
+    private final static int HAUTEUR = 150; //200
+    private final static int LARGEUR = 395; //ou 400
 
     public VuePlayer(Player player){
         super();

@@ -172,7 +172,7 @@ Update Romain 23/05/2020:
           
 Update Ramdane 26/05/2020:
 
-    - Nouvelle Vranche
+    - Nouvelle Branche
     - Ajout de JavaFX
     - structure MVC 
     
@@ -192,11 +192,13 @@ Update Ramdane 27/05/2020:
 TODO LIST :
 
     **Priorité : High**
-    - Résoudre Bug graphique
+    - Clean le code (effacer ancien, renommé les nouveau)
+    - Impelementer echanges de carte (modele et interface)
     - Faire en sorte que le joueurs puisse choisir quelles cartes défaussé si il a
     plus de 6 cartes
     - Retravailler le package carte qui n'est pas optimal et implementer 
     les cartes special WaterRise, Sandbag et Helico
+    - Implémenter Take Tresor
     
     **Priorité : Medium**
     - Faire un classe qui gére un tas de cartes et sa défausse ???

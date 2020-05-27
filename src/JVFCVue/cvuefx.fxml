@@ -8,15 +8,15 @@
 <GridPane fx:id="gridTest" alignment="center" hgap="10" maxHeight="1200" maxWidth="1200" prefHeight="1100.0" prefWidth="1000.0" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="JVFCVue.CVueFX">
 
     <columnConstraints>
-        <ColumnConstraints hgrow="SOMETIMES" minWidth="200.0" prefWidth="300.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="300.0" prefWidth="300.0" />
         <ColumnConstraints hgrow="SOMETIMES" minWidth="600.0" prefWidth="600.0" />
-        <ColumnConstraints hgrow="SOMETIMES" minWidth="200.0" prefWidth="300.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="300.0" prefWidth="300.0" />
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints minHeight="200.0" prefHeight="300.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="400.0" prefHeight="400.0" vgrow="SOMETIMES" />
         <RowConstraints minHeight="600.0" prefHeight="600.0" vgrow="SOMETIMES" />
 
-        <RowConstraints minHeight="200.0" prefHeight="300.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="400.0" prefHeight="400.0" vgrow="SOMETIMES" />
     </rowConstraints>
 
     <children>
