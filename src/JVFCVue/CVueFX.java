@@ -13,42 +13,51 @@ import java.util.ResourceBundle;
 public class CVueFX implements Initializable, Observer {
     @FXML
     public GridPane gridTest;
-    @FXML
-    private Parent bouton1;
-    @FXML
-    private Bouton bouton1Controller;
 
     @FXML
     private Parent grille;
-    @FXML
-    private Grille grilleController;
 
+    @FXML
+    private Grille grilleController = new Grille();
+
+    @FXML
+    private CButton buttonController = new CButton();
 
     public int maVAR;
-    private Grille grilleRef;
 
     private Island modele;
 
+    public int TAILLE = 100;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println(bouton1);
-        System.out.println(bouton1Controller);
         System.out.println(grille);
         System.out.println(grilleController);
         System.out.println("gridTest"+gridTest);
+        System.out.println(buttonController);
         maVAR=213;
-        bouton1Controller.affiche();
         modele = new Island();
         modele.addObserver(this);
-
+        System.out.println("test");
+        buttonController.setModele(this.modele);
         grilleController.setModel(this.modele); // ici je set le model dans la grille
+
+        Island mod = buttonController.getModele();
+        Island mod2 = grilleController.getModele();
+        System.out.println(mod);
+        System.out.println(mod2);
+
+
+
+
+
+
 
     }
 
+
     public void Controller1(Island modele){
-        //System.out.println("modele "+gridTest);
-        //this.modele = modele;
-        //grilleController.setModel(modele);
+
     }
 
 
@@ -63,4 +72,5 @@ public class CVueFX implements Initializable, Observer {
     public void update() {
 
     }
+
 }

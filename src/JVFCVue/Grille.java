@@ -10,25 +10,28 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import java.io.File;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class Grille implements Initializable, Observer {
 
+    @FXML
     public AnchorPane anch;
 
     @FXML
-    Canvas canvas1;
+    public Canvas canvas1;
 
-    @FXML
-    Label label;
+
     private static final String IMAGE_LOC = "http://icons.iconarchive.com/icons/uiconstock/flat-halloween/128/Halloween-Bat-icon.png";
     private static final String IMAGE_LOC1 = "https://as1.ftcdn.net/jpg/02/12/43/28/500_F_212432820_Zf6CaVMwOXFIylDOEDqNqzURaYa7CHHc.jpg";
     final Image image = new Image(IMAGE_LOC);
@@ -42,12 +45,15 @@ public class Grille implements Initializable, Observer {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
     }
 
     public void repaint() {
         /** Pour chaque cellule... */
 
         gcF = this.canvas1.getGraphicsContext2D();
+
+
         for(int i = 0; i< Island.LARGEUR; i++) {
             for(int j = 0; j< Island.HAUTEUR; j++) {
                 /**
@@ -73,13 +79,24 @@ public class Grille implements Initializable, Observer {
             Position pos = p1.getZone().getPosition();
             paintPlayer(gcF, p1.getColor(), pos.x*TAILLE, pos.y*TAILLE);
         }
+
+        ImageView image = new ImageView(getClass().getResource("image.jpg").toExternalForm());
+        image.setFitHeight(100);
+        image.setFitWidth(100);
+        Image image2 = new Image(getClass().getResource("image.png").toExternalForm(), 100, 100, false, false);
+        gcF.drawImage(image2,0,0);
+
+        String curDir = System.getProperty("user.dir");
+        System.out.println ("Le répertoire courant est: "+curDir);
+
+
     }
 
     private void paintZone(GraphicsContext g, Zone c, int x, int y) {
         /** Sélection d'une couleur. TODO: Fonction qui renvoie couleur */
 
         if (c.getEtat() == Etat.none) {
-            g.setFill(Color.BLACK);
+            g.setFill(Color.DARKGRAY);
         } else if (c.getEtat() == Etat.normale){
             g.setFill(Color.GREEN);
         } else if (c.getEtat() == Etat.inondee){
@@ -136,6 +153,9 @@ public class Grille implements Initializable, Observer {
 
     }
 
+    public Island getModele(){
+        return this.modele;
+    }
 
     @Override
     public void update() {
