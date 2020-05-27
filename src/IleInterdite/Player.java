@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
-public class Player extends Observable{
+public class Player{
 
     private Zone zone;
     private Color color;

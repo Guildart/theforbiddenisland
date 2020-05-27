@@ -10,6 +10,7 @@ public class KeyCard extends Card<TresorCard> {
 
     @Override
     public void doAction(Zone zones) {
+
     }
 
 

@@ -188,6 +188,12 @@ Update Romain 27/05/2020:
 Update Ramdane 27/05/2020:
 
     - Ajout de code css pour les boutons
+    - ajout CvuePlayer
+    - modification de CVueFX
+    - modification des proportions (dans le main, cvuefxml etc )
+    - erreur player Observable ??? => à modifier
+    - ajout de Cvueplayer et cvueplayer.fxml
+    - mdofication de TresorCard
           
 TODO LIST :
 

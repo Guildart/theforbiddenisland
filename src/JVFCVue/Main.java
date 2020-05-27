@@ -19,8 +19,8 @@ public class Main extends Application {
 
 
         Parent root = loader.load();
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 900, 900));
+        primaryStage.setTitle("The Forbidden Island JavaFX");
+        primaryStage.setScene(new Scene(root, 1300, 1000));
        /* Island modele = new Island();
         Controller controller = new Controller(modele);
         loader.setController(controller);*/

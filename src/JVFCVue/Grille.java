@@ -138,7 +138,7 @@ public class Grille implements Initializable, Observer {
         this.modele = modele;
         modele.addObserver(this); //l'instance de GRILLE existe avnat le reste, on set le modèle après
         System.out.println("grille modele: "+ modele);
-        this.update();
+        this.update(); // TODO : c'est un choix ? ou pas ?
 
     }
 

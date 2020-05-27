@@ -15,16 +15,15 @@ public class VuePlayer extends JPanel implements Observer, MouseListener{
 
     private Player player;
     private final static int HAUTEUR = 150; //200
-    private final static int LARGEUR = 395; //ou 400
+    private final static int LARGEUR = 395; // 400
 
     public VuePlayer(Player player){
         super();
         this.player = player;
-        player.addObserver(this);
         addMouseListener(this); //pour pouvoir cliquer sur un joueur ou sur ses cartes
-        Dimension dim = new Dimension(LARGEUR,
-                HAUTEUR);
+        Dimension dim = new Dimension(LARGEUR, HAUTEUR);
         this.setPreferredSize(dim);
+
     }
 
 
@@ -59,7 +58,7 @@ public class VuePlayer extends JPanel implements Observer, MouseListener{
         for(int i = 0; i < 6; i++){
             if(listecard.size() > i) {
                 Card<TresorCard> card = listecard.get(i);
-                g.setColor(card.getType().getColor());
+                //g.setColor(card.getType().getColor());
             }else{
                 g.setColor(Color.white);
             }

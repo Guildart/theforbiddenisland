@@ -1,6 +1,6 @@
 package Enumeration;
 
-import java.awt.*;
+import javafx.scene.paint.Color;
 
 //Todo: Modif TresorCard
 public enum TresorCard {
@@ -9,19 +9,19 @@ public enum TresorCard {
     public Color getColor(){
         switch (this){
             case air:
-                return new Color(56, 255, 30);
+                return  Color.rgb(56, 255, 30);
             case eau:
-                return new Color(78, 173, 255);
+                return  Color.rgb(78, 173, 255);
             case feu:
-                return new Color(255, 7, 22);
+                return  Color.rgb(255, 7, 22);
             case terre:
-                return new Color(134, 39, 13);
+                return  Color.rgb(134, 39, 13);
             case sandbag:
-                return new Color(134, 129, 7);
+                return Color.rgb(134, 129, 7);
             case helicopter:
-                return new Color(23, 11, 8);
+                return  Color.rgb(23, 11, 8);
         }
-        return new Color(7, 10, 134);
+        return  Color.rgb(7, 10, 134);
     }
 
     public String toString(){
