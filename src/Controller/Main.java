@@ -1,4 +1,4 @@
-package JVFCVue;
+package Controller;
 
 import IleInterdite.Island;
 import javafx.application.Application;
@@ -15,25 +15,25 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("cvuefx.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/vue.fxml"));
 
 
         Parent root = loader.load();
         primaryStage.setTitle("The Forbidden Island JavaFX");
-        primaryStage.setScene(new Scene(root, 1300, 1000));
+        primaryStage.setScene(new Scene(root, 1400, 1000));
        /* Island modele = new Island();
         Controller controller = new Controller(modele);
         loader.setController(controller);*/
 
        // System.out.println(canvas);
         ObservableList<Node> n = root.getChildrenUnmodifiable();
-        CVueFX FXVue= loader.getController(); // accès à l'instance controlleur
+        CVue FXVue= loader.getController(); // accès à l'instance controlleur
         System.out.println("ca affiche "+ FXVue.maVAR);
         Island modele = new Island();
         FXVue.Controller1(modele);
         //FXVue.update();
 
-        //l.getGrilleController().setStage(primaryStage);
+        //l.getCVueIslandController().setStage(primaryStage);
 
 
         for(Node t: n){
@@ -42,7 +42,7 @@ public class Main extends Application {
                 System.out.println("match "+ t);
             }
             if(t.getId().equals("anch")){ // acces a la grille ( mais pas à l'instance)
-                //Grille g = t.
+                //CVueIsland g = t.
             }
         }
         /*Canvas canvas = new Canvas(300, 100);
@@ -61,7 +61,7 @@ public class Main extends Application {
         root1.getChildren().add(canvas);
         Scene scene = new Scene(root1);
         primaryStage.setScene(scene);*/
-        //l.getGrilleController().show();
+        //l.getCVueIslandController().show();
 
         primaryStage.show();
 

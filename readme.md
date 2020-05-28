@@ -194,7 +194,12 @@ Update Ramdane 27/05/2020:
     - erreur player Observable ??? => à modifier
     - ajout de Cvueplayer et cvueplayer.fxml
     - mdofication de TresorCard
-          
+     
+Update Romain 27/05/2020:
+
+    - Preparation de la fusion de la branches principale avec la branche JavaFX     
+    - Merge des 2 branches
+
 TODO LIST :
 
     **Priorité : High**

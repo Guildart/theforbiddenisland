@@ -1,18 +1,11 @@
-package JVFCVue;
+package Controller;
 
 import IleInterdite.Island;
-import IleInterdite.Observer;
-import javafx.beans.property.ListProperty;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
-
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class CButton{
 
@@ -45,6 +38,7 @@ public class CButton{
         modele.nextRound();
         modele.notifyObservers();
     }
+
 
     @FXML
     public void takeTresor(MouseEvent mouseEvent) {

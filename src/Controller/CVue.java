@@ -1,4 +1,4 @@
-package JVFCVue;
+package Controller;
 
 import IleInterdite.Island;
 import IleInterdite.Observer;
@@ -6,14 +6,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class CVueFX implements Initializable, Observer {
+public class CVue implements Initializable, Observer {
     @FXML
     public GridPane gridTest;
+
     @FXML
     private Parent bouton1;
 
@@ -24,7 +24,7 @@ public class CVueFX implements Initializable, Observer {
     private Parent butVBOX;
 
     @FXML
-    private Grille grilleController;
+    private CVueIsland vueIslandController;
 
     @FXML
     private CButton butVBOXController;
@@ -32,22 +32,22 @@ public class CVueFX implements Initializable, Observer {
     @FXML
     public Parent player0;
     @FXML
-    private Cvueplayer player0Controller;
+    private CVuePlayer player0Controller;
 
     @FXML
     public Parent player1;
     @FXML
-    private Cvueplayer player1Controller;
+    private CVuePlayer player1Controller;
 
     @FXML
     public Parent player2;
     @FXML
-    private Cvueplayer player2Controller;
+    private CVuePlayer player2Controller;
 
     @FXML
     public Parent player3;
     @FXML
-    private Cvueplayer player3Controller;
+    private CVuePlayer player3Controller;
 
     public int maVAR;
 
@@ -59,7 +59,7 @@ public class CVueFX implements Initializable, Observer {
     public void initialize(URL url, ResourceBundle resourceBundle) {
        /* System.out.println(butVBOX);
         System.out.println(grille);
-        System.out.println(grilleController);
+        System.out.println(CVueIslandController);
         System.out.println("gridTest "+gridTest);
         System.out.println("griplayer0ControllerdTest "+player0Controller );*/
         maVAR=213;
@@ -67,7 +67,7 @@ public class CVueFX implements Initializable, Observer {
         modele.addObserver(this);
         System.out.println("test");
         butVBOXController .setModele(this.modele);
-        grilleController.setModel(this.modele); // ici je set le model dans la grille
+        vueIslandController.setModel(this.modele); // ici je set le model dans la grille
         player0Controller.setModel(this.modele); // ici je set le model dans la grille
         player0Controller.setIndicePlayer(0);
 
@@ -82,7 +82,7 @@ public class CVueFX implements Initializable, Observer {
         */
 
         Island mod = butVBOXController.getModele();
-        Island mod2 = grilleController.getModele();
+        Island mod2 = vueIslandController.getModele();
         System.out.println(mod);
         System.out.println(mod2);
 
@@ -95,8 +95,8 @@ public class CVueFX implements Initializable, Observer {
 
 
 
-    public Grille getGrilleController(){
-        return this.grilleController;
+    public CVueIsland getCVueIslandController(){
+        return this.vueIslandController;
 }
 
 

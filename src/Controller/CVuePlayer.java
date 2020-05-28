@@ -1,4 +1,4 @@
-package JVFCVue;
+package Controller;
 
 import Card.Card;
 import Enumeration.TresorCard;
@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.scene.paint.Color;
 
-public class Cvueplayer implements Initializable, Observer {
+public class CVuePlayer implements Initializable, Observer {
 
     public Canvas viewplayer;
     private Island modele;
@@ -23,8 +23,8 @@ public class Cvueplayer implements Initializable, Observer {
 
 
     private int indicePlayer;
-    private final static int HAUTEUR = 150; //200
-    private final static int LARGEUR = 395; //ou 400
+    private final static int HAUTEUR = 200; //200
+    private final static int LARGEUR = 400; //ou 400
     private GraphicsContext gcF;
 
 

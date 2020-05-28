@@ -29,9 +29,12 @@
 #selectAction:hover, #butTakeTresor:hover,#butNextRound:hover {
 	-fx-background-color:#5cbf2a;
 }
-#selectAction:pressed,#butTakeTresor:pressed,#butNextRound:pressed {
+#butTakeTresor:pressed,#butNextRound:pressed {
 	-fx-background-color:#FF0000;
 	-fx-position:relative;
 	-fx-top:1px;
 }
 
+#selectAction:selected {
+    -fx-background-color:#FF0000;
+}

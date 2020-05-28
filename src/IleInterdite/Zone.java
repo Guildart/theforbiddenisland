@@ -40,6 +40,7 @@ public class Zone {
     public void setPosition(Position p){
         this.position = p;
     }
+
     public void setEtat(Etat etat){
         this.etat = etat;
     }
