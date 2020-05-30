@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="50" prefWidth="50.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.vuePion">
+    <children>
+        <Canvas fx:id="pion" height="50" onMouseClicked="#handleOnMouseClicked" onMouseMoved="#handleOnMouseMoved" onMousePressed="#handleOnMousePressed" width="50" />
+    </children>
+</AnchorPane>

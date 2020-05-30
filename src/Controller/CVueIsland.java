@@ -9,7 +9,9 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -28,6 +30,14 @@ public class CVueIsland implements Initializable, Observer {
     private static final String IMAGE_LOC1 = "https://as1.ftcdn.net/jpg/02/12/43/28/500_F_212432820_Zf6CaVMwOXFIylDOEDqNqzURaYa7CHHc.jpg";
     final Image image = new Image(IMAGE_LOC);
     final Image image1 = new Image(IMAGE_LOC1);
+
+    @FXML
+    private vuePion vuePion1Controller;
+    @FXML
+    private vuePion vuePion2Controller;
+    @FXML
+    private vuePion vuePion3Controller;
+    private ArrayList<vuePion> arrayPion = new ArrayList<>();
     //private ChangeListenerIsnald_bis a ;
 
     private int TAILLE = 100;
@@ -37,6 +47,8 @@ public class CVueIsland implements Initializable, Observer {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+
 
     }
 
@@ -64,13 +76,24 @@ public class CVueIsland implements Initializable, Observer {
         for(Zone z: listZones){
             Position pos = z.getPosition();
             paintSafeZone(gcF, Color.AQUA, pos.x*TAILLE, pos.y*TAILLE);
+
         }
 
         ArrayList<Player> liste = modele.getListPlayers();
-        for(Player p1: liste){
-            Position pos = p1.getZone().getPosition();
-            paintPlayer(gcF, p1.getColor(), pos.x*TAILLE, pos.y*TAILLE);
+
+        for(int i = 0; i<arrayPion.size(); i++){
+            Position pos = liste.get(i).getZone().getPosition();
+            arrayPion.get(i).translate(pos.x*TAILLE,pos.y*TAILLE);
         }
+
+        /*for(Player p1: liste){
+            Position pos = p1.getZone().getPosition();
+            //paintPlayer(gcF, p1.getColor(), pos.x*TAILLE, pos.x*TAILLE);
+            vuePion1Controller.translate(pos.x*TAILLE-50,pos.y*TAILLE-50);
+
+        }*/
+
+
     }
 
     private void paintZone(GraphicsContext g, Zone c, int x, int y) {
@@ -111,8 +134,10 @@ public class CVueIsland implements Initializable, Observer {
         Player p = modele.getRoundOf();
         int x = (int) mouseEvent.getX()/TAILLE;
         int y = (int) mouseEvent.getY()/TAILLE;
-        System.out.println("pos x : " + x + "pos y : " + y);
-        Zone z = modele.getZone(x, y);
+        //System.out.println("CvueIsland click");
+
+        //System.out.println("pos x : " + x + "pos y : " + y);
+        /*Zone z = modele.getZone(x, y);
         ArrayList<Zone> listZones = modele.zonesReachable(modele.getRoundOf().getZone());
         if(modele.isReachable(listZones, z) && p.canAct() && modele.getTypeAction() == 0){
             p.movePlayer(modele.getZone(x, y));
@@ -122,13 +147,40 @@ public class CVueIsland implements Initializable, Observer {
             p.addAction();
         }
         else
-            System.out.println("Mouvement interdit");
+            System.out.println("Mouvement interdit");*/
+
+
+
+
         modele.notifyObservers();
     }
+
 
     public void setModel(Island modele){
         this.modele = modele;
         modele.addObserver(this); //l'instance de GRILLE existe avnat le reste, on set le modèle après
+
+
+        arrayPion.add(vuePion1Controller);
+        arrayPion.add(vuePion2Controller);
+        arrayPion.add(vuePion3Controller);
+        ArrayList<Player> liste = modele.getListPlayers();
+
+
+        for(int i = 0; i<arrayPion.size(); i++){
+            Color c = liste.get(i).getColor();
+            arrayPion.get(i).setModel(this.modele);
+            arrayPion.get(i).setColor(c);
+            arrayPion.get(i).setP( liste.get(i));
+
+        }
+
+        vuePion1Controller.setModel(modele);
+
+
+        System.out.println("grille modele: "+ arrayPion.size());
+
+
         System.out.println("grille modele: "+ modele);
         this.update(); // TODO : c'est un choix ? ou pas ?
 

@@ -5,6 +5,10 @@
 
 <AnchorPane prefHeight="600" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CVueIsland">
    <children>
-      <Canvas fx:id="canvas1" height="600" onMouseClicked="#handleOnMouseClicked" width="600" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <Canvas fx:id="canvas1" height="600" onMouseClicked="#handleOnMouseClicked"   width="600" /> <!-- LE CANVAS EST DESSINER EN PREMIER AU DERNIER PLAN z = 0 -->
+      <fx:include fx:id="vuePion1" layoutX="50.0" layoutY="50.0" prefHeight="50.0" prefWidth="50.0" source="vuePion.fxml" /> <!-- PLAN AU DESSUS   z = 1 -->
+      <fx:include fx:id="vuePion2" layoutX="50.0" layoutY="50.0" prefHeight="50.0" prefWidth="50.0" source="vuePion.fxml" /> <!-- PLAN AU DESSUS   z = 1 -->
+      <fx:include fx:id="vuePion3" layoutX="50.0" layoutY="50.0" prefHeight="50.0" prefWidth="50.0" source="vuePion.fxml" /> <!-- PLAN AU DESSUS   z = 1 -->
+      <!-- PLAN AU ENCORE DESSUS  z = 2 c''est enssentiel que les pions soit un plan au dessus pour les clicks -->
    </children>
 </AnchorPane>
