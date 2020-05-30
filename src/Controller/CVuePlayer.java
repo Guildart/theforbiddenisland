@@ -5,6 +5,7 @@ import Enumeration.TresorCard;
 import IleInterdite.Island;
 import IleInterdite.Observer;
 import IleInterdite.Player;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -23,7 +24,7 @@ public class CVuePlayer implements Initializable, Observer {
 
 
     private int indicePlayer;
-    private final static int HAUTEUR = 200; //200
+    private final static int HAUTEUR = 120; //200
     private final static int LARGEUR = 400; //ou 400
     private GraphicsContext gcF;
 
@@ -31,7 +32,9 @@ public class CVuePlayer implements Initializable, Observer {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Dimension dim = new Dimension(LARGEUR, HAUTEUR);
-        gcF = this.viewplayer.getGraphicsContext2D();
+        gcF = viewplayer.getGraphicsContext2D();
+        gcF.setFill(Color.RED);
+        gcF.fillRect(0, 0, LARGEUR,HAUTEUR);
 
     }
 
@@ -50,6 +53,7 @@ public class CVuePlayer implements Initializable, Observer {
         //gcF.setStroke(s);
         paintCard();
         paintPlayer(getPlayer().getColor());
+
 
     }
     private void paintPlayer(Color c) {
@@ -94,7 +98,6 @@ public class CVuePlayer implements Initializable, Observer {
 
     public Island getModele(){
         return this.modele;
-
     }
 
 

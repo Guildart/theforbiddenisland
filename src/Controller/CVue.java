@@ -19,7 +19,7 @@ public class CVue implements Initializable, Observer {
 
     @FXML
     public Parent vuePlayers;
-    
+
     @FXML
     public GridPane gridTest;
 
@@ -31,7 +31,7 @@ public class CVue implements Initializable, Observer {
 
 
     @FXML
-    private CVuePlayer vuePlayersController;
+    private CPlayerPanel vuePlayersController;
 
 
     public int maVAR;
@@ -54,7 +54,7 @@ public class CVue implements Initializable, Observer {
         vueButtonController.setModele(this.modele);
         vueIslandController.setModel(this.modele); // ici je set le model dans la grille
         vuePlayersController.setModel(this.modele); // ici je set le model dans la grille
-        vuePlayersController.setIndicePlayer(0);
+        //vuePlayersController.setModel(this.modele);
 
         /*
         player3Controller.setModel(this.modele); // ici je set le model dans la grille

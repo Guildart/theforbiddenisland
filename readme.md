@@ -200,6 +200,13 @@ Update Romain 27/05/2020:
     - Preparation de la fusion de la branches principale avec la branche JavaFX     
     - Merge des 2 branches
 
+Update Romain 30/05/2020:
+
+    - Creation CPlayerPanel et VuePlayerPanel.fxml
+    - CVuePlayer dessine un joueur sur un canvas et CPlayerPanel contient le
+      canvas de tout les joueurs
+
+    
 TODO LIST :
 
     **Priorité : High**
