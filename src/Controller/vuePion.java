@@ -26,7 +26,7 @@ public class vuePion implements Initializable, Observer {
     private Player playerPion;
     private int TAILLE = 100;
     private Color c;
-    GraphicsContext gP;
+    private GraphicsContext gP;
 
     double orgSceneX, orgSceneY , orgTranslateX , orgTranslateY;
 
@@ -42,7 +42,8 @@ public class vuePion implements Initializable, Observer {
         gP = pion.getGraphicsContext2D();
         pion.setOnMousePressed(canvasOnMousePressedEventHandler);
         pion.setOnMouseDragged(canvasOnMouseDraggedEventHandler);
-        pion.setOnMouseDragged(canvasOnMouseDraggedEventHandler);
+        //pion.setOnMouseDragged(canvasOnMouseDraggedEventHandler);
+
 
     }
 
@@ -93,7 +94,7 @@ public class vuePion implements Initializable, Observer {
             }
             else
                 System.out.println("Mouvement interdit");
-            modele.notifyObservers();
+            //modele.notifyObservers();
         }
 
 
@@ -103,10 +104,24 @@ public class vuePion implements Initializable, Observer {
     @FXML
     public void handleOnMouseMoved(MouseEvent mouseEvent) {
 
-
     }
 
+    @FXML
+    public void handleOnMouseDrag(MouseEvent t){
+        if(modele.getRoundOf().equals(playerPion) ){
+            System.out.println("dragged"+t.getSceneX() +" "+  t.getSceneY());
+            System.out.println("dragged"+t.getX() +" "+  t.getY());
+            double offsetX = t.getSceneX() - orgSceneX;
+            double offsetY = t.getSceneY() - orgSceneY;
+            double newTranslateX = orgTranslateX + offsetX;
+            double newTranslateY = orgTranslateY + offsetY;
 
+            ((Canvas)(t.getSource())).setTranslateX(newTranslateX);
+            ((Canvas)(t.getSource())).setTranslateY(newTranslateY);
+            update();
+
+        }
+    }
 
     public void setModel(Island model){
         this.modele = model;
@@ -114,7 +129,16 @@ public class vuePion implements Initializable, Observer {
         this.update();
     }
     public void handleOnMousePressed(MouseEvent mouseEvent) {
+        if(modele.getRoundOf().equals(playerPion))
+        {
+            System.out.println("pressed");
 
+            orgSceneX = mouseEvent.getSceneX();
+            orgSceneY = mouseEvent.getSceneY();
+            orgTranslateX = ((Canvas)(mouseEvent.getSource())).getTranslateX();
+            orgTranslateY = ((Canvas)(mouseEvent.getSource())).getTranslateY();
+            update();
+        }
     }
 
 
@@ -133,7 +157,6 @@ public class vuePion implements Initializable, Observer {
                         orgTranslateY = ((Canvas)(t.getSource())).getTranslateY();
                         update();
                     }
-
                 }
             };
 
@@ -157,8 +180,8 @@ public class vuePion implements Initializable, Observer {
 
                     }
 
-
                 }
+
             };
 
 

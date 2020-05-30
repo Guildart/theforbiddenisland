@@ -40,7 +40,7 @@ public class CPlayerPanel{
         this.canvasPlayer3Controller.setIndicePlayer(2);
 
         this.canvasPlayer4Controller.setModel(this.modele);
-        this.canvasPlayer4Controller.setIndicePlayer(0);
+        this.canvasPlayer4Controller.setIndicePlayer(3);
 
     }
 

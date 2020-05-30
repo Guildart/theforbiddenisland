@@ -15,6 +15,7 @@ import Enumeration.Etat;
 import Enumeration.TresorCard;
 import javafx.scene.paint.Color;
 
+import java.awt.*;
 import java.util.Collections;
 
 import java.util.ArrayList;
@@ -98,12 +99,18 @@ public class Island extends Observable {
 
         Color c1 = Color.RED;
         addPlayer(c1);
-        this.setRoundOf(listPlayers.get(0));
+
 
         Color c2 = Color.BLACK;
         addPlayer(c2);
+
         Color c3 = Color.PURPLE;
         addPlayer(c3);
+
+        Color c4 = Color.GREY;
+        addPlayer(c4);
+        this.setRoundOf(listPlayers.get(0));
+
     }
 
     private void initTasCarteInnondation(){

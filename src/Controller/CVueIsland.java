@@ -4,9 +4,11 @@ import Enumeration.Etat;
 import IleInterdite.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -37,6 +39,10 @@ public class CVueIsland implements Initializable, Observer {
     private vuePion vuePion2Controller;
     @FXML
     private vuePion vuePion3Controller;
+
+    @FXML
+    private vuePion vuePion4Controller;
+
     private ArrayList<vuePion> arrayPion = new ArrayList<>();
     //private ChangeListenerIsnald_bis a ;
 
@@ -86,12 +92,12 @@ public class CVueIsland implements Initializable, Observer {
             arrayPion.get(i).translate(pos.x*TAILLE,pos.y*TAILLE);
         }
 
-        /*for(Player p1: liste){
+        for(Player p1: liste){
             Position pos = p1.getZone().getPosition();
-            //paintPlayer(gcF, p1.getColor(), pos.x*TAILLE, pos.x*TAILLE);
-            vuePion1Controller.translate(pos.x*TAILLE-50,pos.y*TAILLE-50);
+            paintPlayer(gcF, p1.getColor(), pos.x*TAILLE, pos.y*TAILLE);
+            //vuePion1Controller.translate(pos.x*TAILLE-50,pos.y*TAILLE-50);
 
-        }*/
+        }
 
 
     }
@@ -164,19 +170,18 @@ public class CVueIsland implements Initializable, Observer {
         arrayPion.add(vuePion1Controller);
         arrayPion.add(vuePion2Controller);
         arrayPion.add(vuePion3Controller);
-        ArrayList<Player> liste = modele.getListPlayers();
+        arrayPion.add(vuePion4Controller);
+        ArrayList<Player> liste = this.modele.getListPlayers();
 
 
         for(int i = 0; i<arrayPion.size(); i++){
             Color c = liste.get(i).getColor();
+            Position pos = liste.get(i).getZone().getPosition();
             arrayPion.get(i).setModel(this.modele);
             arrayPion.get(i).setColor(c);
-            arrayPion.get(i).setP( liste.get(i));
-
+            arrayPion.get(i).setP(liste.get(i));
+            arrayPion.get(i).translate(pos.x*TAILLE,pos.y*TAILLE);
         }
-
-        vuePion1Controller.setModel(modele);
-
 
         System.out.println("grille modele: "+ arrayPion.size());
 
@@ -194,4 +199,5 @@ public class CVueIsland implements Initializable, Observer {
     public void update() {
         repaint();
     }
+
 }
