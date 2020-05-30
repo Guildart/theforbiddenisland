@@ -2,16 +2,19 @@ package Controller;
 
 import Enumeration.Etat;
 import IleInterdite.*;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Bounds;
+import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Shape;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -19,43 +22,37 @@ import java.util.ResourceBundle;
 
 public class CVueIsland implements Initializable, Observer {
 
-    @FXML
-    public AnchorPane anch;
+
 
     @FXML
-    public Canvas canvas1;
-
+    public Canvas canvas;
 
     private static final String IMAGE_LOC = "http://icons.iconarchive.com/icons/uiconstock/flat-halloween/128/Halloween-Bat-icon.png";
     private static final String IMAGE_LOC1 = "https://as1.ftcdn.net/jpg/02/12/43/28/500_F_212432820_Zf6CaVMwOXFIylDOEDqNqzURaYa7CHHc.jpg";
     final Image image = new Image(IMAGE_LOC);
     final Image image1 = new Image(IMAGE_LOC1);
+    public AnchorPane anch;
 
-    @FXML
-    private vuePion vuePion1Controller;
-    @FXML
-    private vuePion vuePion2Controller;
-    @FXML
-    private vuePion vuePion3Controller;
-    private ArrayList<vuePion> arrayPion = new ArrayList<>();
-    //private ChangeListenerIsnald_bis a ;
+    private ArrayList<PionsDraggable> arrayPion = new ArrayList<>();
 
     private int TAILLE = 100;
     private GraphicsContext gcF;
     private Island modele;
 
+    GraphicsContext gc1;
+    double orgSceneX, orgSceneY , orgTranslateX , orgTranslateY;
+    final int numNodes   =  3; // nombre de Joueurs
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-
 
     }
 
     public void repaint() {
         /** Pour chaque cellule... */
 
-        gcF = this.canvas1.getGraphicsContext2D();
+        gcF = this.canvas.getGraphicsContext2D();
 
 
         for(int i = 0; i< Island.LARGEUR; i++) {
@@ -76,22 +73,15 @@ public class CVueIsland implements Initializable, Observer {
         for(Zone z: listZones){
             Position pos = z.getPosition();
             paintSafeZone(gcF, Color.AQUA, pos.x*TAILLE, pos.y*TAILLE);
-
         }
 
         ArrayList<Player> liste = modele.getListPlayers();
 
-        for(int i = 0; i<arrayPion.size(); i++){
+        for(int i = 0; i<liste.size(); i++){
             Position pos = liste.get(i).getZone().getPosition();
-            arrayPion.get(i).translate(pos.x*TAILLE,pos.y*TAILLE);
+            arrayPion.get(i).setX(pos.x*TAILLE);
+            arrayPion.get(i).setY(pos.y*TAILLE);
         }
-
-        /*for(Player p1: liste){
-            Position pos = p1.getZone().getPosition();
-            //paintPlayer(gcF, p1.getColor(), pos.x*TAILLE, pos.x*TAILLE);
-            vuePion1Controller.translate(pos.x*TAILLE-50,pos.y*TAILLE-50);
-
-        }*/
 
 
     }
@@ -134,23 +124,17 @@ public class CVueIsland implements Initializable, Observer {
         Player p = modele.getRoundOf();
         int x = (int) mouseEvent.getX()/TAILLE;
         int y = (int) mouseEvent.getY()/TAILLE;
-        //System.out.println("CvueIsland click");
+        System.out.println("CvueIsland click");
 
-        //System.out.println("pos x : " + x + "pos y : " + y);
-        /*Zone z = modele.getZone(x, y);
+        System.out.println("pos x : " + x + "pos y : " + y);
+        Zone z = modele.getZone(x, y);
         ArrayList<Zone> listZones = modele.zonesReachable(modele.getRoundOf().getZone());
-        if(modele.isReachable(listZones, z) && p.canAct() && modele.getTypeAction() == 0){
-            p.movePlayer(modele.getZone(x, y));
-            p.addAction();
-        } else if(modele.isReachable(listZones, z) && p.canAct() && modele.getTypeAction() == 1){
+       if(modele.isReachable(listZones, z) && p.canAct() ){ // on fait le drain water ici
             p.drainWaterZone(modele.getZone(x, y));
             p.addAction();
         }
         else
-            System.out.println("Mouvement interdit");*/
-
-
-
+            System.out.println("Mouvement interdit");
 
         modele.notifyObservers();
     }
@@ -160,22 +144,28 @@ public class CVueIsland implements Initializable, Observer {
         this.modele = modele;
         modele.addObserver(this); //l'instance de GRILLE existe avnat le reste, on set le modèle après
 
-
-        arrayPion.add(vuePion1Controller);
-        arrayPion.add(vuePion2Controller);
-        arrayPion.add(vuePion3Controller);
         ArrayList<Player> liste = modele.getListPlayers();
 
+        for (int i = 0; i < numNodes; i++) {
+            PionsDraggable node = new PionsDraggable(liste.get(i), modele);
+            node.setPrefSize(TAILLE/2, TAILLE/2);
+            node.setStyle(colorToStyle(liste.get(i).getColor()));
 
-        for(int i = 0; i<arrayPion.size(); i++){
+            Shape c1 = new Circle(0,10,10);
+
+            //node.setLayoutX(spacing*(i+1) + node.getPrefWidth()*i);
+            //node.setLayoutY(spacing);
             Color c = liste.get(i).getColor();
-            arrayPion.get(i).setModel(this.modele);
-            arrayPion.get(i).setColor(c);
-            arrayPion.get(i).setP( liste.get(i));
+            Position pos = liste.get(i).getZone().getPosition();
+            System.out.println(c.toString());
+            node.setModel(this.modele);
+            node.setColor(c);
 
+            node.setLayoutX(pos.x*TAILLE);
+            node.setLayoutY(pos.y*TAILLE);
+            arrayPion.add(node);
+            anch.getChildren().add(node);
         }
-
-        vuePion1Controller.setModel(modele);
 
 
         System.out.println("grille modele: "+ arrayPion.size());
@@ -193,5 +183,77 @@ public class CVueIsland implements Initializable, Observer {
     @Override
     public void update() {
         repaint();
+    }
+
+    EventHandler<MouseEvent> canvasOnMousePressedEventHandler = new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent t) {
+            orgSceneX = t.getSceneX();
+            orgSceneY = t.getSceneY();
+            Node source = (Node) t.getSource();
+            orgTranslateX = source.getTranslateX();
+            orgTranslateY = source.getTranslateY();
+        }
+    };
+
+
+    EventHandler<MouseEvent> canvasOnMouseDraggedEventHandler
+            = new EventHandler<MouseEvent>() {
+
+        @Override
+        public void handle(MouseEvent t) {
+            Node source = (Node) t.getSource();
+
+            Bounds sceneBounds = source.getScene().getRoot().getLayoutBounds();
+            Bounds localBounds = source.getBoundsInLocal();
+
+            double offsetX = t.getSceneX() - orgSceneX;
+            double offsetY = t.getSceneY() - orgSceneY;
+
+            double newTranslateX = orgTranslateX + offsetX;
+            double newTranslateY = orgTranslateY + offsetY;
+
+            // restirct x movement to scene bounds
+            if (offsetX >= 0) {
+                if (localBounds.getMaxX() + newTranslateX > sceneBounds.getMaxX()) {
+                    newTranslateX = sceneBounds.getMaxX() - localBounds.getMaxX();
+                }
+            } else {
+                if (localBounds.getMinX() + newTranslateX < 0) {
+                    newTranslateX = -localBounds.getMinX();
+                }
+            }
+
+            // restrict y movement to scene bounds
+            if (offsetY >= 0) {
+                if (localBounds.getMaxY() + newTranslateY > sceneBounds.getMaxY()) {
+                    newTranslateY = sceneBounds.getMaxY() - localBounds.getMaxY();
+                }
+            } else {
+                if (localBounds.getMinY() + newTranslateY < 0) {
+                    newTranslateY = -localBounds.getMinY();
+                }
+            }
+
+            source.setTranslateX(newTranslateX);
+            source.setTranslateY(newTranslateY);
+        }
+    };
+
+
+    public static String colorToStyle(Color c){
+        return "-fx-background-color:"+toRGBCode(c) +"; "
+                + "-fx-text-fill: black; "
+                + "-fx-border-color: black;";
+
+
+    }
+
+    public static String toRGBCode( Color color )
+    {
+        return String.format( "#%02X%02X%02X",
+                (int)( color.getRed() * 255 ),
+                (int)( color.getGreen() * 255 ),
+                (int)( color.getBlue() * 255 ) );
     }
 }

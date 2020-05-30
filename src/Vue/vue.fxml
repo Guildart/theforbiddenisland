@@ -5,7 +5,7 @@
 
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CVue">
-   <children>
+ <children>
       <fx:include fx:id="vueIsland" source="VueIsland.fxml" prefHeight="600.0" prefWidth="600.0" />
       <fx:include fx:id="vuePlayers" source="VuePlayerPanel.fxml" layoutX="600.0" prefHeight="500.0" prefWidth="400.0" />
       <fx:include fx:id="vueButton" source="VueCommandes.fxml" layoutX="600.0" layoutY="500.0" prefHeight="100.0" prefWidth="400.0" />
