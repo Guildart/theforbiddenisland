@@ -34,7 +34,7 @@ Class IleInterdite.Zone:
         - pos x et y
         - Boolean Heliport 
         - Enumeration.Etat enum (none, normale,inondée ou submergée)
-        - Enumeration.SpecialZone enum (air, eau, feu, vent, none)
+        - Enumeration.Artefacts enum (air, eau, feu, vent, none)
 
     -Méthodes:
         - setEtat

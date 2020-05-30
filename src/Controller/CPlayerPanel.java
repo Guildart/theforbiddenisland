@@ -12,7 +12,6 @@ import java.util.ResourceBundle;
 public class CPlayerPanel{
 
 
-
     @FXML
     public CVuePlayer canvasPlayer1Controller;
 

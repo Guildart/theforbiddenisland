@@ -1,6 +1,5 @@
 package Controller;
 
-import Card.Card;
 import Enumeration.TresorCard;
 import IleInterdite.Island;
 import IleInterdite.Observer;
@@ -68,11 +67,11 @@ public class CVuePlayer implements Initializable, Observer {
 
 
     private void paintCard(){
-        ArrayList<Card<TresorCard>> listecard = getPlayer().getCards();
+        ArrayList<TresorCard> listecard = getPlayer().getCards();
         for(int i = 0; i < 6; i++){
             if(listecard.size() > i) {
-                Card<TresorCard> card = listecard.get(i);
-                gcF.setFill(card.getType().getColor());
+                TresorCard card = listecard.get(i);
+                gcF.setFill(card.getColor());
             }else{
                 gcF.setFill(Color.WHITE);
             }

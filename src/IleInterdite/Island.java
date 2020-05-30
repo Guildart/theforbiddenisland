@@ -10,11 +10,9 @@ package IleInterdite; /**
  */
 
 
-import Card.Card;
-import Enumeration.SpecialZone;
+import Enumeration.Artefacts;
 import Enumeration.Etat;
 import Enumeration.TresorCard;
-import Card.*;
 import javafx.scene.paint.Color;
 
 import java.util.Collections;
@@ -39,11 +37,13 @@ public class Island extends Observable {
     public final Random randomGen = new Random();
     private ArrayList<Player> listPlayers = new ArrayList<>();
     private int typeAction = 0; // Move IleInterdite.Player:0, Drain Water: 1, Take Artfc: 2, Swap cards: 3 TODO : creation d'un type ?
-    private ArrayList<SpecialZone> listArtefacts;
-    private ArrayList<Card<TresorCard>> tasCarteTresor = new ArrayList<>();
-    private ArrayList<Card<TresorCard>> defausseCarteTresor = new ArrayList<>();
+    private ArrayList<Artefacts> listArtefacts = new ArrayList<>();
+    private ArrayList<TresorCard> tasCarteTresor = new ArrayList<>();
+    private ArrayList<TresorCard> defausseCarteTresor = new ArrayList<>();
     private ArrayList<Zone> tasCarteInnondation = new ArrayList<>();
     private ArrayList<Zone> defausseCarteInnondation = new ArrayList<>();
+    private int seaLevel = 1;
+    private int numberCardToPick = 2;
 
 
     /** Construction : on initialise un tableau de cellules. */
@@ -55,10 +55,14 @@ public class Island extends Observable {
         zones = new Zone[LARGEUR][HAUTEUR];
         for(int i=0; i<LARGEUR; i++) {
             for(int j=0; j<HAUTEUR; j++) {
-                zones[i][j] = new Zone(Etat.none, new Position(i,j), SpecialZone.none);
+                zones[i][j] = new Zone(Etat.none, new Position(i,j), Artefacts.none);
             }
         }
         init();
+        listArtefacts.add(Artefacts.air);
+        listArtefacts.add(Artefacts.eau);
+        listArtefacts.add(Artefacts.feu);
+        listArtefacts.add(Artefacts.terre);
     }
 
     /**
@@ -103,16 +107,16 @@ public class Island extends Observable {
     }
 
     private void initTasCarteInnondation(){
-        tasCarteInnondation.add(new Zone(Etat.normale, new Position(0,0), SpecialZone.heliport));
+        tasCarteInnondation.add(new Zone(Etat.normale, new Position(0,0), Artefacts.none,true));
         for(int i = 0; i < 2; i++) {
-            tasCarteInnondation.add(new Zone(Etat.normale, new Position(0,0),SpecialZone.feu));
-            tasCarteInnondation.add(new Zone(Etat.normale, new Position(0,0),SpecialZone.eau));
-            tasCarteInnondation.add(new Zone(Etat.normale, new Position(0,0),SpecialZone.terre));
-            tasCarteInnondation.add(new Zone(Etat.normale, new Position(0,0),SpecialZone.air));
+            tasCarteInnondation.add(new Zone(Etat.normale, new Position(0,0), Artefacts.feu));
+            tasCarteInnondation.add(new Zone(Etat.normale, new Position(0,0), Artefacts.eau));
+            tasCarteInnondation.add(new Zone(Etat.normale, new Position(0,0), Artefacts.terre));
+            tasCarteInnondation.add(new Zone(Etat.normale, new Position(0,0), Artefacts.air));
         }
 
         for(int i = 0; i < 15; i++){
-            tasCarteInnondation.add(new Zone(Etat.normale, new Position(0,0), SpecialZone.none));
+            tasCarteInnondation.add(new Zone(Etat.normale, new Position(0,0), Artefacts.none));
         }
         Collections.shuffle(tasCarteInnondation); //Pour mélanger
     }
@@ -121,17 +125,17 @@ public class Island extends Observable {
 
         //3 * Chaque Cartes spéciale
         for(int i = 0; i < 3; i++){
-            tasCarteTresor.add(new HelicoCard());
-            tasCarteTresor.add(new SandbagCard());
-            tasCarteTresor.add(new WaterRise());
+            tasCarteTresor.add(TresorCard.helicopter);
+            tasCarteTresor.add(TresorCard.sandbag);
+            tasCarteTresor.add(TresorCard.rising_water);
         }
 
         //5 * Clé pour chaque artefacts
         for(int i = 0; i < 5; i++){
-            tasCarteTresor.add(new KeyCard(TresorCard.air));
-            tasCarteTresor.add(new KeyCard(TresorCard.eau));
-            tasCarteTresor.add(new KeyCard(TresorCard.feu));
-            tasCarteTresor.add(new KeyCard(TresorCard.terre));
+            tasCarteTresor.add(TresorCard.clef_air);
+            tasCarteTresor.add(TresorCard.clef_eau);
+            tasCarteTresor.add(TresorCard.clef_feu);
+            tasCarteTresor.add(TresorCard.clef_terre);
         }
         Collections.shuffle(tasCarteTresor);
     }
@@ -174,22 +178,24 @@ public class Island extends Observable {
          *  - Ensuite, on applique les évolutions qui ont été calculées.
          */
 
-        for(int i = 0; i < 3; i++){
-            if(tasCarteInnondation.size() == 0){ //si tas vide on remet la defausse dans le tas
-                Collections.shuffle(defausseCarteInnondation); //on melange avant
-                tasCarteInnondation.addAll(defausseCarteInnondation);
-                defausseCarteInnondation.clear();
+        for(int i = 0; i < numberCardToPick+1; i++){
+            if(tasCarteInnondation.size() + defausseCarteInnondation.size() > 0) { //Todo : rempalcer par test fin de partie ?
+                if (tasCarteInnondation.size() == 0) { //si tas vide on remet la defausse dans le tas
+                    Collections.shuffle(defausseCarteInnondation); //on melange avant
+                    tasCarteInnondation.addAll(defausseCarteInnondation);
+                    defausseCarteInnondation.clear();
+                }
+                Zone z = tasCarteInnondation.get(0);
+                Etat etat = z.getEtat();
+                z.setEtat(Etat.nextEtat(etat));
+                if (z.getEtat() != Etat.submergee)
+                    defausseCarteInnondation.add(z);
+                tasCarteInnondation.remove(z);
             }
-
-            Zone z = tasCarteInnondation.get(0);
-            Etat etat = z.getEtat();
-            z.setEtat(Etat.nextEtat(etat));
-            if (z.getEtat()!=Etat.submergee)
-                defausseCarteInnondation.add(z);
-            tasCarteInnondation.remove(z);
         }
 
-        RoundOf.searchKey(this.tasCarteTresor, this.defausseCarteTresor);
+        RoundOf.searchKey(this.tasCarteTresor, this.defausseCarteTresor, this);
+        RoundOf.searchKey(this.tasCarteTresor, this.defausseCarteTresor, this);
 
         System.out.println(tasCarteTresor.size());
         //Round du prochain joueur
@@ -270,6 +276,10 @@ public class Island extends Observable {
         }
 
         return false;
+    }
+
+    public ArrayList<Artefacts> getArtefacts(){
+        return listArtefacts;
     }
 
     public void setRoundOf(Player p){
@@ -368,12 +378,24 @@ public class Island extends Observable {
         return this.typeAction;
     }
 
-    public void addArtefact(SpecialZone art){
+    public void addArtefact(Artefacts art){
         //listArtefacts.add(art); //Todo : bug
     }
 
-    public ArrayList<SpecialZone> getListArtefacts(){
+    public ArrayList<Artefacts> getListArtefacts(){
         return listArtefacts;
+    }
+
+    public void risingWater(){
+        this.seaLevel++;
+        if(this.seaLevel > 7)
+            this.numberCardToPick = 5;
+        else if(this.seaLevel > 5)
+            this.numberCardToPick = 4;
+        else if(this.seaLevel > 2)
+            this.numberCardToPick = 3;
+        else
+            this.numberCardToPick = 2;
     }
 
 

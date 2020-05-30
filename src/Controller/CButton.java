@@ -1,6 +1,7 @@
 package Controller;
 
 import IleInterdite.Island;
+import IleInterdite.Player;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
@@ -42,6 +43,9 @@ public class CButton{
 
     @FXML
     public void takeTresor(MouseEvent mouseEvent) {
+        Player p = modele.getRoundOf();
+        p.takeArtefact(modele.getListArtefacts());
+        modele.notifyObservers();
     }
 
     public void moveOrDrain(MouseEvent mouseEvent) {

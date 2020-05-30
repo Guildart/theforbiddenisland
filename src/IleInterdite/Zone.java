@@ -1,9 +1,7 @@
 package IleInterdite;
 
-import Enumeration.SpecialZone;
+import Enumeration.Artefacts;
 import Enumeration.Etat;
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
 import javafx.beans.property.*;
 import javafx.beans.property.SimpleBooleanProperty;
 
@@ -13,11 +11,11 @@ import javafx.beans.property.SimpleBooleanProperty;
  */
 public class Zone {
     /** On conserve un pointeur vers la classe principale du modèle. */
-    private Island modele;
 
     /** L'état d'une cellule est donné par un booléen. */
     private Etat etat;
-    private SpecialZone specialZone;
+    private Artefacts artefacts;
+    private boolean heliport;
     private Position position;
     public BooleanProperty test;
     public final IntegerProperty age = new SimpleIntegerProperty();
@@ -27,12 +25,18 @@ public class Zone {
      * de l'appel à [compteVoisines].
      */
 
-    public Zone(Etat etat, Position position,  SpecialZone specialZon) {
+
+    public Zone(Etat etat, Position position,  Artefacts artefacts, boolean heliport) {
         this.etat = etat;
-        this.specialZone = specialZone;
+        this.artefacts = artefacts;
         this.position = position;
         test = new SimpleBooleanProperty();
         test.setValue(true);
+        this.heliport = heliport;
+    }
+
+    public Zone(Etat etat, Position position,  Artefacts artefacts){
+        this(etat, position, artefacts, false);
     }
 
 
@@ -46,23 +50,27 @@ public class Zone {
     }
 
     public void removeArtefacts(){
-        this.specialZone = SpecialZone.none;
+        this.artefacts = Artefacts.none;
     }
 
     public Position getPosition(){
         return this.position;
     }
 
-    public SpecialZone getSpecialZone(){
-        return this.specialZone;
+    public Artefacts getArtefacts(){
+        return this.artefacts;
     }
 
     public Etat getEtat(){
         return this.etat;
     }
 
+    public void setArtefacts(Artefacts artefacts) {
+        this.artefacts = artefacts;
+    }
+
     public boolean isHeliport(){
-        return this.specialZone == SpecialZone.heliport;
+        return this.heliport;
     }
 
     public String toString(){

@@ -1,20 +1,18 @@
 package IleInterdite;
 
-import Card.Card;
-import Enumeration.SpecialZone;
+import Enumeration.Artefacts;
 import Enumeration.Etat;
 import Enumeration.TresorCard;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Random;
 
 public class Player{
 
     private Zone zone;
     private Color color;
-    private ArrayList<Card<TresorCard>> playerCards = new ArrayList<>(); //Todo : Instancier un tas de carte
+    private ArrayList<TresorCard> playerCards = new ArrayList<>(); //Todo : Instancier un tas de carte
     private static int nbActionsRestant;
 
     public Player(Zone zone, Color color){
@@ -38,8 +36,20 @@ public class Player{
     /**
      * récuperer un Artefact
      **/
-    public void getArtefact( SpecialZone art){
-
+    public void takeArtefact(ArrayList<Artefacts> listArtefacts){
+        int compteur = 0;
+        Artefacts artefacts = zone.getArtefacts();
+        for(TresorCard t : playerCards)
+            if(t.getArtefactsAssociated() == artefacts && artefacts != Artefacts.none)
+                compteur++;
+        if(compteur >= 4){
+            zone.setArtefacts(Artefacts.none);
+            listArtefacts.add(artefacts);
+            for (int i = 0; i < 4; i++)
+                this.playerCards.remove(artefacts);
+        }else{
+            System.out.println("Not allow here !");
+        }
     }
 
     /**
@@ -49,22 +59,23 @@ public class Player{
     /**
      * rechercher une clé avec proba de 0.5 d'en trouver
      **/
-    public void searchKey(ArrayList<Card<TresorCard>> tas, ArrayList<Card<TresorCard>> defausse){
+    public void searchKey(ArrayList<TresorCard> tas, ArrayList<TresorCard> defausse, Island island){
         if(tas.size() == 0){
             Collections.shuffle(defausse);
             tas.addAll(defausse);
             defausse.clear();
         }
 
-        Card<TresorCard> card = tas.get(0);
+        TresorCard card = tas.get(0);
 
-        if(card.getType() == TresorCard.water) {
-            //card.doAction(this.zone); //Todo : à implemnter, pas besoin d'attribut normalement
+        if(card == TresorCard.rising_water) {
+            System.out.println(card.toString());
+            island.risingWater();
             defausse.add(card);
             tas.remove(card);
         }else{
             this.playerCards.add(card);
-            System.out.println(card.getType().toString());
+            System.out.println(card.toString());
             tas.remove(card);
         }
 
@@ -74,6 +85,8 @@ public class Player{
             playerCards.remove(card);
         }
     }
+
+
 
     public Color getColor(){return color;}
 
@@ -98,7 +111,7 @@ public class Player{
         nbActionsRestant = 0;
     }
 
-    public ArrayList<Card<TresorCard>> getCards(){
+    public ArrayList<TresorCard> getCards(){
         return this.playerCards;
     }
 
