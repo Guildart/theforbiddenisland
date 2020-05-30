@@ -12,6 +12,15 @@ import java.util.ResourceBundle;
 
 public class CVue implements Initializable, Observer {
     @FXML
+    public Parent vueIsland;
+
+    @FXML
+    public Parent vueButton;
+
+    @FXML
+    public Parent vuePlayers;
+    
+    @FXML
     public GridPane gridTest;
 
     @FXML
