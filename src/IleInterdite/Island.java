@@ -15,7 +15,6 @@ import Enumeration.Etat;
 import Enumeration.TresorCard;
 import javafx.scene.paint.Color;
 
-import java.awt.*;
 import java.util.Collections;
 
 import java.util.ArrayList;
@@ -37,7 +36,6 @@ public class Island extends Observable {
     private Player RoundOf;
     public final Random randomGen = new Random();
     private ArrayList<Player> listPlayers = new ArrayList<>();
-    private int typeAction = 0; // Move IleInterdite.Player:0, Drain Water: 1, Take Artfc: 2, Swap cards: 3 TODO : creation d'un type ?
     private ArrayList<Artefacts> listArtefacts = new ArrayList<>();
     private ArrayList<TresorCard> tasCarteTresor = new ArrayList<>();
     private ArrayList<TresorCard> defausseCarteTresor = new ArrayList<>();
@@ -313,7 +311,7 @@ public class Island extends Observable {
      * @param zP zone ou se trouve le joueur
      * @return une liste de zone
      */
-    public ArrayList<Zone>  zoneSafeToMove(Zone zP){
+    public ArrayList<Zone>  zonesReachable(Zone zP){
         Position pos = zP.getPosition();
         ArrayList<Zone> zonesSafe = new ArrayList<>();
 
@@ -336,32 +334,10 @@ public class Island extends Observable {
             zonesSafe.add(zones[pos.x+1][pos.y]);
         }
 
+        if(zP.isSafe())
+            zonesSafe.add(zP);
+
         return zonesSafe;
-    }
-
-
-    /**Renvoie une liste des zones que le joueurs peut assécher = zones voisines et inondée**/
-    public ArrayList<Zone> zonesDrainable(Zone zp){
-        ArrayList<Zone> zonesSafe = zoneSafeToMove(zp);
-        ArrayList<Zone> zonesDrainable = new ArrayList<>(); //ne SURTOUT pas modifier directement zonesSafes car crée une ERREUR
-        if(RoundOf.getZone().getEtat() == Etat.inondee)
-            zonesDrainable.add(RoundOf.getZone()); //on ajoute la case ou se trouve le joueurs
-        for(Zone z : zonesSafe)
-            if(z.getEtat() == Etat.inondee)
-                zonesDrainable.add(z);
-        return zonesDrainable;
-    }
-
-    /**Renvoie une liste des zones sur lesquels le joueurs peut agir selon le type d'action qui est activée**/
-    public ArrayList<Zone> zonesReachable(Zone zp){
-        if(this.typeAction == 0)
-            return zoneSafeToMove(zp);
-        else if(this.typeAction == 1)
-            return zonesDrainable(zp);
-        else if(this.typeAction == 2) //Todo improve
-            return zonesDrainable(zp);
-        else
-            return zoneSafeToMove(zp); //à modifer quand rajout d'action
     }
 
 
@@ -373,21 +349,6 @@ public class Island extends Observable {
         }
 
         return false;
-    }
-
-
-    public void setTypeAction(int action){
-        if(action < 0 || action > 1)
-            this.typeAction = 1; //TODO : Creer une exceptions, peut causer des bug graphique (ne sera normalement jamais le cas)
-        this.typeAction = action;
-    }
-
-    public int getTypeAction(){
-        return this.typeAction;
-    }
-
-    public void addArtefact(Artefacts art){
-        //listArtefacts.add(art); //Todo : bug
     }
 
     public ArrayList<Artefacts> getListArtefacts(){

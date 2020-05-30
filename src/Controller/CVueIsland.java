@@ -41,7 +41,7 @@ public class CVueIsland implements Initializable, Observer {
 
     GraphicsContext gc1;
     double orgSceneX, orgSceneY , orgTranslateX , orgTranslateY;
-    final int numNodes   =  3; // nombre de Joueurs
+    final int numNodes   =  4; // nombre de Joueurs
 
 
     @Override
@@ -82,7 +82,6 @@ public class CVueIsland implements Initializable, Observer {
             arrayPion.get(i).setX(pos.x*TAILLE);
             arrayPion.get(i).setY(pos.y*TAILLE);
         }
-
 
     }
 
@@ -128,8 +127,9 @@ public class CVueIsland implements Initializable, Observer {
 
         System.out.println("pos x : " + x + "pos y : " + y);
         Zone z = modele.getZone(x, y);
+        //Todo: Can be done on isReachable
         ArrayList<Zone> listZones = modele.zonesReachable(modele.getRoundOf().getZone());
-       if(modele.isReachable(listZones, z) && p.canAct() ){ // on fait le drain water ici
+        if(modele.isReachable(listZones, z) && p.canAct() && z.isFlooded()){ // on fait le drain water ici
             p.drainWaterZone(modele.getZone(x, y));
             p.addAction();
         }
@@ -167,12 +167,11 @@ public class CVueIsland implements Initializable, Observer {
             anch.getChildren().add(node);
         }
 
-
         System.out.println("grille modele: "+ arrayPion.size());
 
 
         System.out.println("grille modele: "+ modele);
-        this.update(); // TODO : c'est un choix ? ou pas ?
+        this.update(); //TODO : c'est un choix ? ou pas ?
 
     }
 

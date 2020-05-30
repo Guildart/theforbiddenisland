@@ -48,12 +48,12 @@ public class CButton{
         modele.notifyObservers();
     }
 
-    public void moveOrDrain(MouseEvent mouseEvent) {
+    /*public void moveOrDrain(MouseEvent mouseEvent) {
         modele.setTypeAction((modele.getTypeAction()+1)%2);
         if(selectAction.isSelected())
             selectAction.setText("MovePlayer");
         else
             selectAction.setText("DrainWater");
         modele.notifyObservers();
-    }
+    }*/
 }

@@ -81,5 +81,9 @@ public class Zone {
         return this.etat==Etat.normale || this.etat==Etat.inondee;
     }
 
+    public boolean isFlooded(){
+        return this.etat == Etat.inondee;
+    }
+
 }
 /** Fin de la classe Cellule, et du modèle en général. */

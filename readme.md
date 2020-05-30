@@ -205,18 +205,18 @@ Update Romain 30/05/2020:
     - Creation CPlayerPanel et VuePlayerPanel.fxml
     - CVuePlayer dessine un joueur sur un canvas et CPlayerPanel contient le
       canvas de tout les joueurs
+    - Implementation Take Tresor + Association GUI
+    - Supression de type action, modification des methodes qui l'utilisait + 
+      correction de bug mineur pour respecter le Drag and Drop
 
-    
+
 TODO LIST :
 
     **Priorité : High**
-    - Clean le code (effacer ancien, renommé les nouveau)
     - Impelementer echanges de carte (modele et interface)
     - Faire en sorte que le joueurs puisse choisir quelles cartes défaussé si il a
     plus de 6 cartes
-    - Retravailler le package carte qui n'est pas optimal et implementer 
-    les cartes special WaterRise, Sandbag et Helico
-    - Implémenter Take Tresor
+
     
     **Priorité : Medium**
     - Faire un classe qui gére un tas de cartes et sa défausse ???
@@ -228,4 +228,12 @@ TODO LIST :
     particuliers attribuer cetaines de méthodes de Island dans Joueurs
     Notamment zonesReachable (et donc toutes les sous méthodes associé zonesDrainable,
     zoneSafeToMove ....)
-        
+
+TODO LIST Graphique :
+
+    - Logo pour chaque role de joueur (6 en tout) voir règle du jeux
+    - Icone sac de sable et helicoptere (de même dimension que les clés !!!!)
+    - Icones pour les artefacts sauf si on garde ce que j'avais fait ??
+    - Design de la jauge "SeaLevel"
+    - Les tuiles pour le plateau
+    

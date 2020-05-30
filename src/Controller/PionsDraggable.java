@@ -119,15 +119,12 @@ class PionsDraggable extends Pane {
                     Zone z = modele.getZone(x, y);
 
                     ArrayList<Zone> listZones = modele.zonesReachable(modele.getRoundOf().getZone());
-                    if(modele.isReachable(listZones, z) && p.canAct() && modele.getTypeAction() == 0){
+                    if(modele.isReachable(listZones, z) && p.canAct() && z != playerPion.getZone()) {
                         p.movePlayer(modele.getZone(x, y));
                         p.addAction();
                         //this.translate( (int) mouseEvent.getSceneX(), (int) mouseEvent.getSceneY());
                         modele.notifyObservers();
 
-                    } else if(modele.isReachable(listZones, z) && p.canAct() && modele.getTypeAction() == 1){
-                        p.drainWaterZone(modele.getZone(x, y));
-                        p.addAction();
                     }
                     else
                         System.out.println("Mouvement interdit");
@@ -209,7 +206,7 @@ class PionsDraggable extends Pane {
                 //this.translate( (int) mouseEvent.getSceneX(), (int) mouseEvent.getSceneY());
                 modele.notifyObservers();
 
-            } else if(modele.isReachable(listZones, z) && p.canAct() && modele.getTypeAction() == 1){
+            } else if(modele.isReachable(listZones, z) && p.canAct()){
                 p.drainWaterZone(modele.getZone(x, y));
                 p.addAction();
             }

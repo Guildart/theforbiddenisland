@@ -11,7 +11,7 @@
             <Insets right="10.0" />
          </HBox.margin>
       </Button>
-      <ToggleButton fx:id="selectAction" mnemonicParsing="false" onMouseClicked="#moveOrDrain" stylesheets="@../css/Button.css" text="Drain Water">
+      <ToggleButton fx:id="selectAction" mnemonicParsing="false" stylesheets="@../css/Button.css" text="Drain Water">
          <HBox.margin>
             <Insets right="10.0" />
          </HBox.margin>
