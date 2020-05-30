@@ -201,6 +201,7 @@ public class Island extends Observable {
         //Round du prochain joueur
         ArrayList<Player> players = this.listPlayers;
         this.setRoundOf(players.get( (players.indexOf(this.getRoundOf())+1)%players.size()));
+        notifyObservers();
     }
 
     /**
