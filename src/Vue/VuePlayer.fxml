@@ -3,9 +3,8 @@
 <?import javafx.scene.canvas.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane prefHeight="200" prefWidth="400.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CVuePlayer">
+<AnchorPane prefHeight="500" prefWidth="400.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CVuePlayer">
    <children>
-      <Canvas fx:id="viewplayer" height="200" width="400.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+      <Canvas fx:id="viewplayer" height="500.0" width="400.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
    </children>
 </AnchorPane>

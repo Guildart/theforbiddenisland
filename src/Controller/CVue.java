@@ -15,39 +15,15 @@ public class CVue implements Initializable, Observer {
     public GridPane gridTest;
 
     @FXML
-    private Parent bouton1;
-
-    @FXML
-    private Parent grille;
-
-    @FXML
-    private Parent butVBOX;
-
-    @FXML
     private CVueIsland vueIslandController;
 
     @FXML
-    private CButton butVBOXController;
+    private CButton vueButtonController;
+
 
     @FXML
-    public Parent player0;
-    @FXML
-    private CVuePlayer player0Controller;
+    private CVuePlayer vuePlayersController;
 
-    @FXML
-    public Parent player1;
-    @FXML
-    private CVuePlayer player1Controller;
-
-    @FXML
-    public Parent player2;
-    @FXML
-    private CVuePlayer player2Controller;
-
-    @FXML
-    public Parent player3;
-    @FXML
-    private CVuePlayer player3Controller;
 
     public int maVAR;
 
@@ -66,22 +42,17 @@ public class CVue implements Initializable, Observer {
         modele = new Island();
         modele.addObserver(this);
         System.out.println("test");
-        butVBOXController .setModele(this.modele);
+        vueButtonController.setModele(this.modele);
         vueIslandController.setModel(this.modele); // ici je set le model dans la grille
-        player0Controller.setModel(this.modele); // ici je set le model dans la grille
-        player0Controller.setIndicePlayer(0);
+        vuePlayersController.setModel(this.modele); // ici je set le model dans la grille
+        vuePlayersController.setIndicePlayer(0);
 
-        player1Controller.setModel(this.modele); // ici je set le model dans la grille
-        player1Controller.setIndicePlayer(1);
-
-        player2Controller.setModel(this.modele); // ici je set le model dans la grille
-        player2Controller.setIndicePlayer(2);
         /*
         player3Controller.setModel(this.modele); // ici je set le model dans la grille
         player3Controller.setIndicePlayer(3);
         */
 
-        Island mod = butVBOXController.getModele();
+        Island mod = vueButtonController.getModele();
         Island mod2 = vueIslandController.getModele();
         System.out.println(mod);
         System.out.println(mod2);
