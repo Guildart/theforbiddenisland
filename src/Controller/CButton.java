@@ -5,6 +5,7 @@ import IleInterdite.Player;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -13,7 +14,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class CButton{
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class CButton implements Initializable {
 
     @FXML
     public Button butNextRound;
@@ -28,7 +33,12 @@ public class CButton{
 
     private Island modele;
 
-
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        butNextRound.toFront();
+        butTakeTresor.toFront();
+        Quit.toFront();
+    }
     public void setModele(Island modele){
         this.modele = modele;
         modele.notifyObservers();
@@ -68,6 +78,11 @@ public class CButton{
         }
 
     }
+
+
+
+
+
 
     /*public void moveOrDrain(MouseEvent mouseEvent) {
         modele.setTypeAction((modele.getTypeAction()+1)%2);

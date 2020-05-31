@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.canvas.Canvas?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.*?>
 
-
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CPlayerPanel">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CPlayerPanel">
    <children>
-      <fx:include fx:id="canvasPlayer1" source="VuePlayer.fxml" prefHeight="125" prefWidth="400"/>
-      <fx:include fx:id="canvasPlayer2" source="VuePlayer.fxml" prefHeight="125" prefWidth="400"/>
-      <fx:include fx:id="canvasPlayer3" source="VuePlayer.fxml" prefHeight="125" prefWidth="400"/>
-      <fx:include fx:id="canvasPlayer4" source="VuePlayer.fxml" prefHeight="125" prefWidth="400"/>
+      <fx:include fx:id="canvasPlayer1" prefHeight="125" prefWidth="400" source="VuePlayer.fxml" />
+      <fx:include fx:id="canvasPlayer2" prefHeight="125" prefWidth="400" source="VuePlayer.fxml" />
+      <fx:include fx:id="canvasPlayer3" prefHeight="125" prefWidth="400" source="VuePlayer.fxml" />
+      <fx:include fx:id="canvasPlayer4" prefHeight="125" prefWidth="400" source="VuePlayer.fxml" />
    </children>
 </VBox>

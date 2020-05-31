@@ -3,12 +3,19 @@ package Controller;
 import IleInterdite.Island;
 import IleInterdite.Player;
 import IleInterdite.Zone;
+import com.sun.javafx.image.BytePixelSetter;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 class PionsDraggable extends Pane {
@@ -81,6 +88,7 @@ class PionsDraggable extends Pane {
                     double offsetX = event.getSceneX() - mousex;
                     double offsetY = event.getSceneY() - mousey;
 
+
                     x += offsetX;
                     y += offsetY;
 
@@ -115,25 +123,33 @@ class PionsDraggable extends Pane {
                     int y = (int) event.getSceneY()/TAILLE;
                     System.out.println("pos x : " + x + "pos y : " + y);
                     System.out.println("vuePion click");
+                    if (x>0 && x<modele.LARGEUR && y>0 && y<modele.HAUTEUR ){
 
-                    Zone z = modele.getZone(x, y);
+                        Zone z = modele.getZone(x, y);
 
-                    ArrayList<Zone> listZones = modele.zonesReachable(modele.getRoundOf().getZone());
-                    if(modele.isReachable(listZones, z) && p.canAct() && z != playerPion.getZone()) {
-                        p.movePlayer(modele.getZone(x, y));
-                        p.addAction();
-                        //this.translate( (int) mouseEvent.getSceneX(), (int) mouseEvent.getSceneY());
+                        ArrayList<Zone> listZones = modele.zonesReachable(modele.getRoundOf().getZone());
+                        if(modele.isReachable(listZones, z) && p.canAct() && z != playerPion.getZone()) {
+                            p.movePlayer(modele.getZone(x, y));
+                            p.addAction();
+                            //this.translate( (int) mouseEvent.getSceneX(), (int) mouseEvent.getSceneY());
+                            modele.notifyObservers();
+
+                        }
+                        else
+                            System.out.println("Mouvement interdit");
+                        modele.notifyObservers();
+                    }
+                    else
+                    {
+                        System.out.println("Mouvement en dehors du tableau");
                         modele.notifyObservers();
 
                     }
-                    else
-                        System.out.println("Mouvement interdit");
-                    modele.notifyObservers();
                 }
+
                 dragging = false;
             }
         });
-
 
 
     }
@@ -188,7 +204,7 @@ class PionsDraggable extends Pane {
         this.modele = modele;
     }
 
-    public void test(float x1, float x2){
+    /*public void test(float x1, float x2){
         if(modele.getRoundOf().equals(playerPion)){
             Player p = modele.getRoundOf();
             int x = (int) x1 /TAILLE;
@@ -213,6 +229,7 @@ class PionsDraggable extends Pane {
                 System.out.println("Mouvement interdit");
             modele.notifyObservers();
         }
-    }
+    }*/
+
 
 }

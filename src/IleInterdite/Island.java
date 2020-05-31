@@ -232,7 +232,7 @@ public class Island extends Observable {
         return 0;
         /**
          * L'expression [(c)?e1:e2] prend la valeur de [e1] si [c] vaut [true]
-         * et celle de [e2] si [c] vaut [false].
+         * et celle de [e2] si [c] vaut [gfalse].
          * Cette dernière ligne est donc équivalente à
          *     int v;
          *     if (cellules[x][y].etat) { v = res - 1; }

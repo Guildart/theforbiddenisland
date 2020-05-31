@@ -192,8 +192,7 @@ public class CVueIsland implements Initializable, Observer {
                 + "-fx-border-color: black;";
     }
 
-    public static String toRGBCode( Color color )
-    {
+    public static String toRGBCode( Color color ) {
         return String.format( "#%02X%02X%02X",
                 (int)( color.getRed() * 255 ),
                 (int)( color.getGreen() * 255 ),

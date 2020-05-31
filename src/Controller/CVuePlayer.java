@@ -13,11 +13,14 @@ import java.awt.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 
 public class CVuePlayer implements Initializable, Observer {
 
     public Canvas viewplayer;
+    public AnchorPane anch;
     private Island modele;
 
 
