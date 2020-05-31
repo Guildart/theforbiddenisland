@@ -356,7 +356,7 @@ public class Island extends Observable {
     }
 
     public void risingWater(){
-        this.seaLevel++;
+        this.seaLevel= 1+(this.seaLevel)%11;
         if(this.seaLevel > 7)
             this.numberCardToPick = 5;
         else if(this.seaLevel > 5)
@@ -367,5 +367,8 @@ public class Island extends Observable {
             this.numberCardToPick = 2;
     }
 
+    public int getSeaLevel(){
+        return this.seaLevel;
+    }
 
 }
