@@ -16,9 +16,13 @@ import java.util.ResourceBundle;
 
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
+import javafx.stage.Popup;
+
 
 public class CVuePlayer implements Initializable, Observer {
 
+
+    public AnchorPane anch;
     public Canvas viewplayer;
     public AnchorPane anch;
     private Island modele;
@@ -46,6 +50,9 @@ public class CVuePlayer implements Initializable, Observer {
     }
 
     public void repaint(){
+        Popup popup = new Popup();
+        //popup.show(anch, 10, 10);
+        //popup.show(anch.getScene().getWindow());
 
         Color c = Color.PINK;
         gcF.setFill(c);
