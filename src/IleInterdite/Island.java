@@ -94,10 +94,8 @@ public class Island extends Observable {
         tasCarteInnondation.addAll(defausseCarteInnondation);
         defausseCarteInnondation.clear();
 
-
         Color c1 = Color.RED;
         addPlayer(c1);
-
 
         Color c2 = Color.BLACK;
         addPlayer(c2);
@@ -183,7 +181,7 @@ public class Island extends Observable {
          *  - Ensuite, on applique les évolutions qui ont été calculées.
          */
 
-        for(int i = 0; i < numberCardToPick+1; i++){
+        for(int i = 0; i < numberCardToPick; i++){
             if(tasCarteInnondation.size() + defausseCarteInnondation.size() > 0) { //Todo : rempalcer par test fin de partie ?
                 if (tasCarteInnondation.size() == 0) { //si tas vide on remet la defausse dans le tas
                     Collections.shuffle(defausseCarteInnondation); //on melange avant
@@ -347,7 +345,6 @@ public class Island extends Observable {
                 return true;
             }
         }
-
         return false;
     }
 
@@ -365,6 +362,7 @@ public class Island extends Observable {
             this.numberCardToPick = 3;
         else
             this.numberCardToPick = 2;
+        System.out.println(this.numberCardToPick + " card to pick");
     }
 
     public int getSeaLevel(){
