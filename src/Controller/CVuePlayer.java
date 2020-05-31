@@ -24,7 +24,6 @@ public class CVuePlayer implements Initializable, Observer {
 
     public AnchorPane anch;
     public Canvas viewplayer;
-    public AnchorPane anch;
     private Island modele;
 
 
@@ -51,8 +50,8 @@ public class CVuePlayer implements Initializable, Observer {
 
     public void repaint(){
         Popup popup = new Popup();
-        //popup.show(anch, 10, 10);
-        //popup.show(anch.getScene().getWindow());
+        //popup.show(viewplayer.getScene().getWindow(), 10, 10);
+        //popup.show(viewplayer.getScene().getWindow());
 
         Color c = Color.PINK;
         gcF.setFill(c);
@@ -93,13 +92,13 @@ public class CVuePlayer implements Initializable, Observer {
 
     public void setModel(Island modele){
         this.modele = modele;
-        repaint();
+        //repaint();
         modele.notifyObservers();
     }
 
     public void setIndicePlayer(int indicePlayer) {
         this.indicePlayer = indicePlayer;
-        repaint();
+        //repaint();
         modele.addObserver(this);
     }
 
