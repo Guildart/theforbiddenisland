@@ -200,6 +200,18 @@ Update Romain 27/05/2020:
     - Preparation de la fusion de la branches principale avec la branche JavaFX     
     - Merge des 2 branches
 
+
+Update Ramdane 30/05/2020:
+
+    - Ajout de drop and drop
+    - cliquer sur un case submerge pour retirer l'eeau
+    - glisser et déposer un pion pour le déplacer
+    - cration dans la classe VueIsland de noeuds pour gérer les pions
+    - creation d'une classe PionsDraggable pour le drag and drop
+    - Island modification de la fonction qui gères les cliques sur la grille
+    - et d'autres changements mineurs, dont des modifications de fxml
+
+
 Update Romain 30/05/2020:
 
     - Creation CPlayerPanel et VuePlayerPanel.fxml
@@ -209,6 +221,13 @@ Update Romain 30/05/2020:
     - Supression de type action, modification des methodes qui l'utilisait + 
       correction de bug mineur pour respecter le Drag and Drop
 
+Update Ramdane 31/05/2020:
+
+    - Ajout d'un menu principal
+    - Ajout d'un bouton quitter ( qui efface donc la partie en cours)
+    - Ajout VueMenu.fxml avec des boutons
+    - Modification du CSS
+    - Ajout du bouton quitter dans vue commande qui renvoie au menu principal
 
 TODO LIST :
 

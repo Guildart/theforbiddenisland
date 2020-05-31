@@ -11,5 +11,6 @@
       <Button layoutX="400.0" layoutY="388.0" mnemonicParsing="false" text="Exemple mode 4 joueurs" />
        <Canvas fx:id="canvas" height="800.0" width="1000.0" />
       <Button fx:id="btn1" layoutX="415.0" layoutY="229.0" mnemonicParsing="false" onAction="#handleButtonAction" text="JOUER (hardcode)" />
+   </children>
 
 </AnchorPane>
