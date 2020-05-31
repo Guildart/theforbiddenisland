@@ -2,11 +2,16 @@ package Controller;
 
 import IleInterdite.Island;
 import IleInterdite.Player;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class CButton{
 
@@ -17,7 +22,7 @@ public class CButton{
     public Button butTakeTresor;
 
     @FXML
-    public ToggleButton selectAction;
+    public ToggleButton Quit;
 
     public VBox vbox;
 
@@ -46,6 +51,22 @@ public class CButton{
         Player p = modele.getRoundOf();
         p.takeArtefact(modele.getListArtefacts());
         modele.notifyObservers();
+    }
+
+
+    @FXML
+    private void handleButtonAction (ActionEvent event) throws Exception {
+        Stage stage;
+        Parent root;
+
+        if(event.getSource()==Quit){
+            stage = (Stage) Quit.getScene().getWindow();
+            root = FXMLLoader.load(getClass().getResource("/Vue/VueMenu.fxml"));
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        }
+
     }
 
     /*public void moveOrDrain(MouseEvent mouseEvent) {

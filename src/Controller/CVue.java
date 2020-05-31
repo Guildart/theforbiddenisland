@@ -2,9 +2,12 @@ package Controller;
 
 import IleInterdite.Island;
 import IleInterdite.Observer;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 
 import java.net.URL;
@@ -25,6 +28,9 @@ public class CVue implements Initializable, Observer {
 
     @FXML
     public GridPane gridTest;
+
+    @FXML
+    public AnchorPane ancreParent;
 
     @FXML
     private CVueIsland vueIslandController;
@@ -59,8 +65,9 @@ public class CVue implements Initializable, Observer {
         System.out.println("test");
         vueButtonController.setModele(this.modele);
         vueIslandController.setModel(this.modele); // ici je set le model dans la grille
-        vuePlayersController.setModel(this.modele); // ici je set le model dans la grille
+        vuePlayersController.setModel(this.modele);
         vueGameController.setModele(this.modele);
+        //vueMenu.toFront();
         //vuePlayersController.setModel(this.modele);
 
         /*
@@ -72,20 +79,8 @@ public class CVue implements Initializable, Observer {
         Island mod2 = vueIslandController.getModele();
         System.out.println(mod);
         System.out.println(mod2);
-
+        ancreParent.getParent();
     }
-
-
-    public void Controller1(Island modele){
-
-    }
-
-
-
-    public CVueIsland getCVueIslandController(){
-        return this.vueIslandController;
-}
-
 
 
     @Override

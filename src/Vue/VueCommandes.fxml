@@ -11,7 +11,7 @@
             <Insets right="10.0" />
          </HBox.margin>
       </Button>
-      <ToggleButton fx:id="selectAction" mnemonicParsing="false" stylesheets="@../css/Button.css" text="Drain Water">
+      <ToggleButton fx:id="Quit" mnemonicParsing="false" stylesheets="@../css/Button.css"  onAction="#handleButtonAction"  text="Quitter">
          <HBox.margin>
             <Insets right="10.0" />
          </HBox.margin>
