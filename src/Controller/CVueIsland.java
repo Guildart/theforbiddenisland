@@ -163,6 +163,7 @@ public class CVueIsland implements Initializable, Observer {
 
             node.setLayoutX(pos.x*TAILLE);
             node.setLayoutY(pos.y*TAILLE);
+
             arrayPion.add(node);
             anch.getChildren().add(node);
         }
@@ -184,68 +185,11 @@ public class CVueIsland implements Initializable, Observer {
         repaint();
     }
 
-    EventHandler<MouseEvent> canvasOnMousePressedEventHandler = new EventHandler<MouseEvent>() {
-        @Override
-        public void handle(MouseEvent t) {
-            orgSceneX = t.getSceneX();
-            orgSceneY = t.getSceneY();
-            Node source = (Node) t.getSource();
-            orgTranslateX = source.getTranslateX();
-            orgTranslateY = source.getTranslateY();
-        }
-    };
-
-
-    EventHandler<MouseEvent> canvasOnMouseDraggedEventHandler
-            = new EventHandler<MouseEvent>() {
-
-        @Override
-        public void handle(MouseEvent t) {
-            Node source = (Node) t.getSource();
-
-            Bounds sceneBounds = source.getScene().getRoot().getLayoutBounds();
-            Bounds localBounds = source.getBoundsInLocal();
-
-            double offsetX = t.getSceneX() - orgSceneX;
-            double offsetY = t.getSceneY() - orgSceneY;
-
-            double newTranslateX = orgTranslateX + offsetX;
-            double newTranslateY = orgTranslateY + offsetY;
-
-            // restirct x movement to scene bounds
-            if (offsetX >= 0) {
-                if (localBounds.getMaxX() + newTranslateX > sceneBounds.getMaxX()) {
-                    newTranslateX = sceneBounds.getMaxX() - localBounds.getMaxX();
-                }
-            } else {
-                if (localBounds.getMinX() + newTranslateX < 0) {
-                    newTranslateX = -localBounds.getMinX();
-                }
-            }
-
-            // restrict y movement to scene bounds
-            if (offsetY >= 0) {
-                if (localBounds.getMaxY() + newTranslateY > sceneBounds.getMaxY()) {
-                    newTranslateY = sceneBounds.getMaxY() - localBounds.getMaxY();
-                }
-            } else {
-                if (localBounds.getMinY() + newTranslateY < 0) {
-                    newTranslateY = -localBounds.getMinY();
-                }
-            }
-
-            source.setTranslateX(newTranslateX);
-            source.setTranslateY(newTranslateY);
-        }
-    };
-
 
     public static String colorToStyle(Color c){
         return "-fx-background-color:"+toRGBCode(c) +"; "
                 + "-fx-text-fill: black; "
                 + "-fx-border-color: black;";
-
-
     }
 
     public static String toRGBCode( Color color )

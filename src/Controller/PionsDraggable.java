@@ -182,7 +182,6 @@ class PionsDraggable extends Pane {
     public void setY(int y){
         y = y;
         setLayoutY(y);
-
     }
 
     public void setModel(Island modele) {
