@@ -145,7 +145,7 @@ public class Island extends Observable {
 
     private void addPlayer(Color c){
         int[] tab = getRandomPoint();
-        Player p = new Player(zones[tab[0]][tab[1]],c, this);
+        Player p = new Pilote(zones[tab[0]][tab[1]],c, this);
         this.listPlayers.add(p);
     }
 
@@ -332,6 +332,13 @@ public class Island extends Observable {
 
     public Zone[][] getGrille(){
         return this.zones;
+    }
+
+    public ArrayList<Zone> getSafeZones(){
+        ArrayList<Zone> safeZones = new ArrayList();
+        safeZones.addAll(tasCarteInnondation);
+        safeZones.addAll(defausseCarteInnondation);
+        return safeZones;
     }
 
 }

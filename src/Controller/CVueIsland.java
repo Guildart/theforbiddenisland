@@ -72,6 +72,7 @@ public class CVueIsland implements Initializable, Observer {
 
         // on dessine les cases autour
         Player p = modele.getRoundOf();
+
         ArrayList<Zone> listZones = p.zonesReachable();
 
         for(Zone z: listZones){
