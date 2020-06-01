@@ -119,12 +119,6 @@ public class Island extends Observable {
 
     }
 
-    private void addPlayer(Color c){
-        int[] tab = getRandomPoint();
-        Player p = new Player(zones[tab[0]][tab[1]],c, this);
-        this.listPlayers.add(p);
-    }
-
     private void initTasCarteInnondation(){
         tasCarteInnondation.add(new Zone(Etat.normale, new Position(0,0), Artefacts.none,true));
         for(int i = 0; i < 2; i++) {
@@ -159,7 +153,11 @@ public class Island extends Observable {
         Collections.shuffle(tasCarteTresor);
     }
 
-
+    private void addPlayer(Color c){
+        int[] tab = getRandomPoint();
+        Player p = new Player(zones[tab[0]][tab[1]],c, this);
+        this.listPlayers.add(p);
+    }
 
 
     /**
@@ -344,6 +342,13 @@ public class Island extends Observable {
 
     public Zone[][] getGrille(){
         return this.zones;
+    }
+
+    public ArrayList<Zone> getSafeZones(){
+        ArrayList<Zone> safeZones = new ArrayList();
+        safeZones.addAll(tasCarteInnondation);
+        safeZones.addAll(defausseCarteInnondation);
+        return safeZones;
     }
 
 }
