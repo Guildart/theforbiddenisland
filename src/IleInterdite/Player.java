@@ -1,5 +1,6 @@
 package IleInterdite;
 
+import Controller.CardDraggable;
 import Enumeration.Artefacts;
 import Enumeration.Etat;
 import Enumeration.TresorCard;
@@ -13,6 +14,7 @@ public class Player{
     private Zone zone;
     private Color color;
     private ArrayList<TresorCard> playerCards = new ArrayList<>(); //Todo : Instancier un tas de carte
+    private ArrayList<CardDraggable> playerCardsDragtgable = new ArrayList<>(); //Todo : Instancier un tas de carte
     private static int nbActionsRestant;
 
     public Player(Zone zone, Color color){
@@ -122,4 +124,16 @@ public class Player{
         this.getCards().removeAll(toDiscard);
     }
 
+
+    public ArrayList<CardDraggable> getPlayerCardsDragtgable() {
+        return playerCardsDragtgable;
+    }
+
+    public void setPlayerCardsDragtgable(ArrayList<CardDraggable> playerCardsDragtgable) {
+        this.playerCardsDragtgable = playerCardsDragtgable;
+    }
+
+    public void removeCard(TresorCard card){
+        playerCards.remove(card);
+    }
 }

@@ -107,6 +107,12 @@ class PionsDraggable extends Pane {
 
                     //test(mousex, mousey);
 
+                    if(x>600 || y>600){
+                        dragging=false;
+                        modele.notifyObservers();
+
+                    }
+
                     event.consume();
                 }
             }

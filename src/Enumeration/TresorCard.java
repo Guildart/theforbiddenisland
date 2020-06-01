@@ -4,7 +4,7 @@ import javafx.scene.paint.Color;
 
 //Todo: Modif TresorCard
 public enum TresorCard {
-    clef_air, clef_eau, clef_feu, clef_terre, helicopter, sandbag, rising_water;
+    clef_air, clef_eau, clef_feu, clef_terre, helicopter, sandbag, rising_water, empty;
 
     public Color getColor(){
         switch (this){
@@ -20,6 +20,8 @@ public enum TresorCard {
                 return Color.rgb(134, 129, 7);
             case helicopter:
                 return  Color.rgb(23, 11, 8);
+            case empty:
+                return  Color.rgb(108, 108, 108);
         }
         return  Color.rgb(7, 10, 134);
     }

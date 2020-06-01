@@ -3,8 +3,8 @@
 <?import javafx.scene.canvas.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="anch" prefHeight="600" prefWidth="1000.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CVueIsland">
+<AnchorPane fx:id="anch" prefHeight="600" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CVueIsland">
    <children>
-      <Canvas fx:id="canvas" height="600" onMouseClicked="#handleOnMouseClicked"   width="1000" />
+      <Canvas fx:id="canvas" height="600" onMouseClicked="#handleOnMouseClicked"   width="600" />
    </children>
 </AnchorPane>

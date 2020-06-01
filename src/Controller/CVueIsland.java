@@ -38,7 +38,7 @@ public class CVueIsland implements Initializable, Observer {
     private ArrayList<PionsDraggable> arrayPion = new ArrayList<>();
     private ArrayList<CardDraggable> arrayCards = new ArrayList<>();
 
-    private int TAILLE = 100;
+    public static int TAILLE = 100;
     private GraphicsContext gcF;
     private Island modele;
 
@@ -87,10 +87,10 @@ public class CVueIsland implements Initializable, Observer {
         }
 
 
-        for(int i = 0; i<arrayCards.size(); i++){
+        /*for(int i = 0; i<arrayCards.size(); i++){
             arrayCards.get(i).translateSafeX();
             arrayCards.get(i).translateSafeY();
-        }
+        }*/
 
     }
 
@@ -181,7 +181,8 @@ public class CVueIsland implements Initializable, Observer {
         for(int i = 0; i < modele.getListPlayers().size(); i++){
             Player p = modele.getListPlayers().get(i);
             for(int k = 0; k<6 ;k++)
-            p.setCard(TresorCard.clef_eau);
+            p.setCard(TresorCard.empty);
+
             for(int j = 0; j<p.getCards().size(); j++){
                 TresorCard card = p.getCards().get(j);
 
@@ -189,25 +190,25 @@ public class CVueIsland implements Initializable, Observer {
                 CardDraggable node = new CardDraggable(p, modele, card);
 
                 node.setPrefSize(TAILLE/3, TAILLE/2);
-                node.setStyle(colorToStyle(liste.get(i).getColor()));
+                node.setStyle(colorToStyle(Color.GRAY));
                 node.setModel(this.modele);
                 node.setColor(c);
+                node.setCard(TresorCard.empty);
 
                 node.setLayoutX(600+10+j*(60));
                 node.setLayoutY(50+120*i);
 
                 node.setSafeX(600+10+j*(60));
                 node.setSafeY(50+120*i);
-
+                node.setPlayer(p);
                 arrayCards.add(node);
                 anch.getChildren().add(node);
-
-
             }
+            p.setPlayerCardsDragtgable(arrayCards);
+            arrayCards = new ArrayList<>();
+
 
         }
-
-
 
         System.out.println("grille modele: "+ arrayPion.size());
         System.out.println("grille modele: "+ arrayCards.size());

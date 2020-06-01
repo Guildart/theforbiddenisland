@@ -23,6 +23,7 @@ import javafx.scene.control.DialogPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Popup;
+import javafx.stage.Stage;
 
 
 public class CVuePlayer implements Initializable, Observer {
@@ -39,6 +40,7 @@ public class CVuePlayer implements Initializable, Observer {
     private final static int LARGEUR = 400; //ou 400
     private GraphicsContext gcF;
     private boolean popupBool = true;
+    private ArrayList<CardDraggable> arrayCards = new ArrayList<>();
 
 
     @Override
@@ -60,7 +62,7 @@ public class CVuePlayer implements Initializable, Observer {
     }
 
     public void repaint(){
-
+        updateCard();
         Color c = Color.PINK;
         gcF.setFill(c);
        // gcF.strokeLineJoin(new BasicStroke(4));
@@ -69,6 +71,11 @@ public class CVuePlayer implements Initializable, Observer {
         //gcF.setStroke(s);
         paintCard();
         paintPlayer(getPlayer().getColor());
+
+        for(int i = 0; i<arrayCards.size(); i++){
+            arrayCards.get(i).translateSafeX();
+            arrayCards.get(i).translateSafeY();
+        }
 
 
     }
@@ -81,6 +88,21 @@ public class CVuePlayer implements Initializable, Observer {
 
     }
 
+    public void updateCard(){
+        ArrayList<TresorCard> listecard = getPlayer().getCards();
+        for(int i =0; i< listecard.size(); i++){
+            //System.out.println(listecard.size());
+            //System.out.println(arrayCards.size());
+
+            TresorCard c = listecard.get(i);
+            //arrayCards.get(i).setCard(listecard.get(i));
+            CardDraggable ere = arrayCards.get(i);
+            ere.setCard(c);
+            ere.setColor(c.getColor());
+
+        }
+    }
+
 
 
     private void paintCard(){
@@ -89,23 +111,30 @@ public class CVuePlayer implements Initializable, Observer {
             if(listecard.size() > i) {
                 TresorCard card = listecard.get(i);
                 gcF.setFill(card.getColor());
+                //TresorCard a = arrayCards.get(i).getCard();
+                //gcF.setFill(a .getColor());
+                arrayCards.get(i).setStyle(CVueIsland.colorToStyle(card.getColor()));
             }else{
                 gcF.setFill(Color.WHITE);
+                arrayCards.get(i).setStyle(CVueIsland.colorToStyle( TresorCard.empty.getColor()));
             }
 
             gcF.fillRect(80+30+i*(50+5), 35, 50, 80);
         }
+
+
     }
 
 
     public void setModel(Island modele){
         this.modele = modele;
-        repaint();
+        //repaint();
         modele.notifyObservers();
     }
 
     public void setIndicePlayer(int indicePlayer) {
         this.indicePlayer = indicePlayer;
+        arrayCards = this.getPlayer().getPlayerCardsDragtgable();
         repaint();
         modele.addObserver(this);
     }
@@ -119,6 +148,7 @@ public class CVuePlayer implements Initializable, Observer {
 
     public Player getPlayer(){
         //System.out.println("player: "+  this.modele.getListPlayers().get(this.indicePlayer));
+
         return this.modele.getListPlayers().get(this.indicePlayer);
     }
 

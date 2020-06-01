@@ -1,8 +1,10 @@
 package Controller;
 
+import Enumeration.Etat;
 import Enumeration.TresorCard;
 import IleInterdite.Island;
 import IleInterdite.Player;
+import IleInterdite.Position;
 import IleInterdite.Zone;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -26,7 +28,10 @@ public class CardDraggable extends Pane {
     private int TAILLE = 100;
 
     public boolean released;
-    private Player playerPion;
+    private Player player;
+
+
+
     private Color c;
     private Island modele;
     private TresorCard card;
@@ -71,9 +76,12 @@ public class CardDraggable extends Pane {
         this.c = c;
     }
 
+    public Color getColor() {
+        return c;
+    }
 
-    CardDraggable(Player playerPion, Island modele, TresorCard card){
-        this.playerPion = playerPion;
+    CardDraggable(Player player, Island modele, TresorCard card){
+        this.player = player;
         this.modele = modele;
         this.card = card;
         this.init();
@@ -105,8 +113,7 @@ public class CardDraggable extends Pane {
             public void handle(MouseEvent event) {
 
                     // Get the exact moved X and Y
-                System.out.println("draged"+ event.toString());
-                System.out.println(x+" "+y);
+                //System.out.println(x+" "+y);
                     double offsetX = event.getSceneX() - mousex;
                     double offsetY = event.getSceneY() - mousey;
 
@@ -137,6 +144,45 @@ public class CardDraggable extends Pane {
             @Override
             public void handle(MouseEvent event) {
                 System.out.println("clicked");
+
+                if (x<600){
+                    System.out.println("grille");
+                    System.out.println("x"+ (int)x/CVueIsland.TAILLE + "y " + (int)y/CVueIsland.TAILLE);
+                    // appeler fonction pour soit assecher soit poser lhelicopter sur la case donne par la formule d'avant
+                    Zone z = modele.getZone((int)x/CVueIsland.TAILLE, (int)y/CVueIsland.TAILLE);
+
+                    if(card == TresorCard.empty){
+                        if(z.getEtat()== Etat.inondee){
+                            z.setEtat(Etat.normale);
+                        }
+                        player.removeCard(card);
+
+                    }
+                    else if(card == TresorCard.helicopter){ // déplace le joueur ou on veut en glissant la carte sur une case de la grille
+                        player.movePlayer(modele.getZone((int)x/CVueIsland.TAILLE,(int)y/CVueIsland.TAILLE));
+                        player.removeCard(card);
+                    }
+
+                }else
+                {
+                    if(y<480){
+                        if(card != TresorCard.empty){
+
+                            Player toPlayer = modele.getListPlayers().get((int)(y)/120);
+                            System.out.println("panel numero "+ ((int)(y)/120));
+                            player.removeCard(card);
+                            toPlayer.setCard(card);
+
+                            //c = TresorCard.empty.getColor();
+                            //card = TresorCard.empty;
+                        }
+
+                    }
+
+
+
+                }
+
                 modele.notifyObservers();
 
                 dragging = false;
@@ -151,8 +197,10 @@ public class CardDraggable extends Pane {
         onMouseDragReleasedProperty().set(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                System.out.println("released"+ " " + playerPion.getZone().toString());
+                //System.out.println("released"+ " " + playerPion.getZone().toString());
                 modele.notifyObservers();
+
+
 
                 dragging = false;
 
@@ -166,8 +214,8 @@ public class CardDraggable extends Pane {
 
     }
 
-    public void setPlayerPion(Player playerPion) {
-        this.playerPion = playerPion;
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 
 
@@ -242,6 +290,14 @@ public class CardDraggable extends Pane {
             modele.notifyObservers();
         }
     }*/
+
+    public TresorCard getCard() {
+        return card;
+    }
+
+    public void setCard(TresorCard card) {
+        this.card = card;
+    }
 
 
 }
