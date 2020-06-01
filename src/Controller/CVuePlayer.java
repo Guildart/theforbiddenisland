@@ -90,10 +90,6 @@ public class CVuePlayer implements Initializable, Observer {
 
     public void updateCard(){
         ArrayList<TresorCard> listecard = getPlayer().getCards();
-        /*System.out.print("[");
-        for(TresorCard card: listecard)
-            System.out.print(card.toString()+ ", ");
-        System.out.println("]");*/
         for(int i =0; i< getPlayer().getPlayerCardsDragtgable().size(); i++){
             //System.out.println(listecard.size());
             //System.out.println(arrayCards.size());
@@ -117,10 +113,10 @@ public class CVuePlayer implements Initializable, Observer {
                 gcF.setFill(card.getColor());
                 //TresorCard a = arrayCards.get(i).getCard();
                 //gcF.setFill(a .getColor());
-                arrayCards.get(i).setStyle(CVueIsland.colorToStyle(card.getColor()));
+                arrayCards.get(i).setStyle(CVueIsland.colorToStyleCard(card.getColor()));
             }else{
                 gcF.setFill(Color.WHITE);
-                arrayCards.get(i).setStyle(CVueIsland.colorToStyle( TresorCard.empty.getColor()));
+                arrayCards.get(i).setStyle(CVueIsland.colorToStyleCard( TresorCard.empty.getColor()));
             }
 
             gcF.fillRect(80+30+i*(50+5), 35, 50, 80);

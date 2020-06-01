@@ -36,8 +36,6 @@ class PionsDraggable extends Pane {
     private Color c;
     private Island modele;
 
-
-
     public PionsDraggable(Node view) {
 
         this.view = view;
