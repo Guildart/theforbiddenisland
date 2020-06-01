@@ -188,4 +188,13 @@ public class Player{
         }
         return false;
     }
+
+    public void giveCard(TresorCard card, Player player){
+        if(player.getZone() == this.zone) {
+            this.removeCard(card);
+            modele.addToDefausseCarteTresor(card);
+            this.addAction();
+            player.setCard(card);
+        }
+    }
 }

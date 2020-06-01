@@ -167,14 +167,11 @@ public class CardDraggable extends Pane {
 
                 }else if(modele.getRoundOf()==player) {
                     if(y<480){
-                        if(card != TresorCard.empty){
+                        if(card != TresorCard.empty && card != TresorCard.helicopter && card != TresorCard.sandbag){
 
                             Player toPlayer = modele.getListPlayers().get((int)(y)/120);
                             System.out.println("panel numero "+ ((int)(y)/120));
-                            player.removeCard(card);
-                            modele.addToDefausseCarteTresor(card);
-                            player.addAction();
-                            toPlayer.setCard(card);
+                            player.giveCard(card,toPlayer);
                         }
 
                     }
