@@ -79,7 +79,7 @@ public class Player{
             tas.remove(card);
         }
 
-        if(this.playerCards.size() > 6){
+        if(this.playerCards.size() > 8){
             card = playerCards.get(0);
             defausse.add(card);
             playerCards.remove(card);
@@ -113,6 +113,10 @@ public class Player{
 
     public ArrayList<TresorCard> getCards(){
         return this.playerCards;
+    }
+
+    public void discardCard(ArrayList<TresorCard> toDiscard){
+        this.getCards().removeAll(toDiscard);
     }
 
 }

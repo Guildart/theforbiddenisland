@@ -1,28 +1,17 @@
 package Controller;
 
 import Enumeration.TresorCard;
-import IleInterdite.Island;
-import IleInterdite.Observer;
-import IleInterdite.Player;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
+import IleInterdite.*;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 
-import java.awt.*;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import javafx.scene.control.Alert;
-import javafx.scene.control.DialogPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
-import javafx.stage.Popup;
 
 
 public class CVuePlayer implements Initializable, Observer {
@@ -43,7 +32,6 @@ public class CVuePlayer implements Initializable, Observer {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Dimension dim = new Dimension(LARGEUR*10, HAUTEUR);
         gcF = viewplayer.getGraphicsContext2D();
         gcF.setFill(Color.RED);
         gcF.fillRect(0, 0, LARGEUR,HAUTEUR);
@@ -53,6 +41,10 @@ public class CVuePlayer implements Initializable, Observer {
     @Override
     public void update() {
         this.repaint();
+        if(getPlayer().getCards().size() > 5 && modele.getRoundOf() == getPlayer()){
+            CVueDefausse dv = new CVueDefausse();
+            dv.display(modele, getPlayer());
+        }
     }
 
     public void repaint(){
