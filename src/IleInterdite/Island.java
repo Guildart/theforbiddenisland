@@ -95,7 +95,10 @@ public class Island extends Observable {
         defausseCarteInnondation.clear();
 
         Color c1 = Color.RED;
-        addPlayer(c1);
+        //addPlayer(c1);
+        int[] tab = getRandomPoint();
+        Player p = new Explorateur(zones[tab[0]][tab[1]],c1, this);
+        this.listPlayers.add(p);
 
         Color c2 = Color.BLACK;
         addPlayer(c2);
@@ -145,7 +148,7 @@ public class Island extends Observable {
 
     private void addPlayer(Color c){
         int[] tab = getRandomPoint();
-        Player p = new Pilote(zones[tab[0]][tab[1]],c, this);
+        Player p = new Player(zones[tab[0]][tab[1]],c, this);
         this.listPlayers.add(p);
     }
 

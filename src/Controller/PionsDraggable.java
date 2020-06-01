@@ -128,13 +128,13 @@ class PionsDraggable extends Pane {
                     int y = (int) event.getSceneY()/TAILLE;
                     System.out.println("pos x : " + x + "pos y : " + y);
                     System.out.println("vuePion click");
-                    if (x>0 && x<modele.LARGEUR && y>0 && y<modele.HAUTEUR ){
+                    if (x>=0 && x<Island.LARGEUR && y>=0 && y<Island.HAUTEUR ){
 
                         Zone z = modele.getZone(x, y);
 
                         ArrayList<Zone> listZones = p.zonesReachable();
 
-                        if(p.isReachable(listZones) && p.canAct() && z != playerPion.getZone()) {
+                        if(p.isReachable(listZones,z) && p.canAct() && z != playerPion.getZone()) {
                             p.movePlayer(modele.getZone(x, y));
                             p.addAction();
                             //this.translate( (int) mouseEvent.getSceneX(), (int) mouseEvent.getSceneY());
@@ -152,6 +152,7 @@ class PionsDraggable extends Pane {
 
                     }
                 }
+                modele.notifyObservers();
 
                 dragging = false;
             }

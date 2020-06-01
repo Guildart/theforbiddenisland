@@ -146,7 +146,7 @@ public class CVueIsland implements Initializable, Observer {
     private void paintSafeZone(GraphicsContext g, Color c, int x, int y) {
         /** Sélection d'une couleur. */
         double old = g.getLineWidth();
-        g.setLineWidth(2.0);
+        g.setLineWidth(4.0);
         g.setFill(c);
         /** Coloration d'un rectangle. */
         g.strokeRect(x, y, TAILLE, TAILLE);
@@ -163,7 +163,7 @@ public class CVueIsland implements Initializable, Observer {
         Zone z = modele.getZone(x, y);
         //Todo: Can be done on isReachable
         ArrayList<Zone> listZones = p.zonesReachable();
-        if(p.isReachable(listZones) && p.canAct() && z.isFlooded()){ // on fait le drain water ici
+        if(p.isReachable(listZones,z) && p.canAct() && z.isFlooded()){ // on fait le drain water ici
             p.drainWaterZone(modele.getZone(x, y));
             p.addAction();
         }
