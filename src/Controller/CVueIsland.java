@@ -72,7 +72,7 @@ public class CVueIsland implements Initializable, Observer {
 
         // on dessine les cases autour
         Player p = modele.getRoundOf();
-        ArrayList<Zone> listZones = modele.zonesReachable(p.getZone());
+        ArrayList<Zone> listZones = p.zonesReachable();
 
         for(Zone z: listZones){
             Position pos = z.getPosition();
@@ -161,8 +161,8 @@ public class CVueIsland implements Initializable, Observer {
         System.out.println("pos x : " + x + "pos y : " + y);
         Zone z = modele.getZone(x, y);
         //Todo: Can be done on isReachable
-        ArrayList<Zone> listZones = modele.zonesReachable(modele.getRoundOf().getZone());
-        if(modele.isReachable(listZones, z) && p.canAct() && z.isFlooded()){ // on fait le drain water ici
+        ArrayList<Zone> listZones = p.zonesReachable();
+        if(p.isReachable(listZones) && p.canAct() && z.isFlooded()){ // on fait le drain water ici
             p.drainWaterZone(modele.getZone(x, y));
             p.addAction();
         }

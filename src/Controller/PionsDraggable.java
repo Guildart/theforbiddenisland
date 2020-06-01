@@ -132,8 +132,9 @@ class PionsDraggable extends Pane {
 
                         Zone z = modele.getZone(x, y);
 
-                        ArrayList<Zone> listZones = modele.zonesReachable(modele.getRoundOf().getZone());
-                        if(modele.isReachable(listZones, z) && p.canAct() && z != playerPion.getZone()) {
+                        ArrayList<Zone> listZones = p.zonesReachable();
+
+                        if(p.isReachable(listZones) && p.canAct() && z != playerPion.getZone()) {
                             p.movePlayer(modele.getZone(x, y));
                             p.addAction();
                             //this.translate( (int) mouseEvent.getSceneX(), (int) mouseEvent.getSceneY());

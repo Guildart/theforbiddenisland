@@ -11,15 +11,17 @@ import java.util.Collections;
 
 public class Player{
 
-    private Zone zone;
-    private Color color;
-    private ArrayList<TresorCard> playerCards = new ArrayList<>(); //Todo : Instancier un tas de carte
-    private ArrayList<CardDraggable> playerCardsDragtgable = new ArrayList<>(); //Todo : Instancier un tas de carte
-    private static int nbActionsRestant;
+    protected Zone zone;
+    protected Color color;
+    protected ArrayList<TresorCard> playerCards = new ArrayList<>(); //Todo : Instancier un tas de carte
+    protected ArrayList<CardDraggable> playerCardsDragtgable = new ArrayList<>(); //Todo : Instancier un tas de carte
+    protected static int nbActionsRestant;
+    protected Island modele;
 
-    public Player(Zone zone, Color color){
+    public Player(Zone zone, Color colo, Island modele){
         this.zone = zone;
-        this.color = color;
+        this.color = colo;
+        this.modele = modele;
     }
     /**
     * Deplacer le joueur
@@ -143,5 +145,48 @@ public class Player{
             if(card != TresorCard.empty)
                 compteur++;
         return compteur;
+    }
+
+    /**
+     * @param zP zone ou se trouve le joueur
+     * @return une liste de zone
+     */
+    public ArrayList<Zone>  zonesReachable(){
+        Position pos = zone.getPosition();
+        ArrayList<Zone> zonesSafe = new ArrayList<>();
+        Zone [][] zones = modele.getGrille();
+        if (pos.y-1>=0)
+            if(zones[pos.x][pos.y-1].isSafe()){
+                zonesSafe.add(zones[pos.x][pos.y-1]);
+            }
+        if(pos.x-1>=0)
+            if(zones[pos.x-1][pos.y].isSafe()){
+                zonesSafe.add(zones[pos.x-1][pos.y]);
+            }
+
+        if(pos.y+1<modele.HAUTEUR)
+            if(zones[pos.x][pos.y+1].isSafe()){
+                zonesSafe.add(zones[pos.x][pos.y+1]);
+            }
+
+        if(pos.x+1<modele.LARGEUR)
+            if(zones[pos.x+1][pos.y].isSafe()){
+                zonesSafe.add(zones[pos.x+1][pos.y]);
+            }
+
+        if(zone.isSafe())
+            zonesSafe.add(zone);
+
+        return zonesSafe;
+    }
+
+
+    public boolean isReachable(ArrayList<Zone> listZone){
+        for( Zone z : listZone){
+            if(z.getPosition().equals( zone.getPosition())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

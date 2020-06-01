@@ -145,7 +145,7 @@ public class Island extends Observable {
 
     private void addPlayer(Color c){
         int[] tab = getRandomPoint();
-        Player p = new Player(zones[tab[0]][tab[1]],c);
+        Player p = new Player(zones[tab[0]][tab[1]],c, this);
         this.listPlayers.add(p);
     }
 
@@ -305,49 +305,6 @@ public class Island extends Observable {
         return listPlayers;
     }
 
-    /**
-     * @param zP zone ou se trouve le joueur
-     * @return une liste de zone
-     */
-    public ArrayList<Zone>  zonesReachable(Zone zP){
-        Position pos = zP.getPosition();
-        ArrayList<Zone> zonesSafe = new ArrayList<>();
-
-        if (pos.y-1>=0)
-            if(zones[pos.x][pos.y-1].isSafe()){
-                zonesSafe.add(zones[pos.x][pos.y-1]);
-             }
-        if(pos.x-1>=0)
-            if(zones[pos.x-1][pos.y].isSafe()){
-                zonesSafe.add(zones[pos.x-1][pos.y]);
-            }
-
-        if(pos.y+1<HAUTEUR)
-        if(zones[pos.x][pos.y+1].isSafe()){
-            zonesSafe.add(zones[pos.x][pos.y+1]);
-        }
-
-        if(pos.x+1<LARGEUR)
-        if(zones[pos.x+1][pos.y].isSafe()){
-            zonesSafe.add(zones[pos.x+1][pos.y]);
-        }
-
-        if(zP.isSafe())
-            zonesSafe.add(zP);
-
-        return zonesSafe;
-    }
-
-
-    public boolean isReachable(ArrayList<Zone> listZone, Zone zM){
-        for( Zone z : listZone){
-            if(z.getPosition().equals( zM.getPosition())) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     public ArrayList<Artefacts> getListArtefacts(){
         return listArtefacts;
     }
@@ -371,6 +328,10 @@ public class Island extends Observable {
 
     public void addToDefausseCarteTresor(TresorCard card){
         this.defausseCarteTresor.add(card);
+    }
+
+    public Zone[][] getGrille(){
+        return this.zones;
     }
 
 }
