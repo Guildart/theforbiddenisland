@@ -222,7 +222,7 @@ public class CVueIsland implements Initializable, Observer {
 
 
 
-                node.setPrefSize(TAILLE/3, TAILLE/2);
+                node.setPrefSize(TAILLE/2, 8*TAILLE/10);
                 node.setStyle(colorToStyleCard(Color.GRAY));
                 node.setModel(this.modele);
                 node.setColor(c);
