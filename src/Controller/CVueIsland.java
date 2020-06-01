@@ -180,7 +180,7 @@ public class CVueIsland implements Initializable, Observer {
 
         for(int i = 0; i < modele.getListPlayers().size(); i++){
             Player p = modele.getListPlayers().get(i);
-            for(int k = 0; k<6 ;k++)
+            for(int k = 0; k<5 ;k++)
             p.setCard(TresorCard.empty);
 
             for(int j = 0; j<p.getCards().size(); j++){
@@ -189,7 +189,7 @@ public class CVueIsland implements Initializable, Observer {
                 Color c = modele.getRoundOf().getColor();
                 CardDraggable node = new CardDraggable(p, modele, card);
 
-                node.setPrefSize(TAILLE/3, TAILLE/2);
+                node.setPrefSize(50, 80);
                 node.setStyle(colorToStyle(Color.GRAY));
                 node.setModel(this.modele);
                 node.setColor(c);
@@ -198,8 +198,8 @@ public class CVueIsland implements Initializable, Observer {
                 node.setLayoutX(600+10+j*(60));
                 node.setLayoutY(50+120*i);
 
-                node.setSafeX(600+10+j*(60));
-                node.setSafeY(50+120*i);
+                node.setSafeX(600+80+30+j*(50+5));
+                node.setSafeY(35+125*i);
                 node.setPlayer(p);
                 arrayCards.add(node);
                 anch.getChildren().add(node);

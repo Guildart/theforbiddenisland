@@ -233,8 +233,7 @@ TODO LIST :
 
     **Priorité : High**
     - Impelementer echanges de carte (modele et interface)
-    - Faire en sorte que le joueurs puisse choisir quelles cartes défaussé si il a
-    plus de 6 cartes
+   
 
     
     **Priorité : Medium**

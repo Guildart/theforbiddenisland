@@ -151,7 +151,7 @@ public class CardDraggable extends Pane {
                     // appeler fonction pour soit assecher soit poser lhelicopter sur la case donne par la formule d'avant
                     Zone z = modele.getZone((int)x/CVueIsland.TAILLE, (int)y/CVueIsland.TAILLE);
 
-                    if(card == TresorCard.empty){
+                    if(card == TresorCard.sandbag){
                         if(z.getEtat()== Etat.inondee){
                             z.setEtat(Etat.normale);
                         }
@@ -170,7 +170,7 @@ public class CardDraggable extends Pane {
 
                             Player toPlayer = modele.getListPlayers().get((int)(y)/120);
                             System.out.println("panel numero "+ ((int)(y)/120));
-                            player.removeCard(card);
+                            //player.removeCard(card);
                             toPlayer.setCard(card);
 
                             //c = TresorCard.empty.getColor();
@@ -298,6 +298,7 @@ public class CardDraggable extends Pane {
     public void setCard(TresorCard card) {
         this.card = card;
     }
+
 
 
 }

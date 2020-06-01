@@ -76,16 +76,16 @@ public class Player{
             defausse.add(card);
             tas.remove(card);
         }else{
-            this.playerCards.add(card);
+            this.playerCards.add(0,card);
             System.out.println(card.toString());
             tas.remove(card);
         }
 
-        if(this.playerCards.size() > 8){
+        /*if(this.playerCards.size() > 8){
             card = playerCards.get(0);
             defausse.add(card);
             playerCards.remove(card);
-        }
+        }*/
     }
 
 
@@ -117,7 +117,7 @@ public class Player{
         return this.playerCards;
     }
     public void setCard(TresorCard c){
-        playerCards.add(c);
+        playerCards.add(0,c);
     }
 
     public void discardCard(ArrayList<TresorCard> toDiscard){
@@ -135,5 +135,13 @@ public class Player{
 
     public void removeCard(TresorCard card){
         playerCards.remove(card);
+    }
+
+    public int nombreCarte(){
+        int compteur = 0;
+        for(TresorCard card : this.playerCards)
+            if(card != TresorCard.empty)
+                compteur++;
+        return compteur;
     }
 }

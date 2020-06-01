@@ -55,7 +55,7 @@ public class CVuePlayer implements Initializable, Observer {
     @Override
     public void update() {
         this.repaint();
-        if(getPlayer().getCards().size() > 5 && modele.getRoundOf() == getPlayer()){
+        if(getPlayer().nombreCarte() > 5 && modele.getRoundOf() == getPlayer()){
             CVueDefausse dv = new CVueDefausse();
             dv.display(modele, getPlayer());
         }
@@ -90,7 +90,11 @@ public class CVuePlayer implements Initializable, Observer {
 
     public void updateCard(){
         ArrayList<TresorCard> listecard = getPlayer().getCards();
-        for(int i =0; i< listecard.size(); i++){
+        /*System.out.print("[");
+        for(TresorCard card: listecard)
+            System.out.print(card.toString()+ ", ");
+        System.out.println("]");*/
+        for(int i =0; i< getPlayer().getPlayerCardsDragtgable().size(); i++){
             //System.out.println(listecard.size());
             //System.out.println(arrayCards.size());
 

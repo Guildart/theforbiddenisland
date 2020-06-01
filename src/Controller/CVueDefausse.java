@@ -57,6 +57,8 @@ public class CVueDefausse implements Initializable {
 
     private int nbCardTodrop;
 
+    private int nbCardEmpty;
+
     private int cardH = 100;
     private int cardV = 160;
     private int gap = 20;
@@ -87,19 +89,21 @@ public class CVueDefausse implements Initializable {
 
         ArrayList<TresorCard> cards = player.getCards();
 
-        canvas = new Canvas(cards.size() * (gap+cardH) + 50,200);
+        nbCardTodrop = player.nombreCarte() - 5;
+        nbCardEmpty = player.getPlayerCardsDragtgable().size();
+        canvas = new Canvas((cards.size()-nbCardEmpty) * (gap+cardH) + 50,200);
         canvas.setOnMouseClicked(handleClickOnCanvas);
 
 
         GraphicsContext gcF = canvas.getGraphicsContext2D();
 
         container.getChildren().add(canvas);
-        nbCardTodrop = cards.size() - 5;
+
         label = new Label("Vous devez encore deffauser " + nbCardTodrop + " cartes");
         label.setFont(font);
         vbox.setSpacing(30);
 
-        for(int i = 0; i < cards.size(); i++){
+        for(int i = 0; i < cards.size()-nbCardEmpty; i++){
             TresorCard card = cards.get(i);
             gcF.setFill(card.getColor());
             gcF.fillRect(gap + i * (gap+cardH), 10, cardH, cardV);
@@ -152,7 +156,7 @@ public class CVueDefausse implements Initializable {
                         toDiscard.add(card);
                     }
 
-                    if(player.getCards().size() - toDiscard.size() < 6) {
+                    if(player.nombreCarte() - toDiscard.size() < 6) {
                         continueButton.setCancelButton(false);
                         label.setText("Vous devez encore deffauser " + 0 + " cartes");
                     }else
