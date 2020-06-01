@@ -1,6 +1,7 @@
 package Controller;
 
 import IleInterdite.Island;
+import IleInterdite.Navigateur;
 import IleInterdite.Player;
 import IleInterdite.Zone;
 import com.sun.javafx.image.BytePixelSetter;
@@ -79,7 +80,8 @@ class PionsDraggable extends Pane {
         onMouseDraggedProperty().set(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                if(modele.getRoundOf().equals(playerPion)) {
+                if(modele.getRoundOf().equals(playerPion) || modele.getRoundOf() instanceof Navigateur) {
+                    // permettre ici qu'on puisse déplacer d'autre joueur quand on utilise le navigateur
                     System.out.println(x+" "+y);
 
                     // Get the exact moved X and Y
@@ -122,7 +124,7 @@ class PionsDraggable extends Pane {
                 System.out.println("clicked");
                 System.out.println(modele.getRoundOf() + " " + playerPion);
 
-               if(modele.getRoundOf().equals(playerPion)){
+               if(modele.getRoundOf().equals(playerPion)){ // on set le joueur si c'est son tour
                     Player p = modele.getRoundOf();
                     int x = (int) event.getSceneX() /TAILLE;
                     int y = (int) event.getSceneY()/TAILLE;
@@ -143,15 +145,42 @@ class PionsDraggable extends Pane {
                         }
                         else
                             System.out.println("Mouvement interdit");
-                        modele.notifyObservers();
                     }
                     else
                     {
                         System.out.println("Mouvement en dehors du tableau");
-                        modele.notifyObservers();
 
                     }
-                }
+                   modele.notifyObservers();
+               }
+               else if(modele.getRoundOf() instanceof Navigateur){ // on déplace un autre joueur quand c'est au tour du navigateur
+                   Player p = modele.getRoundOf();
+                   int x = (int) event.getSceneX() /TAILLE;
+                   int y = (int) event.getSceneY()/TAILLE;
+                   if (x>=0 && x<Island.LARGEUR && y>=0 && y<Island.HAUTEUR ){ // on check qu'on est bien dans la grille
+                       Zone z = modele.getZone(x, y);
+                       ArrayList<Zone> listZones = Navigateur.zonesReachableNavigateur(modele, playerPion.getZone().getPosition());
+
+
+                       if(playerPion.isReachable(listZones,z) && p.canAct() && z != playerPion.getZone()) {
+                           playerPion.movePlayer(modele.getZone(x, y)); // on bouge l'autre joueur
+                           p.addAction(); // on incremente l'action du navigateur
+
+                           modele.notifyObservers();
+
+                       }
+                       else
+                           System.out.println("Mouvement interdit");
+                   }
+                   else
+                   {
+                       System.out.println("Mouvement en dehors du tableau");
+
+                   }
+                   modele.notifyObservers();
+
+               }
+
                 modele.notifyObservers();
 
                 dragging = false;

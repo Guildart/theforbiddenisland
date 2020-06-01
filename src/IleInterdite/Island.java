@@ -101,7 +101,11 @@ public class Island extends Observable {
         this.listPlayers.add(p);
 
         Color c2 = Color.BLACK;
-        addPlayer(c2);
+        //addPlayer(c2);
+        int[] tab2 = getRandomPoint();
+        Player p2 = new Navigateur(zones[tab2[0]][tab2[1]],c2, this);
+        this.listPlayers.add(p2);
+
 
         Color c3 = Color.PURPLE;
         addPlayer(c3);
