@@ -17,15 +17,15 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+
 
 import java.io.IOException;
 import java.net.URL;
@@ -68,6 +68,11 @@ public class CVueDefausse implements Initializable {
 
     public void display(Island modele, Player player){
         stage = new Stage();
+
+        //Parent root = FXMLLoader.load(getClass().getResource("/Vue/VueDiscard.fxml"));
+
+        Font font = Font.loadFont(getClass().getResourceAsStream("/image/treamd.ttf"),30);
+        System.out.println(font);
         vbox = new VBox();
         vbox.setAlignment(Pos.TOP_CENTER);
         container = new FlowPane();
@@ -77,29 +82,36 @@ public class CVueDefausse implements Initializable {
         continueButton.setOnMouseClicked(handleClickButton);
         this.modele = modele;
         this.player = player;
-        canvas = new Canvas(10 * (gap+cardH) + 50,200);
 
-        canvas.setOnMouseClicked(handleClickOnCanvas);
+
+
         ArrayList<TresorCard> cards = player.getCards();
+
+        canvas = new Canvas(cards.size() * (gap+cardH) + 50,200);
+        canvas.setOnMouseClicked(handleClickOnCanvas);
 
 
         GraphicsContext gcF = canvas.getGraphicsContext2D();
 
         container.getChildren().add(canvas);
         nbCardTodrop = cards.size() - 5;
-        label = new Label("Vous devez encore deffauser " + nbCardTodrop + "cartes");
+        label = new Label("Vous devez encore deffauser " + nbCardTodrop + " cartes");
+        label.setFont(font);
+        vbox.setSpacing(30);
+
         for(int i = 0; i < cards.size(); i++){
             TresorCard card = cards.get(i);
             gcF.setFill(card.getColor());
             gcF.fillRect(gap + i * (gap+cardH), 10, cardH, cardV);
         }
 
-        scrollPane.setMinHeight(210);
+        scrollPane.setMinHeight(220);
         scrollPane.setContent(container);
         vbox.getChildren().add(label);
         vbox.getChildren().add(continueButton);
         vbox.getChildren().add(scrollPane);
-        stage.setScene(new Scene(vbox, 500, 400));
+        //vbox.setPrefHeight();
+        stage.setScene(new Scene(vbox, 500, 345));
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setOpacity(0.95);
@@ -126,7 +138,6 @@ public class CVueDefausse implements Initializable {
 
     EventHandler<MouseEvent> handleClickOnCanvas = new EventHandler<MouseEvent>() {
                 public void handle(MouseEvent mouseEvent) {
-                    //double x = ((gap+cardH)+25)/mouseEvent.getX();
                     int x = (int)(mouseEvent.getX())/(gap+cardH);
                     System.out.println("pos x :" + x);
                     GraphicsContext gcF = canvas.getGraphicsContext2D();
@@ -143,9 +154,9 @@ public class CVueDefausse implements Initializable {
 
                     if(player.getCards().size() - toDiscard.size() < 6) {
                         continueButton.setCancelButton(false);
-                        label.setText("Vous devez encore deffauser " + 0 + "cartes");
+                        label.setText("Vous devez encore deffauser " + 0 + " cartes");
                     }else
-                        label.setText("Vous devez encore deffauser " + nbCardTodrop + "cartes");
+                        label.setText("Vous devez encore deffauser " + nbCardTodrop + " cartes");
                 }
             };
 
