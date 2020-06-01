@@ -148,7 +148,7 @@ public class Island extends Observable {
 
     private void addPlayer(Color c){
         int[] tab = getRandomPoint();
-        Player p = new Player(zones[tab[0]][tab[1]],c, this);
+        Player p = new Pilote(zones[tab[0]][tab[1]],c, this);
         this.listPlayers.add(p);
     }
 
