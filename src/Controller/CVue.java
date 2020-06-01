@@ -1,7 +1,8 @@
 package Controller;
 
-import IleInterdite.Island;
-import IleInterdite.Observer;
+import Enumeration.Artefacts;
+import Enumeration.Etat;
+import IleInterdite.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -10,8 +11,10 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 
+import java.awt.*;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.scene.paint.Color;
 
 public class CVue implements Initializable, Observer {
     @FXML
@@ -67,6 +70,7 @@ public class CVue implements Initializable, Observer {
         vueIslandController.setModel(this.modele); // ici je set le model dans la grille
         vuePlayersController.setModel(this.modele);
         vueGameController.setModele(this.modele);
+
         //vueMenu.toFront();
         //vuePlayersController.setModel(this.modele);
 
