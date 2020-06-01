@@ -108,7 +108,10 @@ public class Island extends Observable {
 
 
         Color c3 = Color.PURPLE;
-        addPlayer(c3);
+        //addPlayer(c3);
+        int[] tab3 = getRandomPoint();
+        Player p3 = new Plongeur(zones[tab3[0]][tab3[1]],c3, this);
+        this.listPlayers.add(p3);
 
         Color c4 = Color.GREY;
         addPlayer(c4);
