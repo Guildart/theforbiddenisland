@@ -55,7 +55,7 @@ public class CVuePlayer implements Initializable, Observer {
     @Override
     public void update() {
         this.repaint();
-        if(getPlayer().getCards().size() > 5 && modele.getRoundOf() == getPlayer()){
+        if(getPlayer().getCards().size() > 50 && modele.getRoundOf() == getPlayer()){
             CVueDefausse dv = new CVueDefausse();
             dv.display(modele, getPlayer());
         }
@@ -113,10 +113,10 @@ public class CVuePlayer implements Initializable, Observer {
                 gcF.setFill(card.getColor());
                 //TresorCard a = arrayCards.get(i).getCard();
                 //gcF.setFill(a .getColor());
-                arrayCards.get(i).setStyle(CVueIsland.colorToStyle(card.getColor()));
+                arrayCards.get(i).setStyle(CVueIsland.colorToStyleCard(card.getColor()));
             }else{
                 gcF.setFill(Color.WHITE);
-                arrayCards.get(i).setStyle(CVueIsland.colorToStyle( TresorCard.empty.getColor()));
+                arrayCards.get(i).setStyle(CVueIsland.colorToStyleCard( TresorCard.empty.getColor()));
             }
 
             gcF.fillRect(80+30+i*(50+5), 35, 50, 80);

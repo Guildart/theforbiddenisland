@@ -3,6 +3,7 @@ package Controller;
 import Enumeration.Etat;
 import Enumeration.TresorCard;
 import IleInterdite.*;
+import IleInterdite.Observer;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -11,6 +12,7 @@ import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -19,8 +21,7 @@ import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class CVueIsland implements Initializable, Observer {
 
@@ -78,20 +79,43 @@ public class CVueIsland implements Initializable, Observer {
             paintSafeZone(gcF, Color.AQUA, pos.x*TAILLE, pos.y*TAILLE);
         }
 
+        translatePionPlayer();
+
+
+
+    }
+
+    private void translatePionPlayer(){
         ArrayList<Player> liste = modele.getListPlayers();
+        ArrayList<Position> arrayPos = new ArrayList<>();
 
         for(int i = 0; i<liste.size(); i++){
             Position pos = liste.get(i).getZone().getPosition();
-            arrayPion.get(i).setX(pos.x*TAILLE);
-            arrayPion.get(i).setY(pos.y*TAILLE);
+
+            if(arrayPos.contains(pos)){
+                int a = Collections.frequency(arrayPos, pos);
+                if(a == 1 ){
+                    arrayPion.get(i).setY(pos.y*TAILLE);
+                    arrayPion.get(i).setX(TAILLE/2+pos.x*TAILLE);
+                }
+                else if(a==2){
+                    arrayPion.get(i).setY(TAILLE/2+pos.y*TAILLE);
+                    arrayPion.get(i).setX(pos.x*TAILLE);
+                }
+                else{
+                    arrayPion.get(i).setY(pos.y*TAILLE+TAILLE/2);
+                    arrayPion.get(i).setX(TAILLE/2+pos.x*TAILLE);
+                }
+
+            }else{
+                arrayPion.get(i).setY(pos.y*TAILLE);
+                arrayPion.get(i).setX(pos.x*TAILLE);
+
+            }
+
+            arrayPos.add(pos);
+
         }
-
-
-        /*for(int i = 0; i<arrayCards.size(); i++){
-            arrayCards.get(i).translateSafeX();
-            arrayCards.get(i).translateSafeY();
-        }*/
-
     }
 
     private void paintZone(GraphicsContext g, Zone c, int x, int y) {
@@ -158,8 +182,13 @@ public class CVueIsland implements Initializable, Observer {
         for (int i = 0; i < numNodes; i++) {
             PionsDraggable node = new PionsDraggable(liste.get(i), modele);
             node.setPrefSize(TAILLE/2, TAILLE/2);
-            node.setStyle(colorToStyle(liste.get(i).getColor()));
+            node.setStyle(colorToStylePion(liste.get(i).getColor()));
 
+            // TODO gérer les images ici
+            /*ImageView iv1 = new ImageView(new Image("http://icons.iconarchive.com/icons/kidaubis-design/cool-heroes/128/Ironman-icon.png"));
+            iv1.relocate(0, 0);
+            node.getChildren().addAll(iv1);
+            */
 
             //node.setLayoutX(spacing*(i+1) + node.getPrefWidth()*i);
             //node.setLayoutY(spacing);
@@ -189,12 +218,15 @@ public class CVueIsland implements Initializable, Observer {
                 Color c = modele.getRoundOf().getColor();
                 CardDraggable node = new CardDraggable(p, modele, card);
 
+                Shape circle = new Circle(12,12,12);
+
+
+
                 node.setPrefSize(TAILLE/3, TAILLE/2);
-                node.setStyle(colorToStyle(Color.GRAY));
+                node.setStyle(colorToStyleCard(Color.GRAY));
                 node.setModel(this.modele);
                 node.setColor(c);
                 node.setCard(TresorCard.empty);
-
                 node.setLayoutX(600+10+j*(60));
                 node.setLayoutY(50+120*i);
 
@@ -229,7 +261,14 @@ public class CVueIsland implements Initializable, Observer {
     }
 
 
-    public static String colorToStyle(Color c){
+    public static String colorToStylePion(Color c){
+        return
+                "-fx-background-color:"+toRGBCode(c) +";"
+                + "-fx-border-radius: 50%; "
+                + "-fx-border-color: black;";
+    }
+
+    public static String colorToStyleCard(Color c){
         return "-fx-background-color:"+toRGBCode(c) +"; "
                 + "-fx-text-fill: black; "
                 + "-fx-border-color: black;";
