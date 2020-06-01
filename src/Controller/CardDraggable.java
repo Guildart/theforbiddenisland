@@ -173,8 +173,8 @@ public class CardDraggable extends Pane {
                             //player.removeCard(card);
                             toPlayer.setCard(card);
 
-                            //c = TresorCard.empty.getColor();
-                            //card = TresorCard.empty;
+                            c = TresorCard.empty.getColor();
+                            card = TresorCard.empty;
                         }
 
                     }
