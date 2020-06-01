@@ -5,21 +5,15 @@ import IleInterdite.Island;
 import IleInterdite.Observer;
 import IleInterdite.Player;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 
 import java.awt.*;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import javafx.scene.control.Alert;
-import javafx.scene.control.DialogPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Popup;
@@ -42,7 +36,7 @@ public class CVuePlayer implements Initializable, Observer {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Dimension dim = new Dimension(LARGEUR*10, HAUTEUR);
+        Dimension dim = new Dimension(LARGEUR, HAUTEUR);
         gcF = viewplayer.getGraphicsContext2D();
         gcF.setFill(Color.RED);
         gcF.fillRect(0, 0, LARGEUR,HAUTEUR);
@@ -55,6 +49,9 @@ public class CVuePlayer implements Initializable, Observer {
     }
 
     public void repaint(){
+        Popup popup = new Popup();
+        //popup.show(anch, 10, 10);
+        //popup.show(anch.getScene().getWindow());
 
         Color c = Color.PINK;
         gcF.setFill(c);
@@ -72,7 +69,7 @@ public class CVuePlayer implements Initializable, Observer {
         gcF.setFill(c);
         /** Coloration d'un rectangle. */
         //*gcF.fillOval(LARGEUR/2, 20, 20, 20);
-        gcF.fillOval(10, 30, 80, 80);
+        gcF.fillOval(40/2, 150, 40, 40);
 
     }
 
@@ -80,7 +77,7 @@ public class CVuePlayer implements Initializable, Observer {
 
     private void paintCard(){
         ArrayList<TresorCard> listecard = getPlayer().getCards();
-        for(int i = 0; i < 5; i++){
+        for(int i = 0; i < 6; i++){
             if(listecard.size() > i) {
                 TresorCard card = listecard.get(i);
                 gcF.setFill(card.getColor());
@@ -88,7 +85,7 @@ public class CVuePlayer implements Initializable, Observer {
                 gcF.setFill(Color.WHITE);
             }
 
-            gcF.fillRect(80+30+i*(50+5), 35, 50, 80);
+            gcF.fillRect(5+i*(60+3), 30, 60, 90);
         }
     }
 

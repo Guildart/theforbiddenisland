@@ -1,6 +1,7 @@
 package Controller;
 
 import Enumeration.Etat;
+import Enumeration.TresorCard;
 import IleInterdite.*;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -15,6 +16,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -34,6 +36,7 @@ public class CVueIsland implements Initializable, Observer {
     public AnchorPane anch;
 
     private ArrayList<PionsDraggable> arrayPion = new ArrayList<>();
+    private ArrayList<CardDraggable> arrayCards = new ArrayList<>();
 
     private int TAILLE = 100;
     private GraphicsContext gcF;
@@ -81,6 +84,12 @@ public class CVueIsland implements Initializable, Observer {
             Position pos = liste.get(i).getZone().getPosition();
             arrayPion.get(i).setX(pos.x*TAILLE);
             arrayPion.get(i).setY(pos.y*TAILLE);
+        }
+
+
+        for(int i = 0; i<arrayCards.size(); i++){
+            arrayCards.get(i).translateSafeX();
+            arrayCards.get(i).translateSafeY();
         }
 
     }
@@ -151,7 +160,6 @@ public class CVueIsland implements Initializable, Observer {
             node.setPrefSize(TAILLE/2, TAILLE/2);
             node.setStyle(colorToStyle(liste.get(i).getColor()));
 
-            Shape c1 = new Circle(0,10,10);
 
             //node.setLayoutX(spacing*(i+1) + node.getPrefWidth()*i);
             //node.setLayoutY(spacing);
@@ -168,7 +176,41 @@ public class CVueIsland implements Initializable, Observer {
             anch.getChildren().add(node);
         }
 
+        ArrayList<TresorCard> listecard = modele.getRoundOf().getCards();
+
+        for(int i = 0; i < modele.getListPlayers().size(); i++){
+            Player p = modele.getListPlayers().get(i);
+            for(int k = 0; k<6 ;k++)
+            p.setCard(TresorCard.clef_eau);
+            for(int j = 0; j<p.getCards().size(); j++){
+                TresorCard card = p.getCards().get(j);
+
+                Color c = modele.getRoundOf().getColor();
+                CardDraggable node = new CardDraggable(p, modele, card);
+
+                node.setPrefSize(TAILLE/3, TAILLE/2);
+                node.setStyle(colorToStyle(liste.get(i).getColor()));
+                node.setModel(this.modele);
+                node.setColor(c);
+
+                node.setLayoutX(600+10+j*(60));
+                node.setLayoutY(50+120*i);
+
+                node.setSafeX(600+10+j*(60));
+                node.setSafeY(50+120*i);
+
+                arrayCards.add(node);
+                anch.getChildren().add(node);
+
+
+            }
+
+        }
+
+
+
         System.out.println("grille modele: "+ arrayPion.size());
+        System.out.println("grille modele: "+ arrayCards.size());
 
 
         System.out.println("grille modele: "+ modele);

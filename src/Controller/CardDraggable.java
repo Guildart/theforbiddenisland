@@ -1,24 +1,18 @@
 package Controller;
 
+import Enumeration.TresorCard;
 import IleInterdite.Island;
 import IleInterdite.Player;
 import IleInterdite.Zone;
-import com.sun.javafx.image.BytePixelSetter;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
-class PionsDraggable extends Pane {
+public class CardDraggable extends Pane {
 
     // node position
     private double x = 0;
@@ -35,14 +29,41 @@ class PionsDraggable extends Pane {
     private Player playerPion;
     private Color c;
     private Island modele;
+    private TresorCard card;
+
+
+    // origine position
+    private double safeX = 0;
 
 
 
-    public PionsDraggable(Node view) {
+    private double safeY = 0;
+
+
+
+    public CardDraggable(Node view) {
 
         this.view = view;
         getChildren().add(view);
         init();
+    }
+
+    public void setSafeX(double safeX) {
+        this.safeX = safeX;
+
+    }
+
+    public void setSafeY(double safeY) {
+        this.safeY = safeY;
+
+    }
+
+    public void translateSafeX() {
+        setLayoutX(safeX);
+    }
+
+    public void translateSafeY() {
+        setLayoutY(safeY);
     }
 
 
@@ -51,9 +72,10 @@ class PionsDraggable extends Pane {
     }
 
 
-    PionsDraggable(Player playerPion, Island modele){
+    CardDraggable(Player playerPion, Island modele, TresorCard card){
         this.playerPion = playerPion;
         this.modele = modele;
+        this.card = card;
         this.init();
         released = false;
     }
@@ -81,11 +103,10 @@ class PionsDraggable extends Pane {
         onMouseDraggedProperty().set(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                if(modele.getRoundOf().equals(playerPion)) {
-                    System.out.println(x+" "+y);
 
                     // Get the exact moved X and Y
-                    System.out.println("draged");
+                System.out.println("draged"+ event.toString());
+                System.out.println(x+" "+y);
                     double offsetX = event.getSceneX() - mousex;
                     double offsetY = event.getSceneY() - mousey;
 
@@ -109,47 +130,37 @@ class PionsDraggable extends Pane {
 
                     event.consume();
                 }
-            }
+
         });
 
         onMouseClickedProperty().set(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 System.out.println("clicked");
-                System.out.println(modele.getRoundOf() + " " + playerPion);
-
-               if(modele.getRoundOf().equals(playerPion)){
-                    Player p = modele.getRoundOf();
-                    int x = (int) event.getSceneX() /TAILLE;
-                    int y = (int) event.getSceneY()/TAILLE;
-                    System.out.println("pos x : " + x + "pos y : " + y);
-                    System.out.println("vuePion click");
-                    if (x>0 && x<modele.LARGEUR && y>0 && y<modele.HAUTEUR ){
-
-                        Zone z = modele.getZone(x, y);
-
-                        ArrayList<Zone> listZones = modele.zonesReachable(modele.getRoundOf().getZone());
-                        if(modele.isReachable(listZones, z) && p.canAct() && z != playerPion.getZone()) {
-                            p.movePlayer(modele.getZone(x, y));
-                            p.addAction();
-                            //this.translate( (int) mouseEvent.getSceneX(), (int) mouseEvent.getSceneY());
-                            modele.notifyObservers();
-
-                        }
-                        else
-                            System.out.println("Mouvement interdit");
-                        modele.notifyObservers();
-                    }
-                    else
-                    {
-                        System.out.println("Mouvement en dehors du tableau");
-                        modele.notifyObservers();
-
-                    }
-                }
+                modele.notifyObservers();
 
                 dragging = false;
+
             }
+
+
+
+
+        });
+
+        onMouseDragReleasedProperty().set(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                System.out.println("released"+ " " + playerPion.getZone().toString());
+                modele.notifyObservers();
+
+                dragging = false;
+
+            }
+
+
+
+
         });
 
 
@@ -164,7 +175,7 @@ class PionsDraggable extends Pane {
         this.modele = modele;
     }
 
-    public PionsDraggable() {
+    public CardDraggable() {
         init();
     }
 

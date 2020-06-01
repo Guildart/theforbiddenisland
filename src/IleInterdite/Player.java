@@ -114,5 +114,8 @@ public class Player{
     public ArrayList<TresorCard> getCards(){
         return this.playerCards;
     }
+    public void setCard(TresorCard c){
+        playerCards.add(c);
+    }
 
 }
