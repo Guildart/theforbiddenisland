@@ -156,11 +156,13 @@ public class CardDraggable extends Pane {
                             z.setEtat(Etat.normale);
                         }
                         player.removeCard(card);
+                        modele.addToDefausseCarteTresor(card);
 
                     }
                     else if(card == TresorCard.helicopter){ // déplace le joueur ou on veut en glissant la carte sur une case de la grille
                         player.movePlayer(modele.getZone((int)x/CVueIsland.TAILLE,(int)y/CVueIsland.TAILLE));
                         player.removeCard(card);
+                        modele.addToDefausseCarteTresor(card);
                     }
 
                 }else
@@ -170,11 +172,9 @@ public class CardDraggable extends Pane {
 
                             Player toPlayer = modele.getListPlayers().get((int)(y)/120);
                             System.out.println("panel numero "+ ((int)(y)/120));
-                            //player.removeCard(card);
+                            player.removeCard(card);
+                            modele.addToDefausseCarteTresor(card);
                             toPlayer.setCard(card);
-
-                            //c = TresorCard.empty.getColor();
-                            //card = TresorCard.empty;
                         }
 
                     }
