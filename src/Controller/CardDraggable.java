@@ -145,7 +145,7 @@ public class CardDraggable extends Pane {
             public void handle(MouseEvent event) {
                 System.out.println("clicked");
 
-                if (x<600){
+                if (x<600 && modele.getRoundOf()==player){
                     System.out.println("grille");
                     System.out.println("x"+ (int)x/CVueIsland.TAILLE + "y " + (int)y/CVueIsland.TAILLE);
                     // appeler fonction pour soit assecher soit poser lhelicopter sur la case donne par la formule d'avant
@@ -156,25 +156,25 @@ public class CardDraggable extends Pane {
                             z.setEtat(Etat.normale);
                         }
                         player.removeCard(card);
+                        modele.addToDefausseCarteTresor(card);
 
                     }
                     else if(card == TresorCard.helicopter){ // déplace le joueur ou on veut en glissant la carte sur une case de la grille
                         player.movePlayer(modele.getZone((int)x/CVueIsland.TAILLE,(int)y/CVueIsland.TAILLE));
                         player.removeCard(card);
+                        modele.addToDefausseCarteTresor(card);
                     }
 
-                }else
-                {
+                }else if(modele.getRoundOf()==player) {
                     if(y<480){
                         if(card != TresorCard.empty){
 
                             Player toPlayer = modele.getListPlayers().get((int)(y)/120);
                             System.out.println("panel numero "+ ((int)(y)/120));
-                            //player.removeCard(card);
+                            player.removeCard(card);
+                            modele.addToDefausseCarteTresor(card);
+                            player.addAction();
                             toPlayer.setCard(card);
-
-                            c = TresorCard.empty.getColor();
-                            card = TresorCard.empty;
                         }
 
                     }

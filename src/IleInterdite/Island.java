@@ -369,4 +369,8 @@ public class Island extends Observable {
         return this.seaLevel;
     }
 
+    public void addToDefausseCarteTresor(TresorCard card){
+        this.defausseCarteTresor.add(card);
+    }
+
 }
