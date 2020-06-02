@@ -23,8 +23,8 @@ public class CVueGame implements Observer{
     public Canvas viewGame;
     private Island modele;
     private GraphicsContext gcF;
-    public HashMap<Artefacts, Image> artefactsGris = new HashMap<Artefacts, Image>();
-    public HashMap<Artefacts, Image> artefactsCouleur = new HashMap<Artefacts, Image>();
+   /* public HashMap<Artefacts, Image> artefactsGris = new HashMap<Artefacts, Image>();
+    public HashMap<Artefacts, Image> artefactsCouleur = new HashMap<Artefacts, Image>();*/
     public ArrayList<Artefacts> artefactsList = new ArrayList();
 
 
@@ -35,7 +35,7 @@ public class CVueGame implements Observer{
 
     public void initialize() {
 
-        artefactsGris.put(Artefacts.eau, new Image(getClass().getResource("/image/eau_g.png").toExternalForm()));
+        /*artefactsGris.put(Artefacts.eau, new Image(getClass().getResource("/image/eau_g.png").toExternalForm()));
         artefactsGris.put(Artefacts.feu, new Image(getClass().getResource("/image/feu_g.png").toExternalForm()));
         artefactsGris.put(Artefacts.air, new Image(getClass().getResource("/image/vent_g.png").toExternalForm()));
         artefactsGris.put(Artefacts.terre, new Image(getClass().getResource("/image/terre_g.png").toExternalForm()));
@@ -43,7 +43,7 @@ public class CVueGame implements Observer{
         artefactsGris.put(Artefacts.eau, new Image(getClass().getResource("/image/eau.png").toExternalForm()));
         artefactsGris.put(Artefacts.feu, new Image(getClass().getResource("/image/feu.png").toExternalForm()));
         artefactsGris.put(Artefacts.air, new Image(getClass().getResource("/image/vent.png").toExternalForm()));
-        artefactsGris.put(Artefacts.terre, new Image(getClass().getResource("/image/terre.png").toExternalForm()));
+        artefactsGris.put(Artefacts.terre, new Image(getClass().getResource("/image/terre.png").toExternalForm()));*/
 
         artefactsList.add(Artefacts.eau);
         artefactsList.add(Artefacts.feu);
@@ -56,26 +56,37 @@ public class CVueGame implements Observer{
         this.modele = modele;
         modele.addObserver(this);
         modele.notifyObservers();
-        initialize();
     }
 
     public void repaint() {
         /** Pour chaque cellule... */
 
-        initialize();
+        //initialize();
         gcF = this.viewGame.getGraphicsContext2D();
 
         gcF.clearRect(0, 0, viewGame.getWidth(), viewGame.getHeight());
 
         URL imageURL = getClass().getResource("/image/jauge.png");
         Image image = new Image(imageURL.toExternalForm());
-        gcF.drawImage(image, 250,30);
+        gcF.drawImage(image, 320,30);
         int seaLevel = modele.getSeaLevel();
 
         Image pointeur = new Image(getClass().getResource("/image/pointer.png").toExternalForm());
-        gcF.drawImage(pointeur, 250-5+(30*(seaLevel-1)),30-20);
+        gcF.drawImage(pointeur, 320-5+(30*(seaLevel-1)),30-20);
 
-        /**Affiche Artefacts**/
+        int compteur = 0;
+        for( Artefacts a : artefactsList){
+            Image image1;
+            if(modele.getListArtefacts().contains(a))
+                image1 = a.getImageOrgi();
+            else
+                image1 = a.getImageGris();
+
+            ImageView img =  new ImageView(image1);
+            gcF.drawImage(image1,300+100*compteur,100);
+            compteur++;
+        }
+
 
     }
 

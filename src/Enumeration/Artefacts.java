@@ -19,6 +19,10 @@ public enum Artefacts {
     Image imageTerre =  new Image(imgUrlTerre.toExternalForm(),20,20,true,true);
     Image imageNone =  new Image(imgUrlNone.toExternalForm(),20,20,true,true);
 
+
+
+
+
     public Image getImage(){
         switch (this){
             case air:
@@ -29,6 +33,36 @@ public enum Artefacts {
                 return imageFeu;
             case terre:
                 return imageTerre;
+        }
+        return imageNone;
+
+    }
+
+    public Image getImageGris(){
+        switch (this){
+            case air:
+                return  new Image(getClass().getResource("/image/vent_g.png").toExternalForm());
+            case eau:
+                return new Image(getClass().getResource("/image/eau_g.png").toExternalForm());
+            case feu:
+                return  new Image(getClass().getResource("/image/feu_g.png").toExternalForm());
+            case terre:
+                return  new Image(getClass().getResource("/image/terre_g.png").toExternalForm());
+        }
+        return imageNone;
+
+    }
+
+    public Image getImageOrgi(){
+        switch (this){
+            case air:
+                return  new Image(getClass().getResource("/image/vent.png").toExternalForm());
+            case eau:
+                return new Image(getClass().getResource("/image/eau.png").toExternalForm());
+            case feu:
+                return  new Image(getClass().getResource("/image/feu.png").toExternalForm());
+            case terre:
+                return  new Image(getClass().getResource("/image/terre.png").toExternalForm());
         }
         return imageNone;
 

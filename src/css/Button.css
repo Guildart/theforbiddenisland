@@ -63,6 +63,29 @@
 	-fx-top:1px;
 }
 
+#Quit:hover,{
+    	-fx-background-color:linear-gradient(to bottom, #44c767 5%, #5cbf2a 100%);
+    	-fx-background-color:#CF2323;
+
+    	-fx-display:inline-block;
+    	-fx-cursor:pointer;
+    	-fx-color:#FF0000;
+    	-fx-font-family:Arial;
+}
+
+#Quit:pressed,{
+    	-fx-background-color:linear-gradient(to bottom, #44c767 5%, #5cbf2a 100%);
+    	-fx-background-color:#B02626;
+
+    	-fx-display:inline-block;
+    	-fx-cursor:pointer;
+    	-fx-color:#FF0000;
+    	-fx-font-family:Arial;
+}
+
+
+
+
 #selectAction:selected {
     -fx-background-color:#FF0000;
 }
