@@ -21,6 +21,19 @@ public enum Artefacts {
 
 
 
+    public TresorCard getKeyAssociated(){
+        switch(this) {
+            case air:
+                return TresorCard.clef_air;
+            case eau:
+                return TresorCard.clef_eau;
+            case feu:
+                return TresorCard.clef_feu;
+            case terre:
+                return TresorCard.clef_terre;
+        }
+        return TresorCard.empty;
+    }
 
 
     public Image getImage(){

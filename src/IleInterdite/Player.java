@@ -54,7 +54,7 @@ public class Player{
             zone.setArtefacts(Artefacts.none);
             modele.getListArtefacts().add(artefacts);
             for (int i = 0; i < 4; i++)
-                this.playerCards.remove(artefacts);
+                this.defausseCard(artefacts.getKeyAssociated());
         }else{
             System.out.println("Not allow here !");
         }

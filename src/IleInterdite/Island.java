@@ -207,13 +207,12 @@ public class Island extends Observable {
             }
         }
 
+
+        RoundOf.searchKey(this.tasCarteTresor, this.defausseCarteTresor, this);
+        RoundOf.searchKey(this.tasCarteTresor, this.defausseCarteTresor, this);
+
         displayLose(); // appelle cette méthode qui va tester l'état de défaite
         // l'état de victoire est testé par un controlleur
-
-
-        RoundOf.searchKey(this.tasCarteTresor, this.defausseCarteTresor, this);
-        RoundOf.searchKey(this.tasCarteTresor, this.defausseCarteTresor, this);
-
 
         /*listArtefacts.add(Artefacts.eau);
         listArtefacts.add(Artefacts.eau);
@@ -326,6 +325,8 @@ public class Island extends Observable {
             if(!p.getZone().isSafe())
                 return true;
         }
+        if(this.seaLevel >= 11)
+            return true;
         int[][] counterElmts = new int [4][1];
         for(int i=0; i<LARGEUR; i++) {
             for (int j = 0; j < HAUTEUR; j++) {
@@ -386,6 +387,7 @@ public class Island extends Observable {
      * ainsi que le nombre de carte à piocher
      */
     public void risingWater(){
+
         this.seaLevel= 1+(this.seaLevel)%11;
         if(this.seaLevel > 7)
             this.numberCardToPick = 5;
@@ -395,6 +397,7 @@ public class Island extends Observable {
             this.numberCardToPick = 3;
         else
             this.numberCardToPick = 2;
+        System.out.println(seaLevel);
         System.out.println(this.numberCardToPick + " card to pick");
     }
 

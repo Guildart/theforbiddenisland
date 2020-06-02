@@ -68,7 +68,8 @@ Comment ça se joue :
     l'île
     
     - Les joueurs perdent si toutes les tuiles contenant un artefacts sombres avant qu'il l'ai 
-    récupéré, si un joueur se noie ou si l'héliport sombre
+    récupéré, si un joueur se noie, si l'héliport sombre ou si le niveau de l'eau atteint la tête
+    de mort.
     
     
 Un mots sur les graphismes :
@@ -251,6 +252,8 @@ Update Romain 01/05/2020:
     - Affichage des noms des joueurs à coté de leurs logo
     - Mise en place du systeme de coloration de la main du joueur dont c'est le tour
     - Commentaire de code et clean up
+    - Fix Bug fin de partie doit prendre en compte niveau de l'eau
+    - Fix Bug après avoir pris l'artefacts les 4 clés doivent être défaussé
 
     
 Update Ramdane 01/06/2020:
