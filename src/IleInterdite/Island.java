@@ -51,6 +51,8 @@ public class Island extends Observable {
     private int seaLevel = 1;
     private int numberCardToPick = 2;
     private boolean endOfGame = false;
+    private boolean testEndOfGame = false;
+
     FXMLLoader loader ;
     Stage stage;
 
@@ -67,10 +69,10 @@ public class Island extends Observable {
             }
         }
         init();
-       /* listArtefacts.add(Artefacts.air);
+        listArtefacts.add(Artefacts.air);
         listArtefacts.add(Artefacts.eau);
         listArtefacts.add(Artefacts.feu);
-        listArtefacts.add(Artefacts.terre);*/
+        listArtefacts.add(Artefacts.terre);
     }
 
     /**
@@ -141,6 +143,10 @@ public class Island extends Observable {
             tasCarteInnondation.add(new Zone(Etat.normale, new Position(0,0), Artefacts.none));
         }
         Collections.shuffle(tasCarteInnondation); //Pour mélanger
+    }
+
+    public void enableTestEndOfGame(){
+        testEndOfGame=true;
     }
 
     private void initTasCarteTresor(){
@@ -215,21 +221,8 @@ public class Island extends Observable {
                 tasCarteInnondation.remove(z);
             }
         }
+        displayLose();
 
-        if(this.Lose()){// pour perdre faut aussi tester que les zones artefactrs sont submergées
-
-
-            notifyObservers();
-            EndOfGame dv = new EndOfGame();
-            dv.display(this, "perdu", loader,stage);
-            endOfGame=true;
-        }
-        else if(this.Win()){ // tester autre chose
-            notifyObservers();
-            EndOfGame dv = new EndOfGame();
-            dv.display(this, "gagné", loader,stage);
-            endOfGame=true;
-        }
 
         RoundOf.searchKey(this.tasCarteTresor, this.defausseCarteTresor, this);
         RoundOf.searchKey(this.tasCarteTresor, this.defausseCarteTresor, this);
@@ -293,35 +286,61 @@ public class Island extends Observable {
         return zones[x][y];
     }
 
+    public void displayLose(){
+        if(this.Lose()){// pour perdre faut aussi tester que les zones artefactrs sont submergées
+
+
+            notifyObservers();
+            EndOfGame dv = new EndOfGame();
+            dv.display(this, "perdu", loader,stage);
+            endOfGame=true;
+        }
+    }
+
+    public void displayWin(){
+         if(this.Win()) { // tester autre chose
+             notifyObservers();
+             EndOfGame dv = new EndOfGame();
+             dv.display(this, "gagné", loader, stage);
+             endOfGame = true;
+         }
+    }
+
     /**
      * Une méthode pour tester l'état de victoire
      */
-    public boolean Win(){
-        Player p1 = listPlayers.get(0);
+    public boolean Win() {
+        if (testEndOfGame) { // test si on utilisé la carte heliport
+            Player p1 = listPlayers.get(0);
 
 
-        if(!p1.getZone().isHeliport())
-            return false;
-
-
-        for(Player p: listPlayers){ // les joueurs doivent être sur la même zone
-            if(!p1.getZone().equals(p.getZone()))
+            if (!p1.getZone().isHeliport())
                 return false;
-            p1=p;
+
+
+            for (Player p : listPlayers) { // les joueurs doivent être sur la même zone
+                if (!p1.getZone().equals(p.getZone()))
+                    return false;
+                p1 = p;
+            }
+            if(haveFourElements())
+                return true;
+
+            testEndOfGame = false; // si le test échoue on retourne à false
+
         }
-        if(!haveFourElements())
+
             return false;
-
-        return true;
     }
 
-    public boolean haveFourElements(){
+        public boolean haveFourElements(){
 
-        return listArtefacts.contains(Artefacts.air) &&
-                listArtefacts.contains(Artefacts.terre) &&
-                listArtefacts.contains(Artefacts.eau) &&
-                listArtefacts.contains(Artefacts.feu);
-    }
+            return listArtefacts.contains(Artefacts.air) &&
+                    listArtefacts.contains(Artefacts.terre) &&
+                    listArtefacts.contains(Artefacts.eau) &&
+                    listArtefacts.contains(Artefacts.feu);
+        }
+
 
     /**
      * Une méthode pour tester l'état de jeu perdu
