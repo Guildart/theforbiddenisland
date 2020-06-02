@@ -7,6 +7,6 @@
 <AnchorPane prefHeight="200" prefWidth="1000" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CVueGame">
     <children>
         <Canvas fx:id="viewGame" height="200" width="1000" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <Text fx:id="text" layoutX="392.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="216.13671875" />
+      <Text fx:id="text" layoutX="400.0" layoutY="14.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="363.13671875" AnchorPane.rightAnchor="4.0" />
     </children>
 </AnchorPane>

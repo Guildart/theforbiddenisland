@@ -75,7 +75,8 @@ public class CVueGame implements Observer{
         Image image = new Image(imageURL.toExternalForm());
         gcF.drawImage(image, 320,30);
         int seaLevel = modele.getSeaLevel();
-        text.setText("Il vous reste "+ (3-Player.nbActionsRestant) + " actions.");
+        //text.setX(350);
+        text.setText(modele.getRoundOf().toString() + ": " + (3-Player.nbActionsRestant) + " actions restantes");
         Image pointeur = new Image(getClass().getResource("/image/pointer.png").toExternalForm());
         gcF.drawImage(pointeur, 320-5+(30*(seaLevel-1)),30-20);
 
