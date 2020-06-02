@@ -170,10 +170,18 @@ public class CardDraggable extends Pane {
                         modele.addToDefausseCarteTresor(card);
 
                     }
-                    else if(card == TresorCard.helicopter){ // déplace le joueur ou on veut en glissant la carte sur une case de la grille
-                        player.movePlayer(modele.getZone((int)x/CVueIsland.TAILLE,(int)y/CVueIsland.TAILLE));
-                        player.removeCard(card);
-                        modele.addToDefausseCarteTresor(card);
+                    else if(card == TresorCard.helicopter){
+                        System.out.println("HELICO ");
+
+                        if(modele.getZone((int)x/CVueIsland.TAILLE,(int)y/CVueIsland.TAILLE).isHeliport()){ // cas de fin du jeu
+                            modele.enableTestEndOfGame(); // on rend le test possible de la fin du jeu possible sur l'action de la carte helicoptere sur l'heliport
+                            modele.displayWin(); // on affiche l'ecran de fin
+                        }
+                        player.movePlayer(modele.getZone((int)x/CVueIsland.TAILLE,(int)y/CVueIsland.TAILLE)); // je le teleporte quand meme si ca échoue
+                        player.removeCard(card); // dans tous les cas on retire la carte
+                        modele.addToDefausseCarteTresor(card); // puis on la défausse
+                        // si c'est bien la fin de partie,
+
                     }
 
                 }else if(modele.getRoundOf()==player) {

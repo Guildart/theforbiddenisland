@@ -49,19 +49,8 @@ public class EndOfGame implements Initializable {
 
     private Stage stage;
 
-    private Player player;
-
     private Island modele;
 
-    private ArrayList<TresorCard> toDiscard = new ArrayList();
-
-    private int nbCardTodrop;
-
-    private int nbCardEmpty;
-
-    private int cardH = 100;
-    private int cardV = 160;
-    private int gap = 20;
     private FXMLLoader loader;
     private Stage stageP;
     @Override
@@ -117,7 +106,7 @@ public class EndOfGame implements Initializable {
         stage.setScene(new Scene(vbox, 500, 345));
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setOpacity(0.95);
+        stage.setOpacity(0.50);
         stage.toFront();
         stage.showAndWait();
 

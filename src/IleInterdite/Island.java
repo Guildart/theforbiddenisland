@@ -51,6 +51,8 @@ public class Island extends Observable {
     private int seaLevel = 1;
     private int numberCardToPick = 2;
     private boolean endOfGame = false;
+    private boolean testEndOfGame = false;
+
     FXMLLoader loader ;
     Stage stage;
 
@@ -143,6 +145,10 @@ public class Island extends Observable {
         Collections.shuffle(tasCarteInnondation); //Pour mélanger
     }
 
+    public void enableTestEndOfGame(){
+        testEndOfGame=true;
+    }
+
     private void initTasCarteTresor(){
 
         //3 * Chaque Cartes spéciale
@@ -215,21 +221,8 @@ public class Island extends Observable {
                 tasCarteInnondation.remove(z);
             }
         }
+        displayLose();
 
-        if(this.Lose()){// pour perdre faut aussi tester que les zones artefactrs sont submergées
-
-
-            notifyObservers();
-            EndOfGame dv = new EndOfGame();
-            dv.display(this, "perdu", loader,stage);
-            endOfGame=true;
-        }
-        else if(this.Win()){ // tester autre chose
-            notifyObservers();
-            EndOfGame dv = new EndOfGame();
-            dv.display(this, "gagné", loader,stage);
-            endOfGame=true;
-        }
 
         RoundOf.searchKey(this.tasCarteTresor, this.defausseCarteTresor, this);
         RoundOf.searchKey(this.tasCarteTresor, this.defausseCarteTresor, this);
@@ -293,21 +286,61 @@ public class Island extends Observable {
         return zones[x][y];
     }
 
+    public void displayLose(){
+        if(this.Lose()){// pour perdre faut aussi tester que les zones artefactrs sont submergées
+
+
+            notifyObservers();
+            EndOfGame dv = new EndOfGame();
+            dv.display(this, "perdu", loader,stage);
+            endOfGame=true;
+        }
+    }
+
+    public void displayWin(){
+         if(this.Win()) { // tester autre chose
+             notifyObservers();
+             EndOfGame dv = new EndOfGame();
+             dv.display(this, "gagné", loader, stage);
+             endOfGame = true;
+         }
+    }
+
     /**
      * Une méthode pour tester l'état de victoire
      */
-    public boolean Win(){
-        Player p1 = listPlayers.get(0);
-        if(!p1.getZone().isHeliport())
-            return false;
+    public boolean Win() {
+        if (testEndOfGame) { // test si on utilisé la carte heliport
+            Player p1 = listPlayers.get(0);
 
-        for(Player p: listPlayers){ // les joueurs doivent être sur la même zone
-            if(!p1.getZone().equals(p.getZone()))
+
+            if (!p1.getZone().isHeliport())
                 return false;
-            p1=p;
+
+
+            for (Player p : listPlayers) { // les joueurs doivent être sur la même zone
+                if (!p1.getZone().equals(p.getZone()))
+                    return false;
+                p1 = p;
+            }
+            if(haveFourElements())
+                return true;
+
+            testEndOfGame = false; // si le test échoue on retourne à false
+
         }
-        return true;
+
+            return false;
     }
+
+        public boolean haveFourElements(){
+
+            return listArtefacts.contains(Artefacts.air) &&
+                    listArtefacts.contains(Artefacts.terre) &&
+                    listArtefacts.contains(Artefacts.eau) &&
+                    listArtefacts.contains(Artefacts.feu);
+        }
+
 
     /**
      * Une méthode pour tester l'état de jeu perdu
@@ -317,12 +350,27 @@ public class Island extends Observable {
             if(!p.getZone().isSafe())
                 return true;
         }
-
+        int[][] counterElmts = new int [4][1];
         for(int i=0; i<LARGEUR; i++) {
             for (int j = 0; j < HAUTEUR; j++) {
-                if(!zones[i][j].isSafe() && zones[i][j].isHeliport()) // test si l'heliport est inondé
-                    return true;
+                if(!zones[i][j].isSafe() && zones[i][j].isHeliport()) // test si l'heliport est inondé{
+
+                        return true;
+                // on ccompte le nombre d'artefact d'un même élement qu'on ne peut plus récuperer
+                if(zones[i][j].getArtefacts()==Artefacts.air && !zones[i][j].isSafe() )
+                    counterElmts[0][0]+=1;
+                else if(zones[i][j].getArtefacts()==Artefacts.eau && !zones[i][j].isSafe() )
+                    counterElmts[1][0]+=1;
+                else if(zones[i][j].getArtefacts()==Artefacts.feu && !zones[i][j].isSafe() )
+                    counterElmts[2][0]+=1;
+                else if(zones[i][j].getArtefacts()==Artefacts.terre && !zones[i][j].isSafe() )
+                    counterElmts[3][0]+=1;
             }
+        }
+
+        for(int i = 0; i<4; i++){
+            if(counterElmts[i][0]>=2)
+                return true;
         }
 
         return false;
