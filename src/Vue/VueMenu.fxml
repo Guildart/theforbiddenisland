@@ -8,7 +8,7 @@
 <AnchorPane fx:id="ancre" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CVueMenu">
    <children>
        <Canvas fx:id="canvas" height="800.0" width="1000.0" />
-      <Button fx:id="btn1" layoutX="415.0" layoutY="229.0" mnemonicParsing="false" onAction="#handleButtonAction" text="JOUER (hardcode)" />
+      <Button fx:id="btn1" layoutX="415.0" layoutY="229.0" mnemonicParsing="false" onAction="#handleButtonAction" text="JOUER" />
       <RadioButton fx:id="Explorateur" layoutX="400.0" layoutY="445.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Explorateur" />
       <RadioButton fx:id="Ingénireur" layoutX="504.0" layoutY="445.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Ingénireur" />
       <RadioButton fx:id="Plongeur" layoutX="620.0" layoutY="445.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Plongeur" />

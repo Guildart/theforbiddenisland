@@ -69,10 +69,10 @@ public class Island extends Observable {
             }
         }
         init();
-        listArtefacts.add(Artefacts.air);
+        /*listArtefacts.add(Artefacts.air);
         listArtefacts.add(Artefacts.eau);
         listArtefacts.add(Artefacts.feu);
-        listArtefacts.add(Artefacts.terre);
+        listArtefacts.add(Artefacts.terre);*/
     }
 
     /**
