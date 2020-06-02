@@ -63,9 +63,14 @@ public class CVueMenu implements Initializable, Observer {
     private int nbJoueurs = 0;
 
 
+    URL urlBateau = getClass().getResource("/image/fondBateau.jpg") ;
+    Image imgBateau =  new Image(urlBateau.toExternalForm(),300,300,true,true);
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        GraphicsContext g = canvas.getGraphicsContext2D();
+        g.drawImage(imgBateau, 335,70 );
 
     }
 
@@ -78,6 +83,7 @@ public class CVueMenu implements Initializable, Observer {
         GraphicsContext g = canvas.getGraphicsContext2D();
         g.setFill(Color.BLUE);
         g.fillRect(0,0,ancre.getWidth(),ancre.getHeight());
+        g.drawImage(imgBateau, 400,100 );
     }
 
     public void handleOnMouseClicked(MouseEvent mouseEvent) {

@@ -12,10 +12,9 @@
       <RadioButton fx:id="Explorateur" layoutX="279.0" layoutY="433.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Explorateur" />
       <RadioButton fx:id="Ingénireur" layoutX="442.0" layoutY="433.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Ingénireur" />
       <RadioButton fx:id="Plongeur" layoutX="622.0" layoutY="433.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Plongeur" />
-      <RadioButton fx:id="Pilote" layoutX="295.0" layoutY="506.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Pilote" />
-      <RadioButton fx:id="Navigateur" layoutX="456.0" layoutY="506.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Navigateur" />
-      <RadioButton fx:id="Messager" layoutX="621.0" layoutY="518.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Messager" />
-      <Text fx:id="text" layoutX="400.0" layoutY="374.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sélectionez entre 2 et 4 joueurs" />
+      <RadioButton fx:id="Pilote" layoutX="279.0" layoutY="506.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Pilote" />
+      <RadioButton fx:id="Navigateur" layoutX="443.0" layoutY="506.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Navigateur" />
+      <RadioButton fx:id="Messager" layoutX="622.0" layoutY="506.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Messager" />
    </children>
 
 </AnchorPane>
