@@ -12,7 +12,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
@@ -21,61 +20,55 @@ import java.net.URL;
 import java.util.*;
 import Enumeration.Artefacts;
 
-public class CVueIsland implements Initializable, Observer {
+public class CVueIsland implements Observer {
 
 
+    /**
+     * @FX:ID des controlleurs
+     * */
+    @FXML public Canvas canvas;
+    @FXML public AnchorPane anch;
 
-    @FXML
-    public Canvas canvas;
-
-    private static final String IMAGE_LOC = "http://icons.iconarchive.com/icons/uiconstock/flat-halloween/128/Halloween-Bat-icon.png";
-    private static final String IMAGE_LOC1 = "https://as1.ftcdn.net/jpg/02/12/43/28/500_F_212432820_Zf6CaVMwOXFIylDOEDqNqzURaYa7CHHc.jpg";
-    final Image image = new Image(IMAGE_LOC);
-    final Image image1 = new Image(IMAGE_LOC1);
-    public AnchorPane anch;
-
+    //Array list de mes pions, j'en aurais besoin pour les translate
     private ArrayList<PionsDraggable> arrayPion = new ArrayList<>();
+    //Array list de mes cartes, j'en aurais besoin pour les translate elles aussi
     private ArrayList<CardDraggable> arrayCards = new ArrayList<>();
 
-    public static int TAILLE = 100;
-    private GraphicsContext gcF;
-    private Island modele;
-
-    GraphicsContext gc1;
-    double orgSceneX, orgSceneY , orgTranslateX , orgTranslateY;
+    public static int TAILLE = 100; // taille d'une case
+    private GraphicsContext gcF; // contexte graphique pour dessiner
+    private Island modele; // notre modele
 
 
+    // path
     private final URL imageURLHeliport = getClass().getResource("/image/heliport.png");
+    // l'image heliport à afficher
     private Image imageHeliport =  new Image(imageURLHeliport.toExternalForm(),TAILLE,TAILLE,true,true);
 
+    //implement observer..
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
+    public void update() {
+        repaint();
     }
 
+    /**
+    * @Description fonction qui repaint la grille
+     */
     public void repaint() {
-        /** Pour chaque cellule... */
+
 
         gcF = this.canvas.getGraphicsContext2D();
 
 
         for(int i = 0; i< Island.LARGEUR; i++) {
             for(int j = 0; j< Island.HAUTEUR; j++) {
-                /**
-                 * ... Appeler une fonction d'affichage auxiliaire.
-                 * On lui fournit les informations de dessin [g] et les
-                 * coordonnées du coin en haut à gauche.
-                 */
-                paintZone(gcF, modele.getZone(i, j), (i)*TAILLE, (j)*TAILLE);
+                paintZone(gcF, modele.getZone(i, j), (i)*TAILLE, (j)*TAILLE); // affichage auxiliaire
                 setArtefactToZone(gcF, modele.getZone(i, j), (i)*TAILLE, (j)*TAILLE);
             }
         }
 
-        // on dessine les cases autour
+        // on peint les zones ou le joueur peut se déplacer.
         Player p = modele.getRoundOf();
-
         ArrayList<Zone> listZones = p.zonesSafeToMove();
-
         for(Zone z: listZones){
             Position pos = z.getPosition();
             paintSafeZone(gcF, Color.AQUA, pos.x*TAILLE, pos.y*TAILLE);
@@ -84,6 +77,10 @@ public class CVueIsland implements Initializable, Observer {
         translatePionPlayer();
     }
 
+    /**
+    * @Description On translate les pions ici,
+    * on fait en sorte d'organiser les pions sur une même grille
+     */
     private void translatePionPlayer(){
         ArrayList<Player> liste = modele.getListPlayers();
         ArrayList<Position> arrayPos = new ArrayList<>();
@@ -117,8 +114,10 @@ public class CVueIsland implements Initializable, Observer {
         }
     }
 
+    /**
+     * @Description On dessine une grille, et si c'est un l'heliport, on lui met son image
+     */
     private void paintZone(GraphicsContext g, Zone c, int x, int y) {
-        /** Sélection d'une couleur. TODO: Fonction qui renvoie couleur */
 
         if (c.getEtat() == Etat.none) {
             g.setFill(Color.DARKGRAY);
@@ -141,7 +140,13 @@ public class CVueIsland implements Initializable, Observer {
     }
 
 
-
+    /**
+     * @Description On dessine les zones ou le joueur peut se déplacer
+     * @param g là ou on dessine
+     * @param c la couleur
+     * @param x position x
+     * @param y position y
+     */
     private void paintSafeZone(GraphicsContext g, Color c, int x, int y) {
         /** Sélection d'une couleur. */
         double old = g.getLineWidth();
@@ -152,6 +157,13 @@ public class CVueIsland implements Initializable, Observer {
         g.setLineWidth(old);
     }
 
+    /**
+     * @Description On dessine les objets artefacts d'une zone
+     * @param g là ou on dessine
+     * @param c la couleur
+     * @param x position x
+     * @param y position y
+     */
     public void setArtefactToZone(GraphicsContext g, Zone c, int x, int y){
         Artefacts a = c.getArtefacts();
         if(!a.equals(Artefacts.none)){
@@ -162,15 +174,17 @@ public class CVueIsland implements Initializable, Observer {
 
     }
 
+    /**
+     * @Description On gère le clique ici sur la grille,  pour retirer l'eau ds'une case
+     * @param mouseEvent l'évenement cliqué dans ce ca
+     */
     public void handleOnMouseClicked(MouseEvent mouseEvent) {
         Player p = modele.getRoundOf();
-        int x = (int) mouseEvent.getX()/TAILLE;
+        int x = (int) mouseEvent.getX()/TAILLE; // pos x dans la grille
         int y = (int) mouseEvent.getY()/TAILLE;
-        System.out.println("CvueIsland click");
 
-        System.out.println("pos x : " + x + "pos y : " + y);
         Zone z = modele.getZone(x, y);
-        //Todo: Can be done on isReachable
+
         ArrayList<Zone> listZones = p.zonesDrainable();
         if(p.isReachable(listZones,z) && p.canAct() && z.isFlooded()){ // on fait le drain water ici
             p.drainWaterZone(modele.getZone(x, y));
@@ -182,73 +196,62 @@ public class CVueIsland implements Initializable, Observer {
         modele.notifyObservers();
     }
 
-
+    /**
+     * @Description set le modele
+     */
     public void setModel(Island modele){
         this.modele = modele;
-        modele.addObserver(this); //l'instance de GRILLE existe avnat le reste, on set le modèle après
-
+        modele.addObserver(this);
         ArrayList<Player> liste = modele.getListPlayers();
+        initPionsDraggable(liste);
+        initTresorCardDisplay(liste);
+        this.update();
 
+    }
+
+    /**
+     * @Description on ajoute le pion ici et on ititialise les pions des joueurs ici
+     * @param liste c'est la liste des joueurs en,tre 0 et 2
+     */
+    public void initPionsDraggable(ArrayList<Player> liste){
         for (int i = 0; i < liste.size(); i++) {
             PionsDraggable node = new PionsDraggable(liste.get(i), modele);
             node.setPrefSize(TAILLE/2, TAILLE/2);
-            //node.setStyle(colorToStylePion(liste.get(i).getColor()));
-
-            // TODO gérer les images ici
-           // mageView iv1 = new ImageView(new Image("http://icons.iconarchive.com/icons/kidaubis-design/cool-heroes/128/Ironman-icon.png"));
-            //iv1.relocate(0, 0);
             Image image = new Image(liste.get(i).getImage().toExternalForm(),100,100,true,true);
-
-
-
             ImageView img =  new ImageView(image);
             img.setX(-30);
-            //img.setPreserveRatio(true);
-            //img.resize(100,100);
-            //img.resize(10,10);
             node.getChildren().addAll( img);
-
-
-            //node.setLayoutX(spacing*(i+1) + node.getPrefWidth()*i);
-            //node.setLayoutY(spacing);
-           // Color c = liste.get(i).getColor();
             Position pos = liste.get(i).getZone().getPosition();
-            //System.out.println(c.toString());
             node.setModel(this.modele);
-           // node.setColor(c);
-
             node.setLayoutX(pos.x*TAILLE);
             node.setLayoutY(pos.y*TAILLE);
 
             arrayPion.add(node);
             anch.getChildren().add(node);
         }
+    }
 
-        ArrayList<TresorCard> listecard = modele.getRoundOf().getCards();
-
+    /**
+     * @Description on ajoute le cardsDraggable ici
+     * @param liste c'est la liste des joueurs en,tre 0 et 2
+     */
+    public void initTresorCardDisplay(ArrayList<Player> liste){
         for(int i = 0; i < modele.getListPlayers().size(); i++){
             Player p = modele.getListPlayers().get(i);
             for(int k = 0; k<5 ;k++)
-            p.setCard(TresorCard.empty);
+                p.setCard(TresorCard.empty);
 
             for(int j = 0; j<p.getCards().size(); j++){
                 TresorCard card = p.getCards().get(j);
-
                 Color c = modele.getRoundOf().getColor();
                 CardDraggable node = new CardDraggable(p, modele, card);
-
                 Shape circle = new Circle(12,12,12);
-
-
-
                 node.setPrefSize(TAILLE/2, 8*TAILLE/10);
-                //node.setStyle(colorToStyleCard(Color.GRAY));
                 node.setModel(this.modele);
                 node.setColor(c);
                 node.setCard(TresorCard.empty);
                 node.setLayoutX(600+10+j*(60));
                 node.setLayoutY(50+120*i);
-
                 node.setSafeX(600+80+30+j*(50+5));
                 node.setSafeY(35+125*i);
                 node.setPlayer(p);
@@ -260,26 +263,20 @@ public class CVueIsland implements Initializable, Observer {
 
 
         }
-
-        System.out.println("grille modele: "+ arrayPion.size());
-        System.out.println("grille modele: "+ arrayCards.size());
-
-
-        System.out.println("grille modele: "+ modele);
-        this.update(); //TODO : c'est un choix ? ou pas ?
-
     }
 
+    /**
+     * @Description getteur modele
+     */
     public Island getModele(){
         return this.modele;
     }
 
-    @Override
-    public void update() {
-        repaint();
-    }
 
 
+    /**
+     * @Description permet de se passer d'image en renvoyant un string utilisé" comme style  pour les pions
+     */
     public static String colorToStylePion(Color c){
         return
                 "-fx-background-color:"+toRGBCode(c) +";"
@@ -287,10 +284,16 @@ public class CVueIsland implements Initializable, Observer {
                 + "-fx-border-color: black;";
     }
 
+    /**
+     * @Description permet de se passer d'image en renvoyant un string utilisé" comme style pour les cartes
+     */
     public static String colorToStyleCard(String s){
         return "-fx-background-image: url(\"" + s + "\");";
     }
-
+    /**
+     * @Description transforme couleur rgb en hexa
+     * @param color rgb
+     */
     public static String toRGBCode( Color color ) {
         return String.format( "#%02X%02X%02X",
                 (int)( color.getRed() * 255 ),

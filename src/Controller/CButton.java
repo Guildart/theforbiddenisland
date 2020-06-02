@@ -20,17 +20,14 @@ import java.util.ResourceBundle;
 
 public class CButton implements Initializable {
 
-    @FXML
-    public Button butNextRound;
+    /**
+     * @FX:ID des controlleurs
+     * */
+    @FXML public Button butNextRound;
+    @FXML public Button butTakeTresor;
+    @FXML public ToggleButton Quit;
 
-    @FXML
-    public Button butTakeTresor;
-
-    @FXML
-    public ToggleButton Quit;
-
-    public VBox vbox;
-
+    @FXML public VBox vbox; // Instance
     private Island modele;
 
     @Override
@@ -39,23 +36,36 @@ public class CButton implements Initializable {
         butTakeTresor.toFront();
         Quit.toFront();
     }
+
+    /**
+     * @Description setteur modele
+     */
     public void setModele(Island modele){
         this.modele = modele;
         modele.notifyObservers();
     }
 
+    /**
+     * @Description getteur modele
+     */
     public Island getModele(){
         return this.modele;
-
     }
 
+    /**
+     * @Description bouton pour changer change de round
+     * @param mouseEvent
+     */
     @FXML
     public void nextRound(MouseEvent mouseEvent) {
         modele.nextRound();
         modele.notifyObservers();
     }
 
-
+    /**
+     * @Description gere le bouton takeTresor et permet de récuperer un tresor sur sa tuile
+     * @param mouseEvent
+     */
     @FXML
     public void takeTresor(MouseEvent mouseEvent) {
         Player p = modele.getRoundOf();
@@ -63,7 +73,11 @@ public class CButton implements Initializable {
         modele.notifyObservers();
     }
 
-
+    /**
+     * @Description permet de revenir au menu principal
+     * @param event
+     * @throws Exception
+     */
     @FXML
     private void handleButtonAction (ActionEvent event) throws Exception {
         Stage stage;
@@ -79,17 +93,4 @@ public class CButton implements Initializable {
 
     }
 
-
-
-
-
-
-    /*public void moveOrDrain(MouseEvent mouseEvent) {
-        modele.setTypeAction((modele.getTypeAction()+1)%2);
-        if(selectAction.isSelected())
-            selectAction.setText("MovePlayer");
-        else
-            selectAction.setText("DrainWater");
-        modele.notifyObservers();
-    }*/
 }

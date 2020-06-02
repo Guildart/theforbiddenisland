@@ -13,21 +13,15 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-    Stage windows;
-    Scene sceneMenu, scenePlaying;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        FXMLLoader loader1 = new FXMLLoader(getClass().getResource("/Vue/vue.fxml"));
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/VueMenu.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/VueMenu.fxml")); // on charge la première page fxml
 
-        Parent root = loader.load();
+        Parent root = loader.load(); // on charge le parent
         primaryStage.setTitle("The Forbidden Island JavaFX");
-        primaryStage.setScene(new Scene(root, 1000, 800));
-
-        ObservableList<Node> n = root.getChildrenUnmodifiable();
-
-        primaryStage.show();
+        primaryStage.setScene(new Scene(root, 1000, 800));// on set la sec à la fenêtre
+        primaryStage.show(); // on affiche la taille
 
     }
 

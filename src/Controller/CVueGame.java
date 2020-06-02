@@ -4,7 +4,6 @@ import Enumeration.Artefacts;
 import IleInterdite.Island;
 import IleInterdite.Player;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -15,19 +14,18 @@ import javafx.scene.text.Text;
 
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.ResourceBundle;
 
 
 public class CVueGame implements Observer{
 
-    @FXML
-    public Canvas viewGame;
-    public Text text;
+    @FXML public Canvas viewGame;
+    @FXML public Text text;
     private Island modele;
-    private GraphicsContext gcF;
-   /* public HashMap<Artefacts, Image> artefactsGris = new HashMap<Artefacts, Image>();
-    public HashMap<Artefacts, Image> artefactsCouleur = new HashMap<Artefacts, Image>();*/
+    private GraphicsContext gcF; // là ou l'on dessine
+
+    /**
+    * Exemplaire d'array list de tous les artefacts pour display les éléments que les joueurs ont récupérés en bas
+    * */
     public ArrayList<Artefacts> artefactsList = new ArrayList();
     Font font;
 
@@ -36,19 +34,11 @@ public class CVueGame implements Observer{
         repaint();
     }
 
+    // on initialise la font et on met les 4 artefacts dans artefactsList
     public void initialize() {
         Font font = Font.loadFont(getClass().getResourceAsStream("/image/treamd.ttf"),30);
         text.setFont(font);
 
-        /*artefactsGris.put(Artefacts.eau, new Image(getClass().getResource("/image/eau_g.png").toExternalForm()));
-        artefactsGris.put(Artefacts.feu, new Image(getClass().getResource("/image/feu_g.png").toExternalForm()));
-        artefactsGris.put(Artefacts.air, new Image(getClass().getResource("/image/vent_g.png").toExternalForm()));
-        artefactsGris.put(Artefacts.terre, new Image(getClass().getResource("/image/terre_g.png").toExternalForm()));
-
-        artefactsGris.put(Artefacts.eau, new Image(getClass().getResource("/image/eau.png").toExternalForm()));
-        artefactsGris.put(Artefacts.feu, new Image(getClass().getResource("/image/feu.png").toExternalForm()));
-        artefactsGris.put(Artefacts.air, new Image(getClass().getResource("/image/vent.png").toExternalForm()));
-        artefactsGris.put(Artefacts.terre, new Image(getClass().getResource("/image/terre.png").toExternalForm()));*/
 
         artefactsList.add(Artefacts.eau);
         artefactsList.add(Artefacts.feu);
@@ -57,16 +47,20 @@ public class CVueGame implements Observer{
 
     }
 
+    /**
+     * @Description set le modele
+     */
     public void setModele(Island modele){
         this.modele = modele;
         modele.addObserver(this);
         modele.notifyObservers();
     }
 
+    /**
+     * @Description redessine en bas les 4 artefacts et la jauge de l'eau qui monte
+     */
     public void repaint() {
-        /** Pour chaque cellule... */
 
-        //initialize();
         gcF = this.viewGame.getGraphicsContext2D();
 
         gcF.clearRect(0, 0, viewGame.getWidth(), viewGame.getHeight());

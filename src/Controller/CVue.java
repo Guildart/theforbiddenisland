@@ -16,101 +16,43 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.scene.paint.Color;
 
-public class CVue implements Initializable, Observer {
-    @FXML
-    public Parent vueIsland;
+public class CVue implements Observer {
+    /**
+    * @FX:ID des controlleurs
+    * */
+    @FXML public Parent vueIsland;
+    @FXML public Parent vueButton;
+    @FXML public Parent vuePlayers;
+    @FXML public Parent vueGame;
+    @FXML public AnchorPane ancreParent;
 
-    @FXML
-    public Parent vueButton;
+    /**
+     * @Instances des controlleurs
+     * */
+    @FXML private CVueIsland vueIslandController;
+    @FXML private CButton vueButtonController;
+    @FXML private CPlayerPanel vuePlayersController;
+    @FXML private CVueGame vueGameController;
 
-    @FXML
-    public Parent vuePlayers;
-
-    @FXML
-    public Parent vueGame;
-
-    @FXML
-    public GridPane gridTest;
-
-    @FXML
-    public AnchorPane ancreParent;
-
-    @FXML
-    private CVueIsland vueIslandController;
-
-    @FXML
-    private CButton vueButtonController;
-
-
-    @FXML
-    private CPlayerPanel vuePlayersController;
-
-    @FXML
-    private CVueGame vueGameController;
-
-
-    public int maVAR;
-
+    /**
+     * @Instances classiques
+     * */
     private Island modele;
 
-    public int TAILLE = 100;
-
-    @FXML
-    private URL location;
-    @FXML
-    private ResourceBundle resources;
-
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        /*System.out.println(butVBOX);
-        System.out.println(grille);
-        System.out.println(CVueIslandController);
-        System.out.println("gridTest "+gridTest);
-        System.out.println("griplayer0ControllerdTest "+player0Controller );*/
-
-        /*maVAR=213;
-        modele = new Island();
-        modele.addObserver(this);
-        System.out.println("test");
-        vueButtonController.setModele(this.modele);
-        vueIslandController.setModel(this.modele); // ici je set le model dans la grille
-        vuePlayersController.setModel(this.modele);
-        vueGameController.setModele(this.modele);*/
-
-        //vueMenu.toFront();
-        //vuePlayersController.setModel(this.modele);
-
-        /*
-        player3Controller.setModel(this.modele); // ici je set le model dans la grille
-        player3Controller.setIndicePlayer(3);
-        */
-
-       /*Island mod = vueButtonController.getModele();
-        Island mod2 = vueIslandController.getModele();
-        System.out.println(mod);
-        System.out.println(mod2);
-        ancreParent.getParent();*/
-    }
-
-
+    /**
+     * @Description c'est ici qu'on instancie tous les fichiers fxml en leur donnant le modèle
+     * @param modele
+     */
     public void setModele(Island modele){
         this.modele = modele;
         modele.addObserver(this);
 
-        System.out.println("setModele");
+        // On set les modele
         vueButtonController.setModele(this.modele);
-        vueIslandController.setModel(this.modele); // ici je set le model dans la grille
+        vueIslandController.setModel(this.modele);
         vuePlayersController.setModel(this.modele);
         vueGameController.setModele(this.modele);
 
-
-
-        Island mod = vueButtonController.getModele();
-        Island mod2 = vueIslandController.getModele();
-        System.out.println(mod);
-        System.out.println(mod2);
-        ancreParent.getParent();
     }
     @Override
     public void update() {

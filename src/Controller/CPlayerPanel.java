@@ -13,6 +13,9 @@ import java.util.ResourceBundle;
 
 public class CPlayerPanel{
 
+    /*
+    * Classe qui set modèles dans les sous Controlleurs
+    * */
 
     @FXML
     public CVuePlayer canvasPlayer1Controller;

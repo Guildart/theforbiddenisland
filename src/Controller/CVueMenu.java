@@ -188,29 +188,20 @@ public class CVueMenu implements Initializable, Observer {
         Stage stage;
         Parent root;
             if(actionEvent.getSource()==btn1){
-                if (nbJoueurs >= 2) {
+                if (nbJoueurs >= 2 && nbJoueurs <= 4) {
 
                     for(Map.Entry<String, Player> e : hashMap1.entrySet()){
                         modele.getListPlayers().add(e.getValue());
                     }
 
                     stage = (Stage) btn1.getScene().getWindow();
-            /*FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/vue.fxml"));
-            //root = FXMLLoader.load(getClass().getResource("/Vue/vue.fxml"));
 
-            CVue FXVue = (CVue) loader.getController();
-                System.out.println("ca affiche "+ FXVue.maVAR);
-
-            FXVue.setModele(modele);
-            root =  loader.load();
-            loader.setController(FXVue);*/ // bug chelou ?? ordre qui importe ??
 
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/vue.fxml"));
                     root = loader.load();
 
 
                     CVue FXVue= loader.getController(); // accès à l'instance controlleur
-                    System.out.println("ca affiche "+ FXVue.maVAR);
                     System.out.println("ca affiche "+ modele.getListPlayers().size());
                     modele.setRoundOf(modele.getListPlayers().get(0));
                     FXVue.setModele(modele);
