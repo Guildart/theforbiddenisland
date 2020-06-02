@@ -95,23 +95,24 @@ public class Island extends Observable {
         defausseCarteInnondation.clear();
 
         Color c1 = Color.RED;
-        //addPlayer(c1);
-        int[] tab = getRandomPoint();
+        addPlayer(c1);
+        /*int[] tab = getRandomPoint();
         Player p = new Explorateur(zones[tab[0]][tab[1]],c1, this);
-        this.listPlayers.add(p);
+        this.listPlayers.add(p);*/
 
         Color c2 = Color.BLACK;
-        //addPlayer(c2);
-        int[] tab2 = getRandomPoint();
+        addPlayer(c2);
+        /*int[] tab2 = getRandomPoint();
         Player p2 = new Navigateur(zones[tab2[0]][tab2[1]],c2, this);
-        this.listPlayers.add(p2);
+        this.listPlayers.add(p2);*/
+
 
 
         Color c3 = Color.PURPLE;
-        //addPlayer(c3);
-        int[] tab3 = getRandomPoint();
+        addPlayer(c3);
+        /*int[] tab3 = getRandomPoint();
         Player p3 = new Plongeur(zones[tab3[0]][tab3[1]],c3, this);
-        this.listPlayers.add(p3);
+        this.listPlayers.add(p3);*/
 
         Color c4 = Color.GREY;
         addPlayer(c4);
@@ -155,7 +156,7 @@ public class Island extends Observable {
 
     private void addPlayer(Color c){
         int[] tab = getRandomPoint();
-        Player p = new Player(zones[tab[0]][tab[1]],c, this);
+        Player p = new Plongeur(zones[tab[0]][tab[1]],c, this);
         this.listPlayers.add(p);
     }
 
@@ -349,6 +350,24 @@ public class Island extends Observable {
         safeZones.addAll(tasCarteInnondation);
         safeZones.addAll(defausseCarteInnondation);
         return safeZones;
+    }
+
+    public ArrayList<Zone> getZoneArround(Zone zone){
+        ArrayList<Zone> voisins = new ArrayList<>();
+        Position pos = zone.getPosition();
+        if (pos.y-1>=0)
+            voisins.add(zones[pos.x][pos.y-1]);
+        if(pos.x-1>=0)
+            voisins.add(zones[pos.x-1][pos.y]);
+
+        if(pos.y+1<Island.HAUTEUR)
+            voisins.add(zones[pos.x][pos.y+1]);
+
+        if(pos.x+1<Island.LARGEUR)
+            voisins.add(zones[pos.x+1][pos.y]);
+
+        voisins.add(zone);
+        return voisins;
     }
 
 }

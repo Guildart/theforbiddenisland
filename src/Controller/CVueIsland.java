@@ -4,21 +4,16 @@ import Enumeration.Etat;
 import Enumeration.TresorCard;
 import IleInterdite.*;
 import IleInterdite.Observer;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Bounds;
-import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
-import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.*;
@@ -73,7 +68,7 @@ public class CVueIsland implements Initializable, Observer {
         // on dessine les cases autour
         Player p = modele.getRoundOf();
 
-        ArrayList<Zone> listZones = p.zonesReachable();
+        ArrayList<Zone> listZones = p.zonesSafeToMove();
 
         for(Zone z: listZones){
             Position pos = z.getPosition();
@@ -162,7 +157,7 @@ public class CVueIsland implements Initializable, Observer {
         System.out.println("pos x : " + x + "pos y : " + y);
         Zone z = modele.getZone(x, y);
         //Todo: Can be done on isReachable
-        ArrayList<Zone> listZones = p.zonesReachable();
+        ArrayList<Zone> listZones = p.zonesDrainable();
         if(p.isReachable(listZones,z) && p.canAct() && z.isFlooded()){ // on fait le drain water ici
             p.drainWaterZone(modele.getZone(x, y));
             p.addAction();
