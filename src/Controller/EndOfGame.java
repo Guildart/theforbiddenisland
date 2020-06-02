@@ -106,7 +106,7 @@ public class EndOfGame implements Initializable {
         stage.setScene(new Scene(vbox, 500, 345));
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setOpacity(0.50);
+        stage.setOpacity(0.90);
         stage.toFront();
         stage.showAndWait();
 

@@ -14,7 +14,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
 import java.io.IOException;
@@ -207,6 +207,7 @@ public class CVueMenu implements Initializable, Observer {
 
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/vue.fxml"));
                     root = loader.load();
+
 
                     CVue FXVue= loader.getController(); // accès à l'instance controlleur
                     System.out.println("ca affiche "+ FXVue.maVAR);
