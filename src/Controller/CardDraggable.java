@@ -146,6 +146,12 @@ public class CardDraggable extends Pane {
 
                     //test(mousex, mousey);
 
+                    if( x>=600 && y>=400 || (x<=600 && y>=600)){
+                    dragging=false;
+                    modele.notifyObservers();
+
+                     }
+
                     event.consume();
                 }
 
@@ -199,7 +205,9 @@ public class CardDraggable extends Pane {
 
                 }
 
-                modele.notifyObservers();
+
+
+                    modele.notifyObservers();
 
                 dragging = false;
 
