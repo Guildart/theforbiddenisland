@@ -95,12 +95,14 @@ public class Player{
 
 
 
+    /**Renvoie Color**/
     public Color getColor(){return color;}
 
     public Zone getZone(){
         return this.zone;
     }
 
+    /**Rajoute action au compteur d'action**/
     public void addAction(){
         if(nbActionsRestant <3){
             nbActionsRestant +=1;
@@ -110,14 +112,17 @@ public class Player{
         }
     }
 
+    /**Regarde si le joueur peut agir**/
     public boolean canAct(){
         return nbActionsRestant <3;
     }
 
+    /**Réinitialise compte action pour prochain joueur**/
     public void resetNbActionRestant(){
         nbActionsRestant = 0;
     }
 
+    /**Renvoie ArrayList des cartes**/
     public ArrayList<TresorCard> getCards(){
         return this.playerCards;
     }
