@@ -21,12 +21,12 @@ public class Plongeur extends Player{
         return zonesReachable;
     }
 
-    @Override
+    /*@Override
     public ArrayList<Zone> zonesDrainable() {
         ArrayList<Zone> zones = super.zonesSafeToMove();
         zones.add(this.zone);
         return zones;
-    }
+    }*/
 
     private void searchRoad(ArrayList<Zone> zonesReachable, Zone zone){
         for(Zone z : modele.getZoneArround(zone)){
