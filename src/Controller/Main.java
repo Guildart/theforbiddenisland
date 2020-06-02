@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 
@@ -19,6 +20,8 @@ public class Main extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/VueMenu.fxml")); // on charge la première page fxml
 
         Parent root = loader.load(); // on charge le parent
+        primaryStage.getIcons().add(new Image("/image/fondBateau.jpg"));
+
         primaryStage.setTitle("The Forbidden Island JavaFX");
         primaryStage.setScene(new Scene(root, 1000, 800));// on set la sec à la fenêtre
         primaryStage.show(); // on affiche la taille
