@@ -83,7 +83,12 @@ public class CVueGame implements Observer{
                 image1 = a.getImageGris();
 
             ImageView img =  new ImageView(image1);
-            gcF.drawImage(image1,300+100*compteur,100);
+            if(a == Artefacts.feu)
+                gcF.drawImage(image1,300+100*compteur,100-10);
+            else if(a == Artefacts.terre)
+                gcF.drawImage(image1,300+100*compteur,100+10);
+            else
+                 gcF.drawImage(image1,300+100*compteur,100);
             compteur++;
         }
 

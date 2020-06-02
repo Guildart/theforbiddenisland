@@ -10,7 +10,7 @@ public enum Artefacts {
     URL imgUrlAir = getClass().getResource("/image/vent.png") ;
     URL imgUrlFeu = getClass().getResource("/image/feu.png") ;
     URL imgUrlEau = getClass().getResource("/image/eau.png") ;
-    URL imgUrlTerre = getClass().getResource("/image/terre.png") ;
+    URL imgUrlTerre = getClass().getResource("/image/terre2.png") ;
     URL imgUrlNone = getClass().getResource("/image/fondBateau.jpg") ;
 
     Image imageAir =  new Image(imgUrlAir.toExternalForm(),20,20,true,true);
@@ -47,7 +47,7 @@ public enum Artefacts {
             case feu:
                 return  new Image(getClass().getResource("/image/feu_g.png").toExternalForm());
             case terre:
-                return  new Image(getClass().getResource("/image/terre_g.png").toExternalForm());
+                return  new Image(getClass().getResource("/image/terre_g2.png").toExternalForm());
         }
         return imageNone;
 
@@ -62,7 +62,7 @@ public enum Artefacts {
             case feu:
                 return  new Image(getClass().getResource("/image/feu.png").toExternalForm());
             case terre:
-                return  new Image(getClass().getResource("/image/terre.png").toExternalForm());
+                return  new Image(getClass().getResource("/image/terre2.png").toExternalForm());
         }
         return imageNone;
 
