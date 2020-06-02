@@ -31,6 +31,7 @@ Originalité :
     
     - Notre gameplay plutôt intuitif et facile d'accès.
     
+    
 Comment ça se joue :
 
     - Le joueur peut se deplacer (ou deplacer les autres dans le cas du navigateur) en faisant un
@@ -82,6 +83,46 @@ Comment ça se joue :
     - Les joueurs perdent si toutes les tuiles contenant un artefacts sombres avant qu'il l'ai 
     récupéré, si un joueur se noie, si l'héliport sombre ou si le niveau de l'eau atteint la tête
     de mort.
+    
+Difficulté :
+    
+    - Gestion d'un nouvelle outiles encore inconnue jsuque là : Java Fx
+    
+    - Application aux nombreuse fonctionnalité qui nous ont parfois ammener 
+    à revoir une grande partie du code et à le réaménager plusieurs fois
+    
+    - Concepte MVC encore flou parfois (qui fait quoi ?)
+   
+Séparation du travail :
+    
+    Il n'y a pas vraiment eu de spération claire est nette du travail, nous communiquions beaucoup 
+    à l'oral sur les prochaines taches à faires et chacun faisait ce qu'il pensait être utile en 
+    expliquant par avance ce qui serait fait et en ajoutant toutes les modifications faite au jour 
+    le jour dans le readme (visible à la fin pour l'historique des modifs) ce qui permettait de 
+    suivre l'évolution du projet de manière assez simple.
+    
+    Cependant certaines taches ont été un peu plus spécifique à l'un d'entre nous :
+    
+    Romain :
+    
+        - Implementation des cartes et Gestion de la pioche
+        - Realisation fenetre pop up pour obliger le joueur à defausser des cartes
+        - Realisation de la base graphique pour la représentation des mains des joueurs
+        - Realisation des boutons et de leurs fonctionnalitées
+        - Realisation des roles Messager, Pilote, Plongeur et Ingenieur
+        
+        
+    Ramdane :
+    
+        - Drag and Drop sur la grille et la main du joueur
+        - Gestion du menu/ecran de debut de game
+        - Gestion pop up de fin de partie, methode win, loose ..
+        - Gestion de l'échange de carte
+        - Realisation des roles Explorateur et Pilote
+        
+       
+       Globalement l'un comme l'autre nous avons quasi toujours eu à modifier le code de l'autre 
+       pour y ajouter une fonctionnalité a un moment ou a un autre
     
     
 Un mots sur les graphismes :
@@ -240,6 +281,8 @@ Update Romain 30/05/2020:
     - Implementation Take Tresor + Association GUI
     - Supression de type action, modification des methodes qui l'utilisait + 
       correction de bug mineur pour respecter le Drag and Drop
+    - Implementation de la montée des eaux et affichage graphique sur panneau du bas
+
 
 Update Ramdane 31/05/2020:
 
@@ -249,11 +292,6 @@ Update Ramdane 31/05/2020:
     - Modification du CSS
     - Ajout du bouton quitter dans vue commande qui renvoie au menu principal
 
-
-Update Romain 30/05/2020:
-
-    - Implementation de la montée des eaux et affichage graphique sur panneau du bas
-    
 
 Update Romain 01/05/2020:
 
