@@ -67,10 +67,10 @@ public class Island extends Observable {
             }
         }
         init();
-        listArtefacts.add(Artefacts.air);
+       /* listArtefacts.add(Artefacts.air);
         listArtefacts.add(Artefacts.eau);
         listArtefacts.add(Artefacts.feu);
-        listArtefacts.add(Artefacts.terre);
+        listArtefacts.add(Artefacts.terre);*/
     }
 
     /**
@@ -298,15 +298,29 @@ public class Island extends Observable {
      */
     public boolean Win(){
         Player p1 = listPlayers.get(0);
+
+
         if(!p1.getZone().isHeliport())
             return false;
+
 
         for(Player p: listPlayers){ // les joueurs doivent être sur la même zone
             if(!p1.getZone().equals(p.getZone()))
                 return false;
             p1=p;
         }
+        if(!haveFourElements())
+            return false;
+
         return true;
+    }
+
+    public boolean haveFourElements(){
+
+        return listArtefacts.contains(Artefacts.air) &&
+                listArtefacts.contains(Artefacts.terre) &&
+                listArtefacts.contains(Artefacts.eau) &&
+                listArtefacts.contains(Artefacts.feu);
     }
 
     /**
@@ -317,12 +331,27 @@ public class Island extends Observable {
             if(!p.getZone().isSafe())
                 return true;
         }
-
+        int[][] counterElmts = new int [4][1];
         for(int i=0; i<LARGEUR; i++) {
             for (int j = 0; j < HAUTEUR; j++) {
-                if(!zones[i][j].isSafe() && zones[i][j].isHeliport()) // test si l'heliport est inondé
-                    return true;
+                if(!zones[i][j].isSafe() && zones[i][j].isHeliport()) // test si l'heliport est inondé{
+
+                        return true;
+                // on ccompte le nombre d'artefact d'un même élement qu'on ne peut plus récuperer
+                if(zones[i][j].getArtefacts()==Artefacts.air && !zones[i][j].isSafe() )
+                    counterElmts[0][0]+=1;
+                else if(zones[i][j].getArtefacts()==Artefacts.eau && !zones[i][j].isSafe() )
+                    counterElmts[1][0]+=1;
+                else if(zones[i][j].getArtefacts()==Artefacts.feu && !zones[i][j].isSafe() )
+                    counterElmts[2][0]+=1;
+                else if(zones[i][j].getArtefacts()==Artefacts.terre && !zones[i][j].isSafe() )
+                    counterElmts[3][0]+=1;
             }
+        }
+
+        for(int i = 0; i<4; i++){
+            if(counterElmts[i][0]>=2)
+                return true;
         }
 
         return false;
