@@ -11,6 +11,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -94,8 +96,9 @@ public class CVueMenu implements Initializable, Observer {
 
             if(Explorateur.isSelected()){
                 int[] tab = modele.getRandomPoint();
-                Color c = Color.BLACK;
-                Player p = new Explorateur(modele.getGrille()[tab[0]][tab[1]],c, modele);
+                //ImageView c = new Image("/image/jauge.png");
+                URL imageURL = getClass().getResource("/image/explorateur.png");
+                Player p = new Explorateur(modele.getGrille()[tab[0]][tab[1]],imageURL, modele);
                 hashMap1.put("Explorateur",p);
                 nbJoueurs++;
 
@@ -110,8 +113,8 @@ public class CVueMenu implements Initializable, Observer {
         if(actionEvent.getSource()==Ingénireur) {
             if(Ingénireur.isSelected()){
                 int[] tab = modele.getRandomPoint();
-                Color c = Color.BLACK;
-                Player p = new Ingenieur(modele.getGrille()[tab[0]][tab[1]],c, modele);
+                URL imageURL = getClass().getResource("/image/ingenieur.png");
+                Player p = new Ingenieur(modele.getGrille()[tab[0]][tab[1]],imageURL, modele);
                 hashMap1.put("Ingénireur",p);
                 nbJoueurs++;
 
@@ -127,8 +130,8 @@ public class CVueMenu implements Initializable, Observer {
         if(actionEvent.getSource()==Plongeur) {
             if(Plongeur.isSelected()){
                 int[] tab = modele.getRandomPoint();
-                Color c = Color.BLACK;
-                Player p = new Plongeur(modele.getGrille()[tab[0]][tab[1]],c, modele);
+                URL imageURL = getClass().getResource("/image/plongeur.png");
+                Player p = new Plongeur(modele.getGrille()[tab[0]][tab[1]],imageURL, modele);
                 hashMap1.put("Plongeur",p);
                 nbJoueurs++;
 
@@ -143,10 +146,10 @@ public class CVueMenu implements Initializable, Observer {
         if(actionEvent.getSource()==Pilote) {
             if(Pilote.isSelected()){
                 int[] tab = modele.getRandomPoint();
-                Color c = Color.BLACK;
-                Player p = new Pilote(modele.getGrille()[tab[0]][tab[1]],c, modele);
+                URL imageURL = getClass().getResource("/image/pilote.png");
+                Player p = new Pilote(modele.getGrille()[tab[0]][tab[1]],imageURL, modele);
                 hashMap1.put("Pilote",p);
-
+                nbJoueurs++;
             }else{
                 if(hashMap1.containsKey("Pilote"))
                     hashMap1.remove("Pilote");
@@ -158,8 +161,8 @@ public class CVueMenu implements Initializable, Observer {
         if(actionEvent.getSource()==Navigateur) {
             if(Navigateur.isSelected()){
                 int[] tab = modele.getRandomPoint();
-                Color c = Color.BLACK;
-                Player p = new Navigateur(modele.getGrille()[tab[0]][tab[1]],c, modele);
+                URL imageURL = getClass().getResource("/image/plongeur.png");
+                Player p = new Navigateur(modele.getGrille()[tab[0]][tab[1]],imageURL, modele);
                 hashMap1.put("Navigateur",p);
                 nbJoueurs++;
 
@@ -174,8 +177,8 @@ public class CVueMenu implements Initializable, Observer {
         if(actionEvent.getSource()==Messager) {
             if(Messager.isSelected()){
                 int[] tab = modele.getRandomPoint();
-                Color c = Color.BLACK;
-                Player p = new Messager(modele.getGrille()[tab[0]][tab[1]],c, modele);
+                URL imageURL = getClass().getResource("/image/messager.png");
+                Player p = new Messager(modele.getGrille()[tab[0]][tab[1]],imageURL, modele);
                 hashMap1.put("Messager",p);
                 nbJoueurs++;
 
@@ -190,13 +193,14 @@ public class CVueMenu implements Initializable, Observer {
 
         Stage stage;
         Parent root;
-            if(actionEvent.getSource()==btn1 && nbJoueurs>=2){
+            if(actionEvent.getSource()==btn1){
+                if (nbJoueurs >= 2) {
 
-                for(Map.Entry<String, Player> e : hashMap1.entrySet()){
-                    modele.getListPlayers().add(e.getValue());
-                }
+                    for(Map.Entry<String, Player> e : hashMap1.entrySet()){
+                        modele.getListPlayers().add(e.getValue());
+                    }
 
-            stage = (Stage) btn1.getScene().getWindow();
+                    stage = (Stage) btn1.getScene().getWindow();
             /*FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/vue.fxml"));
             //root = FXMLLoader.load(getClass().getResource("/Vue/vue.fxml"));
 
@@ -207,22 +211,22 @@ public class CVueMenu implements Initializable, Observer {
             root =  loader.load();
             loader.setController(FXVue);*/ // bug chelou ?? ordre qui importe ??
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/vue.fxml"));
-            root = loader.load();
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vue/vue.fxml"));
+                    root = loader.load();
 
-            CVue FXVue= loader.getController(); // accès à l'instance controlleur
-                System.out.println("ca affiche "+ FXVue.maVAR);
-                System.out.println("ca affiche "+ modele.getListPlayers().size());
-                modele.setRoundOf(modele.getListPlayers().get(0));
-            FXVue.setModele(modele);
+                    CVue FXVue= loader.getController(); // accès à l'instance controlleur
+                    System.out.println("ca affiche "+ FXVue.maVAR);
+                    System.out.println("ca affiche "+ modele.getListPlayers().size());
+                    modele.setRoundOf(modele.getListPlayers().get(0));
+                    FXVue.setModele(modele);
 
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-        }else
-            {
-                // faire quelque chose quand le joueur n'a
-                text.setFill(Color.RED);
+                    Scene scene = new Scene(root);
+                    stage.setScene(scene);
+                    stage.show();
+                }else
+                    text.setFill(Color.RED);
+
+
             }
 
 

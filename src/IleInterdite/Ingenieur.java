@@ -1,12 +1,16 @@
 package IleInterdite;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
+
+import java.net.URL;
 
 public class Ingenieur extends Player{
     private int nbDrain = 0;
 
-    public Ingenieur(Zone zone, Color colo, Island modele) {
-        super(zone, colo, modele);
+    public Ingenieur(Zone zone, URL image, Island modele) {
+        super(zone, image, modele);
     }
 
     @Override

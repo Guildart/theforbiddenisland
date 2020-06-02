@@ -20,6 +20,8 @@ import java.util.ResourceBundle;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.DialogPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Popup;
@@ -47,8 +49,10 @@ public class CVuePlayer implements Initializable, Observer {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Dimension dim = new Dimension(LARGEUR*10, HAUTEUR);
         gcF = viewplayer.getGraphicsContext2D();
-        gcF.setFill(Color.RED);
-        gcF.fillRect(0, 0, LARGEUR,HAUTEUR);
+        /*gcF.setFill(Color.RED);
+        gcF.fillRect(0, 0, LARGEUR,HAUTEUR);*/
+
+
 
     }
 
@@ -84,7 +88,14 @@ public class CVuePlayer implements Initializable, Observer {
         gcF.setFill(c);
         /** Coloration d'un rectangle. */
         //*gcF.fillOval(LARGEUR/2, 20, 20, 20);
-        gcF.fillOval(10, 30, 80, 80);
+        //gcF.fillOval(10, 30, 80, 80);
+
+
+
+
+
+
+
 
     }
 
@@ -129,12 +140,20 @@ public class CVuePlayer implements Initializable, Observer {
     public void setModel(Island modele){
         this.modele = modele;
         //repaint();
+
+
+
         modele.notifyObservers();
     }
 
     public void setIndicePlayer(int indicePlayer) {
         this.indicePlayer = indicePlayer;
         arrayCards = this.getPlayer().getPlayerCardsDragtgable();
+        Image image = new Image(modele.getListPlayers().get(indicePlayer).getImage().toExternalForm(),200,200,true,true);
+
+        ImageView img =  new ImageView(image);
+        img.setX(-50);
+        anch.getChildren().addAll(img);
         repaint();
         modele.addObserver(this);
     }

@@ -1,16 +1,19 @@
 package IleInterdite;
 
 import Enumeration.TresorCard;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 
+import java.net.URL;
 import java.util.ArrayList;
 
 public class Pilote extends Player{
 
     public boolean canFly = true;
 
-    public Pilote(Zone zone, Color color, Island modele) {
-        super(zone, color, modele);
+    public Pilote(Zone zone, URL image, Island modele) {
+        super(zone, image, modele);
     }
 
     @Override

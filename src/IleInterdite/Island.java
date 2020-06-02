@@ -13,8 +13,11 @@ package IleInterdite; /**
 import Enumeration.Artefacts;
 import Enumeration.Etat;
 import Enumeration.TresorCard;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 
+import java.net.URL;
 import java.util.Collections;
 
 import java.util.ArrayList;
@@ -153,7 +156,7 @@ public class Island extends Observable {
         Collections.shuffle(tasCarteTresor);
     }
 
-    private void addPlayer(Color c){
+    private void addPlayer(URL c){
         int[] tab = getRandomPoint();
         Player p = new Player(zones[tab[0]][tab[1]],c, this);
         this.listPlayers.add(p);
@@ -164,7 +167,7 @@ public class Island extends Observable {
     * Fonction qui renvoie les coordonnées dans un tab
     * de trois zones à modifier se situant dans la croix
     */
-     private int[] getRandomPoint(){
+    public int[] getRandomPoint(){
         int[] tab= new int[2];
         int j = randomGen.nextInt(HAUTEUR);
         int j_p;

@@ -1,12 +1,15 @@
 package IleInterdite;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 
+import java.net.URL;
 import java.util.ArrayList;
 
 public class Explorateur extends Player {
-    public Explorateur(Zone zone, Color colo, Island modele) {
-        super(zone, colo, modele);
+    public Explorateur(Zone zone, URL image, Island modele) {
+        super(zone, image, modele);
     }
 
     /**

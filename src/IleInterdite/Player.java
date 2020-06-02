@@ -4,10 +4,14 @@ import Controller.CardDraggable;
 import Enumeration.Artefacts;
 import Enumeration.Etat;
 import Enumeration.TresorCard;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 
+import javax.print.DocFlavor;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.net.URL;
 
 public class Player{
 
@@ -17,12 +21,19 @@ public class Player{
     protected ArrayList<CardDraggable> playerCardsDragtgable = new ArrayList<>(); //Todo : Instancier un tas de carte
     protected static int nbActionsRestant;
     protected Island modele;
+    URL image ; //= new ImageView(new Image("http://icons.iconarchive.com/icons/kidaubis-design/cool-heroes/128/Ironman-icon.png"));
 
-    public Player(Zone zone, Color colo, Island modele){
+    public Player(Zone zone, URL image, Island modele){
         this.zone = zone;
-        this.color = colo;
+        this.image = image;
         this.modele = modele;
     }
+
+    public URL getImage(){
+        return this.image;
+    }
+
+
     /**
     * Deplacer le joueur
     **/

@@ -1,12 +1,16 @@
 package IleInterdite;
 
 import Enumeration.TresorCard;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
+
+import java.net.URL;
 
 public class Messager extends Player{
 
-    public Messager(Zone zone, Color colo, Island modele) {
-        super(zone, colo, modele);
+    public Messager(Zone zone, URL image, Island modele) {
+        super(zone, image, modele);
     }
 
     @Override

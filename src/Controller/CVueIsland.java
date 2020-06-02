@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -177,21 +178,28 @@ public class CVueIsland implements Initializable, Observer {
         for (int i = 0; i < liste.size(); i++) {
             PionsDraggable node = new PionsDraggable(liste.get(i), modele);
             node.setPrefSize(TAILLE/2, TAILLE/2);
-            node.setStyle(colorToStylePion(liste.get(i).getColor()));
+            //node.setStyle(colorToStylePion(liste.get(i).getColor()));
 
             // TODO gérer les images ici
-            /*ImageView iv1 = new ImageView(new Image("http://icons.iconarchive.com/icons/kidaubis-design/cool-heroes/128/Ironman-icon.png"));
-            iv1.relocate(0, 0);
-            node.getChildren().addAll(iv1);
-            */
+           // mageView iv1 = new ImageView(new Image("http://icons.iconarchive.com/icons/kidaubis-design/cool-heroes/128/Ironman-icon.png"));
+            //iv1.relocate(0, 0);
+            Image image = new Image(liste.get(i).getImage().toExternalForm(),100,100,true,true);
+
+            ImageView img =  new ImageView(image);
+            img.setX(-30);
+            //img.setPreserveRatio(true);
+            //img.resize(100,100);
+            //img.resize(10,10);
+            node.getChildren().addAll( img);
+
 
             //node.setLayoutX(spacing*(i+1) + node.getPrefWidth()*i);
             //node.setLayoutY(spacing);
-            Color c = liste.get(i).getColor();
+           // Color c = liste.get(i).getColor();
             Position pos = liste.get(i).getZone().getPosition();
-            System.out.println(c.toString());
+            //System.out.println(c.toString());
             node.setModel(this.modele);
-            node.setColor(c);
+           // node.setColor(c);
 
             node.setLayoutX(pos.x*TAILLE);
             node.setLayoutY(pos.y*TAILLE);
