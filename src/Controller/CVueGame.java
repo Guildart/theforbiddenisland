@@ -10,6 +10,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import IleInterdite.Observer;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -21,12 +23,13 @@ public class CVueGame implements Observer{
 
     @FXML
     public Canvas viewGame;
+    public Text text;
     private Island modele;
     private GraphicsContext gcF;
    /* public HashMap<Artefacts, Image> artefactsGris = new HashMap<Artefacts, Image>();
     public HashMap<Artefacts, Image> artefactsCouleur = new HashMap<Artefacts, Image>();*/
     public ArrayList<Artefacts> artefactsList = new ArrayList();
-
+    Font font;
 
     @Override
     public void update() {
@@ -34,6 +37,8 @@ public class CVueGame implements Observer{
     }
 
     public void initialize() {
+        Font font = Font.loadFont(getClass().getResourceAsStream("/image/treamd.ttf"),30);
+        text.setFont(font);
 
         /*artefactsGris.put(Artefacts.eau, new Image(getClass().getResource("/image/eau_g.png").toExternalForm()));
         artefactsGris.put(Artefacts.feu, new Image(getClass().getResource("/image/feu_g.png").toExternalForm()));
@@ -70,7 +75,7 @@ public class CVueGame implements Observer{
         Image image = new Image(imageURL.toExternalForm());
         gcF.drawImage(image, 320,30);
         int seaLevel = modele.getSeaLevel();
-
+        text.setText("Il vous reste "+ (3-Player.nbActionsRestant) + " actions.");
         Image pointeur = new Image(getClass().getResource("/image/pointer.png").toExternalForm());
         gcF.drawImage(pointeur, 320-5+(30*(seaLevel-1)),30-20);
 

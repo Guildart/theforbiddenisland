@@ -19,7 +19,7 @@ public class Player{
     protected Color color;
     protected ArrayList<TresorCard> playerCards = new ArrayList<>(); //Todo : Instancier un tas de carte
     protected ArrayList<CardDraggable> playerCardsDragtgable = new ArrayList<>(); //Todo : Instancier un tas de carte
-    protected static int nbActionsRestant;
+    public static int nbActionsRestant;
     protected Island modele;
     protected String role = "player";
     URL image ; //= new ImageView(new Image("http://icons.iconarchive.com/icons/kidaubis-design/cool-heroes/128/Ironman-icon.png"));
