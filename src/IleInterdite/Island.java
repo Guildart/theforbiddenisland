@@ -401,4 +401,30 @@ public class Island extends Observable {
         return voisins;
     }
 
+    public ArrayList<Zone> getSafeZoneArround(Zone zone){
+        ArrayList<Zone> voisins = new ArrayList<>();
+        Position pos = zone.getPosition();
+        if (pos.y-1>=0)
+            if(zones[pos.x][pos.y-1].isSafe())
+            voisins.add(zones[pos.x][pos.y-1]);
+        if(pos.x-1>=0)
+            if(zones[pos.x-1][pos.y].isSafe())
+            voisins.add(zones[pos.x-1][pos.y]);
+
+        if(pos.y+1<Island.HAUTEUR)
+            if(zones[pos.x][pos.y+1].isSafe())
+            voisins.add(zones[pos.x][pos.y+1]);
+
+        if(pos.x+1<Island.LARGEUR)
+            if(zones[pos.x+1][pos.y].isSafe())
+            voisins.add(zones[pos.x+1][pos.y]);
+
+        voisins.add(zone);
+        return voisins;
+    }
+
+    public ArrayList<TresorCard> getDefausseTresorCard(){
+        return this.defausseCarteTresor;
+    }
+
 }

@@ -67,5 +67,9 @@ public class Navigateur extends Player {
         return res;
     }
 
+    @Override
+    public String toString() {
+        return "Navigateur";
+    }
 
 }

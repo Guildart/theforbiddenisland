@@ -2,15 +2,10 @@ package Controller;
 
 import Enumeration.TresorCard;
 import IleInterdite.Island;
-import IleInterdite.Observer;
 import IleInterdite.Player;
-import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -26,8 +21,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-
-import java.io.IOException;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -54,7 +47,7 @@ public class CVueDefausse implements Initializable {
 
     private Island modele;
 
-    private ArrayList<TresorCard> toDiscard = new ArrayList();
+    private ArrayList<Integer> indiceToDiscard = new ArrayList();
 
     private int nbCardTodrop;
 
@@ -108,7 +101,7 @@ public class CVueDefausse implements Initializable {
             TresorCard card = cards.get(i);
             gcF.setFill(card.getColor());
             URL url = getClass().getResource(card.getURLForPlayersDiscard());
-            gcF.drawImage(new Image(url.toExternalForm()), 20 + i * (gap+cardH),10);
+            gcF.drawImage(new Image(url.toExternalForm()), i * (gap+cardH),10);
         }
 
         scrollPane.setMinHeight(220);
@@ -133,8 +126,9 @@ public class CVueDefausse implements Initializable {
     EventHandler<MouseEvent> handleClickButton = new EventHandler<MouseEvent>() {
         public void handle(MouseEvent mouseEvent)
         {
+            ArrayList<TresorCard> toDiscard = new ArrayList();
             if(!continueButton.isCancelButton()){
-                player.discardCard(toDiscard);
+                player.discardCard(indiceToDiscard);
                 modele.notifyObservers();
                 Stage s = (Stage) continueButton.getScene().getWindow();
                 s.close();
@@ -148,25 +142,28 @@ public class CVueDefausse implements Initializable {
                     System.out.println("pos x :" + x);
                     GraphicsContext gcF = canvas.getGraphicsContext2D();
                     TresorCard card = player.getCards().get(x);
-                    if(toDiscard.contains(card)){
-                        gcF.setFill(card.getColor());
+                    if(indiceToDiscard.contains(x)){
                         URL url = getClass().getResource(card.getURLForPlayersDiscard());
-                        gcF.drawImage(new Image(url.toExternalForm()), 20 + x * (gap+cardH),10);
-                        //gcF.fillRect(20 + x * (gap+cardH), 10, cardH, cardV);
-                        toDiscard.remove(card);
+                        gcF.drawImage(new Image(url.toExternalForm()), x * (gap+cardH),10);
+                        indiceToDiscard.remove(x);
+                        nbCardTodrop++;
                     }else{
                         gcF.setLineWidth(4);
                         gcF.setFill(Color.RED);
                         gcF.setStroke(Color.RED);
-                        gcF.strokeRect((20 + x * (gap+cardH))+4, 10+4, cardH-7, cardV-7);
-                        toDiscard.add(card);
+                        gcF.strokeRect((x * (gap+cardH))+4, 10+4, cardH-7, cardV-7);
+                        indiceToDiscard.add(x);
+                        nbCardTodrop--;
                     }
 
-                    if(player.nombreCarte() - toDiscard.size() < 6) {
+                    if(player.nombreCarte() - indiceToDiscard.size() < 6) {
                         continueButton.setCancelButton(false);
                         label.setText("Vous devez encore deffauser " + 0 + " cartes");
-                    }else
+                    }else {
+                        continueButton.setCancelButton(true);
                         label.setText("Vous devez encore deffauser " + nbCardTodrop + " cartes");
+                    }
+                    System.out.println("discard size : " + indiceToDiscard.size());
                 }
             };
 

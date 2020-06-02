@@ -51,7 +51,10 @@ public class Pilote extends Player{
 
 
 
-
+    @Override
+    public String toString() {
+        return "Pilote";
+    }
 
 
 }

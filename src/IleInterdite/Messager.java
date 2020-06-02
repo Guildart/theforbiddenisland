@@ -20,4 +20,9 @@ public class Messager extends Player{
         this.addAction();
         player.setCard(card);
     }
+
+    @Override
+    public String toString() {
+        return "Messager";
+    }
 }

@@ -21,6 +21,7 @@ public class Player{
     protected ArrayList<CardDraggable> playerCardsDragtgable = new ArrayList<>(); //Todo : Instancier un tas de carte
     protected static int nbActionsRestant;
     protected Island modele;
+    protected String role = "player";
     URL image ; //= new ImageView(new Image("http://icons.iconarchive.com/icons/kidaubis-design/cool-heroes/128/Ironman-icon.png"));
 
     public Player(Zone zone, URL image, Island modele){
@@ -133,8 +134,12 @@ public class Player{
         playerCards.add(0,c);
     }
 
-    public void discardCard(ArrayList<TresorCard> toDiscard){
-        this.getCards().removeAll(toDiscard);
+    public void discardCard(ArrayList<Integer> toDiscard){
+        for(int i : toDiscard){
+            TresorCard card = playerCards.get(i);
+            this.getCards().remove(i);
+            modele.addToDefausseCarteTresor(card);
+        }
     }
 
 
@@ -148,6 +153,7 @@ public class Player{
 
     public void removeCard(TresorCard card){
         playerCards.remove(card);
+        modele.addToDefausseCarteTresor(card);
     }
 
     public int nombreCarte(){
@@ -163,15 +169,16 @@ public class Player{
      */
     public ArrayList<Zone> zonesSafeToMove(){
         Position pos = zone.getPosition();
-        ArrayList<Zone> zonesSafe = modele.getZoneArround(this.zone);
+        ArrayList<Zone> zonesSafe = modele.getSafeZoneArround(this.zone);
         zonesSafe.remove(this.zone);
         return  zonesSafe;
     }
 
 
     public ArrayList<Zone> zonesDrainable(){
-        ArrayList<Zone> zones = modele.getZoneArround(this.zone);
-        zones.add(this.zone);
+        ArrayList<Zone> zones = modele.getSafeZoneArround(this.zone);
+        if(this.zone.isSafe())
+            zones.add(this.zone);
         return zones;
     }
 
@@ -191,5 +198,10 @@ public class Player{
             this.addAction();
             player.setCard(card);
         }
+    }
+
+
+    public String toString(){
+        return "Player";
     }
 }

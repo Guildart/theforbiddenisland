@@ -69,6 +69,7 @@ public class CVuePlayer implements Initializable, Observer {
         paintCard();
         paintPlayer(getPlayer().getColor());
 
+
         for(int i = 0; i<arrayCards.size(); i++){
             arrayCards.get(i).translateSafeX();
             arrayCards.get(i).translateSafeY();

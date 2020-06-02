@@ -20,4 +20,9 @@ public class Ingenieur extends Player{
         if(nbDrain%2 == 0)
             Ingenieur.nbActionsRestant--;
     }
+
+    @Override
+    public String toString() {
+        return "Ingenieur";
+    }
 }

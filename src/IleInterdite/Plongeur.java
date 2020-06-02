@@ -43,4 +43,8 @@ public class Plongeur extends Player{
     }
 
 
+    @Override
+    public String toString() {
+        return "Plongeur";
+    }
 }
