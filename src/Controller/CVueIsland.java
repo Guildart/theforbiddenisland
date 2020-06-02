@@ -185,6 +185,8 @@ public class CVueIsland implements Initializable, Observer {
             //iv1.relocate(0, 0);
             Image image = new Image(liste.get(i).getImage().toExternalForm(),100,100,true,true);
 
+
+
             ImageView img =  new ImageView(image);
             img.setX(-30);
             //img.setPreserveRatio(true);

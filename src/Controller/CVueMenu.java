@@ -161,7 +161,7 @@ public class CVueMenu implements Initializable, Observer {
         if(actionEvent.getSource()==Navigateur) {
             if(Navigateur.isSelected()){
                 int[] tab = modele.getRandomPoint();
-                URL imageURL = getClass().getResource("/image/navigateur.png");
+                URL imageURL = getClass().getResource("/image/naviguateur.png");
                 Player p = new Navigateur(modele.getGrille()[tab[0]][tab[1]],imageURL, modele);
                 hashMap1.put("Navigateur",p);
                 nbJoueurs++;
@@ -218,6 +218,8 @@ public class CVueMenu implements Initializable, Observer {
                     System.out.println("ca affiche "+ FXVue.maVAR);
                     System.out.println("ca affiche "+ modele.getListPlayers().size());
                     modele.setRoundOf(modele.getListPlayers().get(0));
+                    modele.setLoader(new FXMLLoader(getClass().getResource("/Vue/VueMenu.fxml")));
+                    modele.setStage(stage);
                     FXVue.setModele(modele);
 
                     Scene scene = new Scene(root);

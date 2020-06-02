@@ -11,12 +11,15 @@ package IleInterdite; /**
 
 
 import Controller.CVueDefausse;
+import Controller.EndOfGame;
 import Enumeration.Artefacts;
 import Enumeration.Etat;
 import Enumeration.TresorCard;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.Collections;
@@ -47,7 +50,8 @@ public class Island extends Observable {
     private ArrayList<Zone> defausseCarteInnondation = new ArrayList<>();
     private int seaLevel = 1;
     private int numberCardToPick = 2;
-
+    FXMLLoader loader ;
+    Stage stage;
 
     /** Construction : on initialise un tableau de cellules. */
     public Island() {
@@ -211,11 +215,19 @@ public class Island extends Observable {
             }
         }
 
-       /* if(this.Lose()){
-            CVueDefausse dv = new CVueDefausse();
-            dv.display(this, RoundOf);
+        if(this.Lose()){// pour perdre faut aussi tester que les zones artefactrs sont submergées
 
-        }*/
+
+            notifyObservers();
+            EndOfGame dv = new EndOfGame();
+            dv.display(this, "perdu", loader,stage);
+
+        }
+        else if(this.Win()){ // tester autre chose
+            notifyObservers();
+            EndOfGame dv = new EndOfGame();
+            dv.display(this, "gagné", loader,stage);
+        }
 
         RoundOf.searchKey(this.tasCarteTresor, this.defausseCarteTresor, this);
         RoundOf.searchKey(this.tasCarteTresor, this.defausseCarteTresor, this);
@@ -225,6 +237,14 @@ public class Island extends Observable {
         ArrayList<Player> players = this.listPlayers;
         this.setRoundOf(players.get( (players.indexOf(this.getRoundOf())+1)%players.size()));
         notifyObservers();
+    }
+
+    public void setLoader(FXMLLoader loader){
+        this.loader = loader;
+    }
+
+    public void setStage(Stage stage){
+        this.stage = stage;
     }
 
     /**
