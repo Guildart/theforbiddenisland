@@ -4,11 +4,8 @@ import Controller.CardDraggable;
 import Enumeration.Artefacts;
 import Enumeration.Etat;
 import Enumeration.TresorCard;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 
-import javax.print.DocFlavor;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.net.URL;
@@ -36,8 +33,8 @@ public class Player{
 
 
     /**
-    * Deplacer le joueur
-    **/
+     * Deplacer le joueur
+     **/
     public void movePlayer(Zone z){
         this.zone = z;
     }
@@ -94,12 +91,6 @@ public class Player{
             System.out.println(card.toString());
             tas.remove(card);
         }
-
-        /*if(this.playerCards.size() > 8){
-            card = playerCards.get(0);
-            defausse.add(card);
-            playerCards.remove(card);
-        }*/
     }
 
 
@@ -139,7 +130,11 @@ public class Player{
         for(int i : toDiscard){
             toRemove.add(playerCards.get(i));
         }
-        this.getCards().removeAll(toRemove);
+
+        for(int i = 0; i < toRemove.size(); i++){
+            defausseCard(toRemove.get(i));
+        }
+
         modele.getDefausseTresorCard().addAll(toRemove);
     }
 
@@ -152,9 +147,19 @@ public class Player{
         this.playerCardsDragtgable = playerCardsDragtgable;
     }
 
-    public void removeCard(TresorCard card){
-        playerCards.remove(card);
-        modele.addToDefausseCarteTresor(card);
+    public void defausseCard(TresorCard card){
+        if(this.removeCard(card))
+            modele.addToDefausseCarteTresor(card);
+    }
+
+    public boolean removeCard(TresorCard card){
+        for(int i = 0; i < this.playerCards.size(); i++){
+            if(card == playerCards.get(i)){
+                playerCards.remove(i);
+                return  true;
+            }
+        }
+        return false;
     }
 
     public int nombreCarte(){
@@ -195,7 +200,6 @@ public class Player{
     public void giveCard(TresorCard card, Player player){
         if(player.getZone() == this.zone) {
             this.removeCard(card);
-            modele.addToDefausseCarteTresor(card);
             this.addAction();
             player.setCard(card);
         }
