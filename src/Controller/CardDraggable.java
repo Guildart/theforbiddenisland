@@ -4,15 +4,10 @@ import Enumeration.Etat;
 import Enumeration.TresorCard;
 import IleInterdite.Island;
 import IleInterdite.Player;
-import IleInterdite.Position;
 import IleInterdite.Zone;
 import javafx.event.EventHandler;
-import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 
-import java.util.ArrayList;
 
 public class CardDraggable extends PionsDraggable {
 
