@@ -97,7 +97,7 @@ public class CardDraggable extends PionsDraggable {
                     if(z.getEtat()== Etat.inondee){
                         z.setEtat(Etat.normale);
                     }
-                    player.removeCard(card);
+                    player.defausseCard(card);
                     modele.addToDefausseCarteTresor(card);
 
                 }
@@ -108,7 +108,7 @@ public class CardDraggable extends PionsDraggable {
                         modele.displayWin(); // on affiche l'ecran de fin
                     }
                     player.movePlayer(modele.getZone((int)x/CVueIsland.TAILLE,(int)y/CVueIsland.TAILLE)); // je le teleporte quand meme si ca échoue
-                    player.removeCard(card); // dans tous les cas on retire la carte
+                    player.defausseCard(card); // dans tous les cas on retire la carte
                     modele.addToDefausseCarteTresor(card); // puis on la défausse
                     // si c'est bien la fin de partie,
                 }
