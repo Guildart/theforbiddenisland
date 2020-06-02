@@ -50,6 +50,7 @@ public class Island extends Observable {
     private ArrayList<Zone> defausseCarteInnondation = new ArrayList<>();
     private int seaLevel = 1;
     private int numberCardToPick = 2;
+    private boolean endOfGame = false;
     FXMLLoader loader ;
     Stage stage;
 
@@ -221,12 +222,13 @@ public class Island extends Observable {
             notifyObservers();
             EndOfGame dv = new EndOfGame();
             dv.display(this, "perdu", loader,stage);
-
+            endOfGame=true;
         }
         else if(this.Win()){ // tester autre chose
             notifyObservers();
             EndOfGame dv = new EndOfGame();
             dv.display(this, "gagné", loader,stage);
+            endOfGame=true;
         }
 
         RoundOf.searchKey(this.tasCarteTresor, this.defausseCarteTresor, this);
@@ -237,6 +239,10 @@ public class Island extends Observable {
         ArrayList<Player> players = this.listPlayers;
         this.setRoundOf(players.get( (players.indexOf(this.getRoundOf())+1)%players.size()));
         notifyObservers();
+    }
+
+    public boolean getEndOfGame(){
+        return this.endOfGame;
     }
 
     public void setLoader(FXMLLoader loader){
@@ -320,10 +326,6 @@ public class Island extends Observable {
         }
 
         return false;
-    }
-
-    public ArrayList<Artefacts> getArtefacts(){
-        return listArtefacts;
     }
 
     public void setRoundOf(Player p){

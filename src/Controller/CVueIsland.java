@@ -12,12 +12,14 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
 
 import java.net.URL;
 import java.util.*;
+import Enumeration.Artefacts;
 
 public class CVueIsland implements Initializable, Observer {
 
@@ -43,6 +45,9 @@ public class CVueIsland implements Initializable, Observer {
     double orgSceneX, orgSceneY , orgTranslateX , orgTranslateY;
 
 
+    private final URL imageURLHeliport = getClass().getResource("/image/heliport.png");
+    private Image imageHeliport =  new Image(imageURLHeliport.toExternalForm(),TAILLE,TAILLE,true,true);
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -62,6 +67,7 @@ public class CVueIsland implements Initializable, Observer {
                  * coordonnées du coin en haut à gauche.
                  */
                 paintZone(gcF, modele.getZone(i, j), (i)*TAILLE, (j)*TAILLE);
+                setArtefactToZone(gcF, modele.getZone(i, j), (i)*TAILLE, (j)*TAILLE);
             }
         }
 
@@ -123,11 +129,18 @@ public class CVueIsland implements Initializable, Observer {
             g.setFill(Color.GREEN);
         } else if (c.getEtat() == Etat.inondee){
             g.setFill(Color.CYAN);
-        } else{
+        }
+        else{
             g.setFill(Color.BLUE);
         }
-        /** Coloration d'un rectangle. */
+        /** Coloration d'un rectangle. */ // il faut dessiner les cartes ici
         g.fillRect(x, y, TAILLE, TAILLE);
+
+
+        if(c.isHeliport()){ // on dessine l'heliport ici
+            g.drawImage(imageHeliport,c.getPosition().x*TAILLE,c.getPosition().y*TAILLE); // imageHeliport constant
+        }
+
     }
 
     private void paintPlayer(GraphicsContext g, Color c, int x, int y) {
@@ -146,6 +159,16 @@ public class CVueIsland implements Initializable, Observer {
         /** Coloration d'un rectangle. */
         g.strokeRect(x, y, TAILLE, TAILLE);
         g.setLineWidth(old);
+    }
+
+    public void setArtefactToZone(GraphicsContext g, Zone c, int x, int y){
+        Artefacts a = c.getArtefacts();
+        if(!a.equals(Artefacts.none)){
+            Image image = a.getImage();
+            ImageView img =  new ImageView(image);
+            g.drawImage(image,c.getPosition().x*TAILLE+TAILLE-20,c.getPosition().y*TAILLE+TAILLE -25);
+        }
+
     }
 
     public void handleOnMouseClicked(MouseEvent mouseEvent) {

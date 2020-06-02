@@ -219,7 +219,8 @@ public class CVueMenu implements Initializable, Observer {
                     System.out.println("ca affiche "+ modele.getListPlayers().size());
                     modele.setRoundOf(modele.getListPlayers().get(0));
                     FXVue.setModele(modele);
-
+                    modele.setLoader(new FXMLLoader(getClass().getResource("/Vue/VueMenu.fxml")));
+                    modele.setStage(stage);
                     Scene scene = new Scene(root);
                     stage.setScene(scene);
                     stage.show();
