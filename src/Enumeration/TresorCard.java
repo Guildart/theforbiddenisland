@@ -5,7 +5,6 @@ import javafx.scene.paint.Color;
 
 import java.awt.*;
 
-//Todo: Modif TresorCard
 public enum TresorCard {
     clef_air, clef_eau, clef_feu, clef_terre, helicopter, sandbag, rising_water, empty;
 

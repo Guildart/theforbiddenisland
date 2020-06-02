@@ -1,78 +1,85 @@
-# The Forbidden JAVAFX version,
+# The Forbidden Island,
 ## MOULOUA Ramdane & MUSSARD Romain
 
+Ce git est celui de notre projet de POGL de DL Math-Info du S4.
 
-UML : https://app.genmymodel.com/api/projects/_0W4BgJnWEeqEM7mFKilpXw/diagrams/_0W4Bg5nWEeqEM7mFKilpXw/png
-
-La classe cellule = cases
-
-Class IleInterdite.Island:
-
-    - Attributs:
-        - Grille de zone
-        - Hauteur de la grille 6
-        - Largeur de la grille 6 
-        - Players 
-        (-Arraylist piocheJoueur)
-        (-Arraylist piocheEnvironnement)
-        (-Arraylist défausseEnvironnement)
+But du Porjet : 
     
-    - Méthodes:
-        - init() pour initiliaser la grille
-        - getZone()
-        - Win
-        - Lose
-        - nextRound()
-                * Doit vérifier l'état du jeu (Win, Lose)
-                * Actions joueurs (appelle une Action de joueur)
-                * Recherche de clé (dans player)
-                * Immersion de 3 zones aléatoires
-                
-Class IleInterdite.Zone:
+       Implémenter le jeu L'Ile Interdite de Matt Leacock en respectant au mieux la structure MVC
+       pour une meilleurs gestion de projet.
 
-    -Attributs:
-        - pos x et y
-        - Boolean Heliport 
-        - Enumeration.Etat enum (none, normale,inondée ou submergée)
-        - Enumeration.Artefacts enum (air, eau, feu, vent, none)
+Notre Objectif Personnel : 
 
-    -Méthodes:
-        - setEtat
-        - removeArtefacts
-        - getPosition
-        - getArtefacts
-        - getEtat
-        - getHeliport 
+    Faire une version la plus fidèle possible du jeu de plateau avec Java FX.
 
+Originalité :
 
-class VueIsland:
+    - Nous avons utilisé Java FX pour la partie graphique en alliant le plus possible le
+    code java, FXML et l'utilisation de scene builder.
     
-    -    
+    - Notre gameplay plutôt intuitif et facile d'accès.
+    
+Comment ça se joue :
 
+    - Le joueur peut se deplacer (ou deplacer les autres dans le cas du navigateur) en faisant un
+    Drag and Drop, il suffit donc de faire glisser les pions.
+    
+    - Un joueur peut donner une carte à un autre joueur pendant sont tour (quand les conditions sont
+    réunit) en faisant un Drag and Drop de sa carte vers la main de son coéquipier.
+    
+    - De même le joueurs peut utiliser une carte spéciale (sans coût d'action) en glissant sa carte
+    vers la zone de l'île où il veut se rendre.
+    
+    - Nous avons implémenté les différents rôles du jeux, le joueur devra au lancement du jeux
+    sélectionner 2 à 4 rôles (selon le nombre de joueurs voulut) pour lancer une partie.
+    
+    - Nous avons implementer les packets de cartes ainsi que la fonctionnalitée montée des eaux, quand une
+    carte montée des eaux est tirée ont mélange la defausse des cartes innondation au tas de carte
+    innondation (Attention des zones vont commencer à sombrer!!!). Selon la zone ou est le curseur,
+    sur la règle montée des eaux (panneaux du bas dans la fênetre), 2 à 5 cartes inondation seront tirées.
+    
+    - De même les Cartes tresors sont implémentés, quand le tas est vide on mélange la défausse qui
+    devient la nouvelle main.
+    
+    - Pour coller au mieux aux règles officiels, un joueur ne peut avoir plus de 5 cartes en mains,
+    aussi à chaque debut de tours si un joueurs à trop cartes une fenetre pop up s'ouvrira 
+    et le joueur sera obligé de défausser un nombre minimale de carte.
+    
+    - Pour récupérer un Tresor/Artefacts le joueurs devra se trouver sur la case de l'artefacts voulu,
+    avoir en sa possession 4 cartes tresors et cliquer sur le bouton "Take Tresor"
+    
+    - Pour finir son tours le jouer devra cliquer sur Next Round, il
+    tirera alors 2 cartes tresors dans la pioche et ce sera au joueur suivant
+    
+    - Le joueur dont c'est le tour verra le fond derrière sa main (panneau de droite) devenir vert,
+    de plus il est indiqué sous les boutons ("Next Round" et "Take Tresor") le role du joeur dont c'est
+    le tour et le nombre d'action qu'il lui reste
+    
+    - Un joueur peut arrêter sont tour et passer au prochain joueur quand il le veut en cliquant
+    sur "Next Round", aucune obligation de réaliser des actions.
+    
+    - Sur la grille sont représenter par des logo eau, vent, air, feu les zones contenant des artefacts
 
+    - Quand un joueur prend un artefacts celui ci disparait de la zone où elle se trouvait et
+    l'artefacts correspondant sur le panneau en bas de l'île se colorisera
+    
+    - Pour gagner après avoir obtenu tous les artefacts, tous les joueurs devront être sur la case
+    Heliport (la case de l'île avec un sybole H) et utiliser une carte Helicopter pour décoller de
+    l'île
+    
+    - Les joueurs perdent si toutes les tuiles contenant un artefacts sombres avant qu'il l'ai 
+    récupéré, si un joueur se noie ou si l'héliport sombre
+    
+    
+Un mots sur les graphismes :
 
-
-Class IleInterdite.Player:
-
-    - Attributs:
-        - Couleur (https://docs.oracle.com/javase/7/docs/api/java/awt/Color.html)
-        - IleInterdite.Zone
-        - ArrayList de clés
-        - ArrayList d'specialZone
-        (-ArrayList mainCarte)
-        (-ArrayList défausse) (commune aux joueurs un static, partagés par tous les joueurs ou dans IleInterdite.Island))
-        
-    - Méthodes:
-        - Set IleInterdite.Player (lui passer une zone)
-        - deplaceJoueur
-        - assecheZone
-        - recupArtefacts
-        - donnerCle ( avec un autre joueur)
-        (- addArtefacts)
-        - addCle
-        - 
-        - RechercheClé (tirage de carte )
-        
+    - Merci a Marius qui a dessiné pour nous les Cartes représentant les différents rôles et les pions.
+    - Une quantité non negligeable des resources graphique provienne du site freepik.com
+    
+    
+    
+Ci-Dessous la liste des updates fait au jour le jour, qui nous a permis une meilleur communication
+entre nous dans la réalisation du projet:        
         
 Update Romain 20/05/2020:
 
@@ -203,7 +210,7 @@ Update Romain 27/05/2020:
 
 Update Ramdane 30/05/2020:
 
-    - Ajout de drop and drop
+    - Ajout de drag and drop
     - cliquer sur un case submerge pour retirer l'eeau
     - glisser et déposer un pion pour le déplacer
     - cration dans la classe VueIsland de noeuds pour gérer les pions
@@ -215,8 +222,8 @@ Update Ramdane 30/05/2020:
 Update Romain 30/05/2020:
 
     - Creation CPlayerPanel et VuePlayerPanel.fxml
-    - CVuePlayer dessine un joueur sur un canvas et CPlayerPanel contient le
-      canvas de tout les joueurs
+    - CVuePlayer dessine un joueur sur un pane et CPlayerPanel contient les
+      panes de tout les joueurs
     - Implementation Take Tresor + Association GUI
     - Supression de type action, modification des methodes qui l'utilisait + 
       correction de bug mineur pour respecter le Drag and Drop
@@ -229,29 +236,30 @@ Update Ramdane 31/05/2020:
     - Modification du CSS
     - Ajout du bouton quitter dans vue commande qui renvoie au menu principal
 
-TODO LIST :
 
-    **Priorité : High**
-    - Impelementer echanges de carte (modele et interface)
-   
+Update Romain 30/05/2020:
+
+    - Implementation de la montée des eaux et affichage graphique sur panneau du bas
+    
+
+Update Romain 01/05/2020:
+
+    - Creation du Pop up pour la gestion de la defausse
+    - Correctif en tout genre de bug liée à la defausse
+    - Graphisme affichage des images de cartes (jusque là représenter simplement par rectangle colorée)
+    - Réalisation des rôles Messager, Pilote, Plongeur et Ingenieur
+    - Affichage des noms des joueurs à coté de leurs logo
+    - Mise en place du systeme de coloration de la main du joueur dont c'est le tour
+    - Commentaire de code et clean up
 
     
-    **Priorité : Medium**
-    - Faire un classe qui gére un tas de cartes et sa défausse ???
-    - Utiliser l'héritage pour faire des Zones spécial plutot que de les enuméré
-    dans SpecialZone ?
-    
-    **Priorité : Low**
-    - Ceation de personnage (hérite de Joueurs), comme chaque joueurs à des mouv
-    particuliers attribuer cetaines de méthodes de Island dans Joueurs
-    Notamment zonesReachable (et donc toutes les sous méthodes associé zonesDrainable,
-    zoneSafeToMove ....)
+Update Ramdane 01/06/2020:
 
-TODO LIST Graphique :
-
-    - Logo pour chaque role de joueur (6 en tout) voir règle du jeux
-    - Icone sac de sable et helicoptere (de même dimension que les clés !!!!)
-    - Icones pour les artefacts sauf si on garde ce que j'avais fait ??
-    - Design de la jauge "SeaLevel"
-    - Les tuiles pour le plateau
+    - Finalisation du Drag And Drop des cartes
+    - Graphisme : Gestion des images représentant les joueurs (jusque là représenter simplement par rond colorée)
+    - Réalisation du pop up Menu et de la Fin de partie
+    - Réalisation des rôles Navigateur et Explorateur
+    - Gestion affichage Artefacts dans grilles et panneau du bas
+    - Affcihage du compteur d'action 
+    - Commentaire de code et clean up
     

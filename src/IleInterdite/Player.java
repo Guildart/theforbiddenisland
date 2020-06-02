@@ -13,8 +13,8 @@ import java.net.URL;
 public class Player{
 
     protected Zone zone;
-    protected ArrayList<TresorCard> playerCards = new ArrayList<>(); //Todo : Instancier un tas de carte
-    protected ArrayList<CardDraggable> playerCardsDragtgable = new ArrayList<>(); //Todo : Instancier un tas de carte
+    protected ArrayList<TresorCard> playerCards = new ArrayList<>();
+    protected ArrayList<CardDraggable> playerCardsDragtgable = new ArrayList<>();
     public static int nbActionsRestant;
     protected Island modele;
     URL image ;
@@ -38,7 +38,7 @@ public class Player{
      * @param z la zone a assécher
      */
     public void drainWaterZone(Zone z){
-        z.setEtat(Etat.normale); //TODO: Vérifier si la zone est bien innondée et rien d'autres ? Normalment verifier avant utilisation donc est ce nécessaire ?
+        z.setEtat(Etat.normale);
     }
 
     /**
