@@ -10,6 +10,7 @@ package IleInterdite; /**
  */
 
 
+import Controller.CVueDefausse;
 import Enumeration.Artefacts;
 import Enumeration.Etat;
 import Enumeration.TresorCard;
@@ -209,6 +210,12 @@ public class Island extends Observable {
                 tasCarteInnondation.remove(z);
             }
         }
+
+       /* if(this.Lose()){
+            CVueDefausse dv = new CVueDefausse();
+            dv.display(this, RoundOf);
+
+        }*/
 
         RoundOf.searchKey(this.tasCarteTresor, this.defausseCarteTresor, this);
         RoundOf.searchKey(this.tasCarteTresor, this.defausseCarteTresor, this);

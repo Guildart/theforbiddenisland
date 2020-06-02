@@ -161,7 +161,7 @@ public class CVueMenu implements Initializable, Observer {
         if(actionEvent.getSource()==Navigateur) {
             if(Navigateur.isSelected()){
                 int[] tab = modele.getRandomPoint();
-                URL imageURL = getClass().getResource("/image/Navigateur.png");
+                URL imageURL = getClass().getResource("/image/navigateur.png");
                 Player p = new Navigateur(modele.getGrille()[tab[0]][tab[1]],imageURL, modele);
                 hashMap1.put("Navigateur",p);
                 nbJoueurs++;
