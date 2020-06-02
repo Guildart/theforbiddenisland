@@ -4,28 +4,19 @@ import Enumeration.TresorCard;
 import IleInterdite.Island;
 import IleInterdite.Observer;
 import IleInterdite.Player;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 
 import java.awt.*;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import javafx.scene.control.Alert;
-import javafx.scene.control.DialogPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
-import javafx.stage.Popup;
-import javafx.stage.Stage;
 
 
 public class CVuePlayer implements Initializable, Observer {
@@ -103,7 +94,7 @@ public class CVuePlayer implements Initializable, Observer {
             CardDraggable ere = arrayCards.get(i);
             ere.setCard(c);
             ere.setColor(c.getColor());
-            ere.setImageURL(c.getImageForCard());
+            ere.setImageURL(c.getURLForPlayersCards());
 
         }
     }
@@ -118,10 +109,10 @@ public class CVuePlayer implements Initializable, Observer {
                 gcF.setFill(card.getColor());
                 //TresorCard a = arrayCards.get(i).getCard();
                 //gcF.setFill(a .getColor());
-                arrayCards.get(i).setStyle(CVueIsland.colorToStyleCard(card.getImageForCard()));
+                arrayCards.get(i).setStyle(CVueIsland.colorToStyleCard(card.getURLForPlayersCards()));
             }else{
                 gcF.setFill(Color.WHITE);
-                arrayCards.get(i).setStyle(CVueIsland.colorToStyleCard( TresorCard.empty.getImageForCard()));
+                arrayCards.get(i).setStyle(CVueIsland.colorToStyleCard( TresorCard.empty.getURLForPlayersCards()));
             }
 
             gcF.fillRect(80+30+i*(50+5), 35, 50, 80);

@@ -28,6 +28,7 @@ import javafx.stage.StageStyle;
 
 
 import java.io.IOException;
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -106,7 +107,8 @@ public class CVueDefausse implements Initializable {
         for(int i = 0; i < cards.size()-nbCardEmpty; i++){
             TresorCard card = cards.get(i);
             gcF.setFill(card.getColor());
-            gcF.fillRect(gap + i * (gap+cardH), 10, cardH, cardV);
+            URL url = getClass().getResource(card.getURLForPlayersDiscard());
+            gcF.drawImage(new Image(url.toExternalForm()), 20 + i * (gap+cardH),10);
         }
 
         scrollPane.setMinHeight(220);
@@ -148,11 +150,15 @@ public class CVueDefausse implements Initializable {
                     TresorCard card = player.getCards().get(x);
                     if(toDiscard.contains(card)){
                         gcF.setFill(card.getColor());
-                        gcF.fillRect(20 + x * (gap+cardH), 10, cardH, cardV);
+                        URL url = getClass().getResource(card.getURLForPlayersDiscard());
+                        gcF.drawImage(new Image(url.toExternalForm()), 20 + x * (gap+cardH),10);
+                        //gcF.fillRect(20 + x * (gap+cardH), 10, cardH, cardV);
                         toDiscard.remove(card);
                     }else{
-                        gcF.setLineWidth(2);
-                        gcF.strokeRect((20 + x * (gap+cardH))+2, 10+2, cardH-4, cardV-4);
+                        gcF.setLineWidth(4);
+                        gcF.setFill(Color.RED);
+                        gcF.setStroke(Color.RED);
+                        gcF.strokeRect((20 + x * (gap+cardH))+4, 10+4, cardH-7, cardV-7);
                         toDiscard.add(card);
                     }
 
