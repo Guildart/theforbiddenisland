@@ -50,7 +50,7 @@ public class CVuePlayer implements Initializable, Observer {
     @Override
     public void update() {
         this.repaint();
-        if(getPlayer().nombreCarte() > 5 && modele.getRoundOf() == getPlayer()){
+        if(getPlayer().nombreCarte() > 5 && modele.getRoundOf() == getPlayer() && !modele.getEndOfGame()){
             CVueDefausse dv = new CVueDefausse();
             dv.display(modele, getPlayer());
         }
@@ -62,7 +62,9 @@ public class CVuePlayer implements Initializable, Observer {
         gcF.setFill(c);
        // gcF.strokeLineJoin(new BasicStroke(4));
         //gcF.fillRect(0, 0, viewplayer.getWidth(), viewplayer.getHeight());
-        gcF.fillRect(0, 0, LARGEUR,HAUTEUR);
+        if(getPlayer() == modele.getRoundOf())
+            gcF.setFill(Color.MEDIUMSEAGREEN);
+        gcF.fillRoundRect(0, 0, LARGEUR,HAUTEUR,50,50);
         //gcF.setStroke(s);
         paintCard();
         paintPlayer(getPlayer().getColor());

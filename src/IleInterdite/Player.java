@@ -163,33 +163,14 @@ public class Player{
      */
     public ArrayList<Zone> zonesSafeToMove(){
         Position pos = zone.getPosition();
-        ArrayList<Zone> zonesSafe = new ArrayList<>();
-        Zone [][] zones = modele.getGrille();
-        if (pos.y-1>=0)
-            if(zones[pos.x][pos.y-1].isSafe()){
-                zonesSafe.add(zones[pos.x][pos.y-1]);
-            }
-        if(pos.x-1>=0)
-            if(zones[pos.x-1][pos.y].isSafe()){
-                zonesSafe.add(zones[pos.x-1][pos.y]);
-            }
-
-        if(pos.y+1<Island.HAUTEUR)
-            if(zones[pos.x][pos.y+1].isSafe()){
-                zonesSafe.add(zones[pos.x][pos.y+1]);
-            }
-
-        if(pos.x+1<Island.LARGEUR)
-            if(zones[pos.x+1][pos.y].isSafe()){
-                zonesSafe.add(zones[pos.x+1][pos.y]);
-            }
-
-        return zonesSafe;
+        ArrayList<Zone> zonesSafe = modele.getZoneArround(this.zone);
+        zonesSafe.remove(this.zone);
+        return  zonesSafe;
     }
 
 
     public ArrayList<Zone> zonesDrainable(){
-        ArrayList<Zone> zones = zonesSafeToMove();
+        ArrayList<Zone> zones = modele.getZoneArround(this.zone);
         zones.add(this.zone);
         return zones;
     }

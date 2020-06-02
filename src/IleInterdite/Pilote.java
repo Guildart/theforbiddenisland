@@ -24,6 +24,8 @@ public class Pilote extends Player{
             return super.zonesSafeToMove();
     }
 
+
+
     //On regard si le pilote utilise sa competence
     public boolean isFlying(Zone zone){
         ArrayList<Zone> zones = modele.getSafeZones();
