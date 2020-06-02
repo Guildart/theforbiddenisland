@@ -13,10 +13,12 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 
 
 public class CVuePlayer implements Initializable, Observer {
@@ -68,7 +70,6 @@ public class CVuePlayer implements Initializable, Observer {
         //gcF.setStroke(s);
         paintCard();
         paintPlayer(getPlayer().getColor());
-
 
         for(int i = 0; i<arrayCards.size(); i++){
             arrayCards.get(i).translateSafeX();
@@ -138,10 +139,16 @@ public class CVuePlayer implements Initializable, Observer {
         this.indicePlayer = indicePlayer;
         arrayCards = this.getPlayer().getPlayerCardsDragtgable();
         Image image = new Image(modele.getListPlayers().get(indicePlayer).getImage().toExternalForm(),200,200,true,true);
-
         ImageView img =  new ImageView(image);
         img.setX(-50);
         anch.getChildren().addAll(img);
+        Label label = new Label(getPlayer().toString());
+        Font font = Font.loadFont(getClass().getResourceAsStream("/image/treamd.ttf"),30);
+        label.setFont(font);
+        label.setTextFill(Color.BLACK);
+        label.setLayoutX(100);
+        label.setLayoutY(-10);
+        anch.getChildren().addAll(label);
         repaint();
         modele.addObserver(this);
     }

@@ -82,9 +82,6 @@ public class CVueIsland implements Initializable, Observer {
         }
 
         translatePionPlayer();
-
-
-
     }
 
     private void translatePionPlayer(){
