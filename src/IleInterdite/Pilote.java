@@ -14,17 +14,17 @@ public class Pilote extends Player{
     }
 
     @Override
-    public ArrayList<Zone> zonesReachable() {
+    public ArrayList<Zone> zonesSafeToMove() {
         if(canFly){
             return modele.getSafeZones();
         }else
-            return super.zonesReachable();
+            return super.zonesSafeToMove();
     }
 
     //On regard si le pilote utilise sa competence
     public boolean isFlying(Zone zone){
         ArrayList<Zone> zones = modele.getSafeZones();
-        zones.removeAll(super.zonesReachable());
+        zones.removeAll(super.zonesSafeToMove());
         if(zones.contains(zone))
             return true;
         else
@@ -43,4 +43,10 @@ public class Pilote extends Player{
         super.searchKey(tas, defausse, island);
         this.canFly = true;  //On remet canFly à jour
     }
+
+
+
+
+
+
 }

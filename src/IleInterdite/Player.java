@@ -150,7 +150,7 @@ public class Player{
     /**
      * @return une liste de zone
      */
-    public ArrayList<Zone>  zonesReachable(){
+    public ArrayList<Zone> zonesSafeToMove(){
         Position pos = zone.getPosition();
         ArrayList<Zone> zonesSafe = new ArrayList<>();
         Zone [][] zones = modele.getGrille();
@@ -173,12 +173,15 @@ public class Player{
                 zonesSafe.add(zones[pos.x+1][pos.y]);
             }
 
-        if(zone.isSafe())
-            zonesSafe.add(zone);
-
         return zonesSafe;
     }
 
+
+    public ArrayList<Zone> zonesDrainable(){
+        ArrayList<Zone> zones = zonesSafeToMove();
+        zones.add(this.zone);
+        return zones;
+    }
 
     public boolean isReachable(ArrayList<Zone> listZone, Zone zp){
         for( Zone z : listZone){

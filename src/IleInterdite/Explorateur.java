@@ -13,7 +13,7 @@ public class Explorateur extends Player {
      * @return une liste de zone
      */
     @Override
-    public ArrayList<Zone> zonesReachable(){
+    public ArrayList<Zone> zonesSafeToMove(){
         Position pos = super.zone.getPosition();
         ArrayList<Zone> zonesSafe = new ArrayList<>();
         Zone [][] zones = modele.getGrille();

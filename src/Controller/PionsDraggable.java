@@ -4,19 +4,12 @@ import IleInterdite.Island;
 import IleInterdite.Navigateur;
 import IleInterdite.Player;
 import IleInterdite.Zone;
-import com.sun.javafx.image.BytePixelSetter;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 class PionsDraggable extends Pane {
@@ -134,7 +127,7 @@ class PionsDraggable extends Pane {
 
                         Zone z = modele.getZone(x, y);
 
-                        ArrayList<Zone> listZones = p.zonesReachable();
+                        ArrayList<Zone> listZones = p.zonesSafeToMove();
 
                         if(p.isReachable(listZones,z) && p.canAct() && z != playerPion.getZone()) {
                             p.movePlayer(modele.getZone(x, y));

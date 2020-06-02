@@ -5,6 +5,8 @@ import Enumeration.Etat;
 import javafx.beans.property.*;
 import javafx.beans.property.SimpleBooleanProperty;
 
+import java.util.ArrayList;
+
 /**
  * Définition d'une classe pour les cellules.
  * Cette classe fait encore partie du modèle.
@@ -85,5 +87,11 @@ public class Zone {
         return this.etat == Etat.inondee;
     }
 
+    public int getX(){
+        return position.x;
+    }
+    public int getY(){
+        return position.y;
+    }
 }
 /** Fin de la classe Cellule, et du modèle en général. */

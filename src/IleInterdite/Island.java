@@ -164,7 +164,7 @@ public class Island extends Observable {
     * Fonction qui renvoie les coordonnées dans un tab
     * de trois zones à modifier se situant dans la croix
     */
-     public int[] getRandomPoint(){
+     private int[] getRandomPoint(){
         int[] tab= new int[2];
         int j = randomGen.nextInt(HAUTEUR);
         int j_p;
@@ -349,6 +349,24 @@ public class Island extends Observable {
         safeZones.addAll(tasCarteInnondation);
         safeZones.addAll(defausseCarteInnondation);
         return safeZones;
+    }
+
+    public ArrayList<Zone> getZoneArround(Zone zone){
+        ArrayList<Zone> voisins = new ArrayList<>();
+        Position pos = zone.getPosition();
+        if (pos.y-1>=0)
+            voisins.add(zones[pos.x][pos.y-1]);
+        if(pos.x-1>=0)
+            voisins.add(zones[pos.x-1][pos.y]);
+
+        if(pos.y+1<Island.HAUTEUR)
+            voisins.add(zones[pos.x][pos.y+1]);
+
+        if(pos.x+1<Island.LARGEUR)
+            voisins.add(zones[pos.x+1][pos.y]);
+
+        voisins.add(zone);
+        return voisins;
     }
 
 }
