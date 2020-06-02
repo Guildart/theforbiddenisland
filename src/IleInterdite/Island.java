@@ -212,6 +212,7 @@ public class Island extends Observable {
 
 
         RoundOf.searchKey(this.tasCarteTresor, this.defausseCarteTresor, this);
+        RoundOf.searchKey(this.tasCarteTresor, this.defausseCarteTresor, this);
 
         //mise à jour du prochain joueur
         ArrayList<Player> players = this.listPlayers;
