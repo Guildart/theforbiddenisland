@@ -1,14 +1,4 @@
-package IleInterdite; /**
- * @auteur: MOULOUA Ramdane
- * Classe qui s'occupe de du de gérer le Modèle et conteint notamment la IleInterdite.Zone
- *
- * Update of Mai 20 :
- *     - Croix achevée : fonction init adaptée + constructeur
- *     - zonesNonSubmergee retirée
- *     - nextRound() modifée
- *     - getRandomZone() renvoie une zone à inonder
- */
-
+package IleInterdite;
 
 import Controller.CVueDefausse;
 import Controller.EndOfGame;
@@ -28,39 +18,51 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * Le modèle : le coeur de l'application.
- *
- * Le modèle étend la classe [IleInterdite.Observable] : il va posséder un certain nombre
- * d'observateurs (ici, un : la partie de la vue responsable de l'affichage)
- * et devra les prévenir avec [notifyObservers] lors des modifications.
- * Voir la méthode [avance()] pour cela.
+ * Le modèle Island : C'est dans cette classe que nous gérons le jeu
  */
 public class Island extends Observable {
+
+    public final Random randomGen = new Random();
+
+
     /** On fixe la taille de la grille. */
     public static final int HAUTEUR=6, LARGEUR=6;
     /** On stocke un tableau de cellules. */
     public Zone[][] zones;
+    /** C'est un pointeur vers player qui a un tour **/
     private Player RoundOf;
-    public final Random randomGen = new Random();
-    private ArrayList<Player> listPlayers = new ArrayList<>();
-    private ArrayList<Artefacts> listArtefacts = new ArrayList<>();
-    private ArrayList<TresorCard> tasCarteTresor = new ArrayList<>();
+    /*Liste des Players*/
+    private final ArrayList<Player> listPlayers = new ArrayList<>();
+    /*Liste des Artefacts*/
+    private final ArrayList<Artefacts> listArtefacts = new ArrayList<>();
+    /*Liste de la pioche*/
+    private final ArrayList<TresorCard> tasCarteTresor = new ArrayList<>();
+    /*Liste de la défausse*/
     private ArrayList<TresorCard> defausseCarteTresor = new ArrayList<>();
+    /*Liste de la pioche Inondation*/
     private ArrayList<Zone> tasCarteInnondation = new ArrayList<>();
+    /*Liste de la défausse inondation*/
     private ArrayList<Zone> defausseCarteInnondation = new ArrayList<>();
+    /*Indicateur du niveau de la montée des eaux*/
     private int seaLevel = 1;
+
+    /*Indicateur du nombre de carte à piocher*/
     private int numberCardToPick = 2;
+    /*boolean qui nous permet de savoir qui la fin du jeu est actée, permettant d'afficher l'écran de fin*/
     private boolean endOfGame = false;
+    /*boolean qui permet de tester la fin du jeu à l'aide d'une carte helicoptere*/
     private boolean testEndOfGame = false;
 
+    /*Chemin de la fenêtre principal contenant les composant du jeu*/
     FXMLLoader loader ;
+    /*Fenetre enêtre racine*/
     Stage stage;
 
-    /** Construction : on initialise un tableau de cellules. */
+    /** Construction : on initialise notre grille */
     public Island() {
         /**
-         * Pour éviter les problèmes aux bords, on ajoute une ligne et une
-         * colonne de chaque côté, dont les cellules n'évolueront pas.
+         * On initialise la grille, on met tous les état à None
+         *
          */
         zones = new Zone[LARGEUR][HAUTEUR];
         for(int i=0; i<LARGEUR; i++) {
@@ -69,15 +71,12 @@ public class Island extends Observable {
             }
         }
         init();
-        /*listArtefacts.add(Artefacts.air);
-        listArtefacts.add(Artefacts.eau);
-        listArtefacts.add(Artefacts.feu);
-        listArtefacts.add(Artefacts.terre);*/
+
     }
 
     /**
-     * Initialisation aléatoire des cellules, exceptées celle des bords qui
-     * ont été ajoutés.
+     * @Initialisation aléatoire de la grille
+     * on calcule la croix de la grille
      */
 
     public void init() {
@@ -85,7 +84,7 @@ public class Island extends Observable {
         initTasCarteInnondation();
         initTasCarteTresor();
 
-        for(int j=0; j<=HAUTEUR; j++) {
+        for(int j=0; j<=HAUTEUR; j++) { // on calcule les coordonées en augmentant et diminuant les i et j
             int j_p;
             if (j >= HAUTEUR/2)
                 j_p = HAUTEUR -1 - j;
@@ -95,7 +94,7 @@ public class Island extends Observable {
                 Zone z = tasCarteInnondation.get(0);
                 z.setPosition(new Position(i,j));
                 zones[i][j] = z;
-                defausseCarteInnondation.add(z); //Todo: Une classe qui géré les tas de carte (une classe = un tas + une defausse)
+                defausseCarteInnondation.add(z);
                 tasCarteInnondation.remove(z);
             }
         }
@@ -105,31 +104,11 @@ public class Island extends Observable {
         tasCarteInnondation.addAll(defausseCarteInnondation);
         defausseCarteInnondation.clear();
 
-        /*Color c1 = Color.RED;
-        //addPlayer(c1);
-        int[] tab = getRandomPoint();
-        Player p = new Explorateur(zones[tab[0]][tab[1]],c1, this);
-        this.listPlayers.add(p);
-
-        Color c2 = Color.BLACK;
-        //addPlayer(c2);
-        int[] tab2 = getRandomPoint();
-        Player p2 = new Navigateur(zones[tab2[0]][tab2[1]],c2, this);
-        this.listPlayers.add(p2);
-
-
-        Color c3 = Color.PURPLE;
-        //addPlayer(c3);
-        int[] tab3 = getRandomPoint();
-        Player p3 = new Plongeur(zones[tab3[0]][tab3[1]],c3, this);
-        this.listPlayers.add(p3);
-
-        Color c4 = Color.GREY;
-        addPlayer(c4);
-        this.setRoundOf(listPlayers.get(0));*/
 
     }
-
+    /**
+    * @Description On initialise le tas Inondation
+     */
     private void initTasCarteInnondation(){
         tasCarteInnondation.add(new Zone(Etat.normale, new Position(0,0), Artefacts.none,true));
         for(int i = 0; i < 2; i++) {
@@ -145,10 +124,17 @@ public class Island extends Observable {
         Collections.shuffle(tasCarteInnondation); //Pour mélanger
     }
 
+    /**
+     * @Description active le test de la fin du jeu à l'aide d'une carte helicoptere,
+     * méthode utilisé par un controller.
+     */
     public void enableTestEndOfGame(){
         testEndOfGame=true;
     }
 
+    /**
+     * @Description On initialise le tas Inondation CarteTresor
+     */
     private void initTasCarteTresor(){
 
         //3 * Chaque Cartes spéciale
@@ -176,7 +162,7 @@ public class Island extends Observable {
 
 
     /**
-    * Fonction qui renvoie les coordonnées dans un tab
+    * @Description qui renvoie les coordonnées dans un tab
     * de trois zones à modifier se situant dans la croix
     */
     public int[] getRandomPoint(){
@@ -196,48 +182,53 @@ public class Island extends Observable {
     }
 
     /**
-     * Inondation de trois zones tirées au hsard selon les règles
+     * @Description est appellée par un controlleur pour changer de round
+     * On procède en deux étapes.
+     *  - D'abord, pour chaque cellule on évalue ce que sera son état à la
+     *    prochaine génération.
+     *  - Ensuite, on applique les évolutions qui ont été calculées.
      */
     public void nextRound() {
-        /**
-         * On procède en deux étapes.
-         *  - D'abord, pour chaque cellule on évalue ce que sera son état à la
-         *    prochaine génération.
-         *  - Ensuite, on applique les évolutions qui ont été calculées.
-         */
 
-        for(int i = 0; i < numberCardToPick; i++){
-            if(tasCarteInnondation.size() + defausseCarteInnondation.size() > 0) { //Todo : rempalcer par test fin de partie ?
+
+        for(int i = 0; i < numberCardToPick; i++){ // on pioche un certain nombre de carte
+            if(tasCarteInnondation.size() + defausseCarteInnondation.size() > 0) {
                 if (tasCarteInnondation.size() == 0) { //si tas vide on remet la defausse dans le tas
                     Collections.shuffle(defausseCarteInnondation); //on melange avant
                     tasCarteInnondation.addAll(defausseCarteInnondation);
                     defausseCarteInnondation.clear();
                 }
-                Zone z = tasCarteInnondation.get(0);
+                Zone z = tasCarteInnondation.get(0); // on pioche la carte ( mise à jour de la zone )
                 Etat etat = z.getEtat();
                 z.setEtat(Etat.nextEtat(etat));
                 if (z.getEtat() != Etat.submergee)
-                    defausseCarteInnondation.add(z);
-                tasCarteInnondation.remove(z);
+                    defausseCarteInnondation.add(z); // defausse la carte
+                tasCarteInnondation.remove(z); // on retire la carte
             }
         }
-        displayLose();
+
+        displayLose(); // appelle cette méthode qui va tester l'état de défaite
+        // l'état de victoire est testé par un controlleur
 
 
         RoundOf.searchKey(this.tasCarteTresor, this.defausseCarteTresor, this);
-        RoundOf.searchKey(this.tasCarteTresor, this.defausseCarteTresor, this);
 
-        System.out.println(tasCarteTresor.size());
-        //Round du prochain joueur
+        //mise à jour du prochain joueur
         ArrayList<Player> players = this.listPlayers;
         this.setRoundOf(players.get( (players.indexOf(this.getRoundOf())+1)%players.size()));
         notifyObservers();
     }
 
+    /**
+     * @Description: getteur endOfGame
+     */
     public boolean getEndOfGame(){
         return this.endOfGame;
     }
 
+    /**
+     * @Description: Set le loader
+     */
     public void setLoader(FXMLLoader loader){
         this.loader = loader;
     }
@@ -246,74 +237,52 @@ public class Island extends Observable {
         this.stage = stage;
     }
 
-    /**
-     * Méthode auxiliaire : compte le nombre de voisichnes vivantes d'une
-     * cellule désignée par ses coordonnées.
-     */
-    protected int compteVoisines(int x, int y) {
-        int res=0;
-        /**
-         * Stratégie simple à écrire : on compte les cellules vivantes dans le
-         * carré 3x3 centré autour des coordonnées (x, y), puis on retire 1
-         * si la cellule centrale est elle-même vivante.
-         * On n'a pas besoin de traiter à part les bords du tableau de cellules
-         * grâce aux lignes et colonnes supplémentaires qui ont été ajoutées
-         * de chaque côté (dont les cellules sont mortes et n'évolueront pas).
-         */
-        for(int i=x-1; i<=x+1; i++) {
-            for(int j=y-1; j<=y+1; j++) {
-                //if (zones[i][j].etat) { res++; }
-            }
-        }
-        //return (res - ((zones[x][y].etat)?1:0));
-        return 0;
-        /**
-         * L'expression [(c)?e1:e2] prend la valeur de [e1] si [c] vaut [true]
-         * et celle de [e2] si [c] vaut [gfalse].
-         * Cette dernière ligne est donc équivalente à
-         *     int v;
-         *     if (cellules[x][y].etat) { v = res - 1; }
-         *     else { v = res - 0; }
-         *     return v;
-         */
-    }
 
     /**
-     * Une méthode pour renvoyer la zobne aux coordonnées choisies (sera
+     * @Description Une méthode pour renvoyer la zobne aux coordonnées choisies (sera
      * utilisée par la vue).
+     * @param x coordonées x
+     * @param y coordonnées y
+     * @return une Zone
      */
     public Zone getZone(int x, int y) {
         return zones[x][y];
     }
 
+    /**
+     * @Description teste l'état dee défaire selon  Lose()
+     * si on perd, alors on affiche un pop up qui renvoie au menu principal.
+     */
     public void displayLose(){
-        if(this.Lose()){// pour perdre faut aussi tester que les zones artefactrs sont submergées
-
-
+        if(this.Lose()){ // on teste la défait
             notifyObservers();
             EndOfGame dv = new EndOfGame();
             dv.display(this, "perdu", loader,stage);
-            endOfGame=true;
+            endOfGame=true; // on set à true ici
         }
     }
 
+    /**
+     * @Description teste l'état de victoire selon Win()
+     * si on perd, alors on affiche un pop up qui renvoie au menu principal.
+     */
     public void displayWin(){
-         if(this.Win()) { // tester autre chose
+         if(this.Win()) { // on teste la victoire
              notifyObservers();
              EndOfGame dv = new EndOfGame();
              dv.display(this, "gagné", loader, stage);
-             endOfGame = true;
+             endOfGame = true;// on set à true ici
          }
     }
 
     /**
-     * Une méthode pour tester l'état de victoire
+     * @Description teste l'état de victoire selon certains conditions
+     * il faut d'abord que que l'utilisateur utilise une carte helicopter
+     * en settant testEndOfGame à true
      */
     public boolean Win() {
         if (testEndOfGame) { // test si on utilisé la carte heliport
             Player p1 = listPlayers.get(0);
-
-
             if (!p1.getZone().isHeliport())
                 return false;
 
@@ -343,7 +312,7 @@ public class Island extends Observable {
 
 
     /**
-     * Une méthode pour tester l'état de jeu perdu
+     * @Description Une méthode pour tester l'état de jeu perdu
      */
     public boolean Lose(){
         for(Player p: listPlayers) { // test si un joueur est noyé
@@ -353,9 +322,9 @@ public class Island extends Observable {
         int[][] counterElmts = new int [4][1];
         for(int i=0; i<LARGEUR; i++) {
             for (int j = 0; j < HAUTEUR; j++) {
-                if(!zones[i][j].isSafe() && zones[i][j].isHeliport()) // test si l'heliport est inondé{
-
+                if(!zones[i][j].isSafe() && zones[i][j].isHeliport()) // test si l'heliport est inondé
                         return true;
+
                 // on ccompte le nombre d'artefact d'un même élement qu'on ne peut plus récuperer
                 if(zones[i][j].getArtefacts()==Artefacts.air && !zones[i][j].isSafe() )
                     counterElmts[0][0]+=1;
@@ -369,36 +338,46 @@ public class Island extends Observable {
         }
 
         for(int i = 0; i<4; i++){
-            if(counterElmts[i][0]>=2)
+            if(counterElmts[i][0]>=2) // si un tous les artefcts récupérable d'un même élément sont noyés alors on perd
                 return true;
         }
 
         return false;
     }
-
+    /**
+     * @Description setteur du joueur qui joue actuellement
+     */
     public void setRoundOf(Player p){
         this.RoundOf = p;
         p.resetNbActionRestant();
     }
 
     /**
-     * Une méthode pour récuperer le joueur qui joue actuellement
+     * @Description pour récuperer le joueur qui joue actuellement
      */
     public Player getRoundOf(){
         return this.RoundOf;
     }
 
     /**
-     * Une méthode pour récuperer la liste des joueurs
+     *@Description pour récuperer la liste des joueurs
      */
     public ArrayList<Player> getListPlayers(){
         return listPlayers;
     }
 
+    /**
+     *@Description pour récuperer la liste des Artefacts
+     */
     public ArrayList<Artefacts> getListArtefacts(){
         return listArtefacts;
     }
 
+    /**
+     *@Description Cette méthode gère la montée des eaux:
+     * elle incrémenter le niveau de l'eau
+     * ainsi que le nombre de carte à piocher
+     */
     public void risingWater(){
         this.seaLevel= 1+(this.seaLevel)%11;
         if(this.seaLevel > 7)
@@ -412,18 +391,33 @@ public class Island extends Observable {
         System.out.println(this.numberCardToPick + " card to pick");
     }
 
+    /**
+     *@Description pour récuperer le niveau de l'eau
+     */
     public int getSeaLevel(){
         return this.seaLevel;
     }
 
+    /**
+     *@Description méthode pour ajouter des cartes à la défausse
+     * @param card une carte tresor à ajouter dans la défausse
+     */
     public void addToDefausseCarteTresor(TresorCard card){
         this.defausseCarteTresor.add(card);
     }
 
+    /**
+     *@Description getteur de la grille zones
+     * @return permet de récupérer la grille, utilisée par les joueurs pour les déplacements
+     */
     public Zone[][] getGrille(){
         return this.zones;
     }
 
+    /**
+    * @Description on cherche les zones safes dans la grille
+     * cette fonction sert autirage
+     */
     public ArrayList<Zone> getSafeZones(){
         ArrayList<Zone> safeZones = new ArrayList();
         safeZones.addAll(tasCarteInnondation);
@@ -431,6 +425,12 @@ public class Island extends Observable {
         return safeZones;
     }
 
+
+    /**
+     * @Description on cherche les zones haut bas gauche droite dans la grille
+     * @param zone une zone dans la grille zones
+     * @return une liste de Zone
+     */
     public ArrayList<Zone> getZoneArround(Zone zone){
         ArrayList<Zone> voisins = new ArrayList<>();
         Position pos = zone.getPosition();
@@ -449,6 +449,11 @@ public class Island extends Observable {
         return voisins;
     }
 
+    /**
+     * @Description retourne les zones autour sûrs
+     * @param zone une zone dans la grille zones
+     * @return une liste de Zone
+     */
     public ArrayList<Zone> getSafeZoneArround(Zone zone){
         ArrayList<Zone> voisins = new ArrayList<>();
         Position pos = zone.getPosition();
@@ -471,6 +476,9 @@ public class Island extends Observable {
         return voisins;
     }
 
+    /**
+     * @Description gfetteur de defausseTresorCard
+     */
     public ArrayList<TresorCard> getDefausseTresorCard(){
         return this.defausseCarteTresor;
     }
