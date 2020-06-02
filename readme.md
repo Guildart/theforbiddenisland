@@ -3,6 +3,18 @@
 
 Ce git est celui de notre projet de POGL de DL Math-Info du S4.
 
+**IMPORTANT !!!!! Pour Compiler : **
+    
+    Comme nous utilison java fx comme interface graphique des package sont à téléharger et il faudra réglé 
+    votre IDE. 
+    
+    Pour se faire vous pouvez suivre ce tuto en sachant cependant que nous avons travaillé avec la version 
+    14 de Open JDK et de Java FX :
+    
+            https://taylorial.com/cs1021/Install.htm
+    
+
+
 But du Porjet : 
     
        Implémenter le jeu L'Ile Interdite de Matt Leacock en respectant au mieux la structure MVC
