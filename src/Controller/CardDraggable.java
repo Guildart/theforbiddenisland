@@ -50,31 +50,34 @@ public class CardDraggable extends PionsDraggable {
         onMouseDraggedProperty().set(new EventHandler<>() {
             @Override
             public void handle(MouseEvent event) {
+                if(modele.getRoundOf()==player){ // on bouge les cartes que si c notre tour
 
-                double offsetX = event.getSceneX() - mousex;
-                double offsetY = event.getSceneY() - mousey;
-
-
-                x += offsetX;
-                y += offsetY;
-
-                double scaledX = x;
-                double scaledY = y;
-
-                setLayoutX(scaledX);
-                setLayoutY(scaledY);
-
-                dragging = true;
-
-                mousex = event.getSceneX();
-                mousey = event.getSceneY();
+                    double offsetX = event.getSceneX() - mousex;
+                    double offsetY = event.getSceneY() - mousey;
 
 
-                if (x >= 600 && y >= 400 || (x <= 600 && y >= 600)) {
-                    dragging = false;
-                    modele.notifyObservers();
+                    x += offsetX;
+                    y += offsetY;
+
+                    double scaledX = x;
+                    double scaledY = y;
+
+                    setLayoutX(scaledX);
+                    setLayoutY(scaledY);
+
+                    dragging = true;
+
+                    mousex = event.getSceneX();
+                    mousey = event.getSceneY();
+
+
+                    if (x >= 600 && y >= 400 || (x <= 600 && y >= 600)) {
+                        dragging = false;
+                        modele.notifyObservers();
+                    }
+                    event.consume();
                 }
-                event.consume();
+
             }
 
         });
