@@ -56,7 +56,6 @@ public class CVueGame implements Observer{
         this.modele = modele;
         modele.addObserver(this);
         modele.notifyObservers();
-        initialize();
     }
 
     public void repaint() {
