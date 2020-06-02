@@ -126,10 +126,13 @@ public class Player{
     public ArrayList<TresorCard> getCards(){
         return this.playerCards;
     }
+
+    /**Ajoute une carte au jouer**/
     public void setCard(TresorCard c){
         playerCards.add(0,c);
     }
 
+    /**Gerer la defausse **/
     public void discardCard(ArrayList<Integer> toDiscard){
         ArrayList<TresorCard> toRemove = new ArrayList();
         for(int i : toDiscard){
