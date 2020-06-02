@@ -120,7 +120,7 @@ class PionsDraggable extends Pane {
 
                     ArrayList<Zone> listZones = p.zonesSafeToMove();
 
-                    if (p.isReachable(listZones, z) && p.canAct() && z != player.getZone()) {
+                    if (listZones.contains(z) && p.canAct() && z != player.getZone()) {
                         p.movePlayer(modele.getZone(x, y));
                         p.addAction();
                         modele.notifyObservers();
@@ -141,7 +141,7 @@ class PionsDraggable extends Pane {
                     ArrayList<Zone> listZones = Navigateur.zonesReachableNavigateur(modele, player.getZone().getPosition());
 
 
-                    if (player.isReachable(listZones, z) && p.canAct() && z != player.getZone()) {
+                    if (listZones.contains(z) && p.canAct() && z != player.getZone()) {
                         player.movePlayer(modele.getZone(x, y)); // on bouge l'autre joueur
                         p.addAction(); // on incremente l'action du navigateur
 

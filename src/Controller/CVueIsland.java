@@ -186,7 +186,7 @@ public class CVueIsland implements Observer {
         Zone z = modele.getZone(x, y);
 
         ArrayList<Zone> listZones = p.zonesDrainable();
-        if(p.isReachable(listZones,z) && p.canAct() && z.isFlooded()){ // on fait le drain water ici
+        if(listZones.contains(z) && p.canAct() && z.isFlooded()){ // on fait le drain water ici
             p.drainWaterZone(modele.getZone(x, y));
             p.addAction();
         }
@@ -243,12 +243,12 @@ public class CVueIsland implements Observer {
 
             for(int j = 0; j<p.getCards().size(); j++){
                 TresorCard card = p.getCards().get(j);
-                Color c = modele.getRoundOf().getColor();
+                //Color c = modele.getRoundOf().getColor();
                 CardDraggable node = new CardDraggable(p, modele, card);
                 Shape circle = new Circle(12,12,12);
                 node.setPrefSize(TAILLE/2, 8*TAILLE/10);
                 node.setModel(this.modele);
-                node.setColor(c);
+                //node.setColor(c);
                 node.setCard(TresorCard.empty);
                 node.setLayoutX(600+10+j*(60));
                 node.setLayoutY(50+120*i);

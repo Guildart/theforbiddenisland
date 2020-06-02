@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 
 
 
+/**Avec Java Fx on est obligé d'avoir une classe de ce type pour lancé notre interface graphique**/
 public class Main extends Application {
 
 

@@ -26,6 +26,10 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+/***Cette classe permet d'ouvrir un pop up qui oblige le joueurs à defausser
+ * sont trop plein de cartes en debut de tours quand il en a plus de 5 en main
+ * en accord avec les règles officiel du jeu
+ */
 public class CVueDefausse implements Initializable {
 
 
@@ -99,7 +103,7 @@ public class CVueDefausse implements Initializable {
 
         for(int i = 0; i < cards.size()-nbCardEmpty; i++){
             TresorCard card = cards.get(i);
-            gcF.setFill(card.getColor());
+            //gcF.setFill(card.getColor());
             URL url = getClass().getResource(card.getURLForPlayersDiscard());
             gcF.drawImage(new Image(url.toExternalForm()), i * (gap+cardH),10);
         }

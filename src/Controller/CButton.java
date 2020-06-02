@@ -69,7 +69,7 @@ public class CButton implements Initializable {
     @FXML
     public void takeTresor(MouseEvent mouseEvent) {
         Player p = modele.getRoundOf();
-        p.takeArtefact(modele.getListArtefacts());
+        p.takeArtefact();
         modele.notifyObservers();
     }
 

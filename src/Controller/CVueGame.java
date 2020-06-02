@@ -69,7 +69,6 @@ public class CVueGame implements Observer{
         Image image = new Image(imageURL.toExternalForm());
         gcF.drawImage(image, 320,30);
         int seaLevel = modele.getSeaLevel();
-        //text.setX(350);
         text.setText(modele.getRoundOf().toString() + ": " + (3-Player.nbActionsRestant) + " actions restantes");
         Image pointeur = new Image(getClass().getResource("/image/pointer.png").toExternalForm());
         gcF.drawImage(pointeur, 320-5+(30*(seaLevel-1)),30-20);
@@ -83,9 +82,9 @@ public class CVueGame implements Observer{
                 image1 = a.getImageGris();
 
             ImageView img =  new ImageView(image1);
-            if(a == Artefacts.feu)
+            if(a == Artefacts.feu) //On reajuste manuellement car l'icone feu est trop basse
                 gcF.drawImage(image1,300+100*compteur,100-10);
-            else if(a == Artefacts.terre)
+            else if(a == Artefacts.terre) //On reajuste manuellement car l'icone terre est trop haute
                 gcF.drawImage(image1,300+100*compteur,100+10);
             else
                  gcF.drawImage(image1,300+100*compteur,100);

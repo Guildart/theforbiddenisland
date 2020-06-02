@@ -1,19 +1,16 @@
 package IleInterdite;
 
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
-
 import java.net.URL;
 import java.util.ArrayList;
 
+/**L'Explorateur peut se depalcer et assécher des tuiles diagonalement**/
 public class Explorateur extends Player {
     public Explorateur(Zone zone, URL image, Island modele) {
         super(zone, image, modele);
     }
 
     /**
-     * @return une liste de zone
+     * @return une liste de zone où le joueur peut se deplacer
      */
     @Override
     public ArrayList<Zone> zonesSafeToMove(){
@@ -42,15 +39,7 @@ public class Explorateur extends Player {
         return zonesSafe;
     }
 
-    @Override
-    public boolean isReachable(ArrayList<Zone> listZone, Zone zp){
-        for( Zone z : listZone){
-            if(z.getPosition().equals( zp.getPosition())) {
-                return true;
-            }
-        }
-        return false;
-    }
+
 
     public static int getMin(int d){
         int res;
@@ -75,6 +64,10 @@ public class Explorateur extends Player {
         return res;
     }
 
+    /**
+     * Renvoie le role sous forme de chaine de caractère
+     * @return
+     */
     @Override
     public String toString() {
         return "Explorateur";

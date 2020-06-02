@@ -7,12 +7,20 @@ import javafx.scene.paint.Color;
 import java.net.URL;
 import java.util.ArrayList;
 
+/**Le Navigateur peut déplacer d'autres joueurs d'1 ou 2 cases adjacentes par action**/
+
 public class Navigateur extends Player {
     public Navigateur(Zone zone, URL image, Island modele) {
         super(zone, image, modele);
     }
 
 
+    /**
+     *Renvoie les zones accessible pau navigateur
+     * @param modele
+     * @param pos
+     * @return
+     */
     public static ArrayList<Zone> zonesReachableNavigateur(Island modele, Position pos ){
         ArrayList<Zone> zonesSafe = new ArrayList<>();
         Zone [][] zones = modele.getGrille();
@@ -67,6 +75,10 @@ public class Navigateur extends Player {
         return res;
     }
 
+    /**
+     * Renvoie le role sous forme de chaine de caractère
+     * @return
+     */
     @Override
     public String toString() {
         return "Navigateur";

@@ -10,26 +10,6 @@ public enum TresorCard {
     clef_air, clef_eau, clef_feu, clef_terre, helicopter, sandbag, rising_water, empty;
 
 
-    public Color getColor(){
-        switch (this){
-            case clef_air:
-                return  Color.rgb(56, 255, 30);
-            case clef_eau:
-                return  Color.rgb(78, 173, 255);
-            case clef_feu:
-                return  Color.rgb(255, 7, 22);
-            case clef_terre:
-                return  Color.rgb(134, 39, 13);
-            case sandbag:
-                return Color.rgb(134, 129, 7);
-            case helicopter:
-                return  Color.rgb(23, 11, 8);
-            case empty:
-                return  Color.rgb(108, 108, 108);
-        }
-        return  Color.rgb(7, 10, 134);
-    }
-
     public Artefacts getArtefactsAssociated(){
         switch(this) {
              case clef_air:

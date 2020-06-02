@@ -16,6 +16,10 @@ public class Pilote extends Player{
         super(zone, image, modele);
     }
 
+    /**
+     * Si la capacité spéciale du joueur est actif les zones où il peut se depalcer différents
+     * @return zones où peut se rendre le joueur
+     */
     @Override
     public ArrayList<Zone> zonesSafeToMove() {
         if(canFly){
@@ -25,8 +29,11 @@ public class Pilote extends Player{
     }
 
 
-
-    //On regard si le pilote utilise sa competence
+    /**
+     * On regarde si le mouvement effectuer par le joueur à necessiter sa capacitée spéciale
+     * @param zone zone ou veut aller le joueur
+     * @return renvoie true si le joueur utilise sont atout false si non
+     */
     public boolean isFlying(Zone zone){
         ArrayList<Zone> zones = modele.getSafeZones();
         zones.removeAll(super.zonesSafeToMove());
@@ -36,6 +43,9 @@ public class Pilote extends Player{
             return false;
     }
 
+    /**
+     * @param z la zone ou le joueur
+     */
     @Override
     public void movePlayer(Zone z) {
         if(isFlying(z))
@@ -43,6 +53,7 @@ public class Pilote extends Player{
         super.movePlayer(z);
     }
 
+    /**On le réécrit pour remettre l'attribut canFly à 0 pour le prochain tour**/
     @Override
     public void searchKey(ArrayList<TresorCard> tas, ArrayList<TresorCard> defausse, Island island) {
         super.searchKey(tas, defausse, island);
@@ -51,6 +62,10 @@ public class Pilote extends Player{
 
 
 
+    /**
+     * Renvoie le role sous forme de chaine de caractère
+     * @return
+     */
     @Override
     public String toString() {
         return "Pilote";

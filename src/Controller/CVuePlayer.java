@@ -31,24 +31,20 @@ public class CVuePlayer implements Initializable, Observer {
 
 
     private int indicePlayer;
-    private final static int HAUTEUR = 120; //200
-    private final static int LARGEUR = 400; //ou 400
+    private final static int HAUTEUR = 120;
+    private final static int LARGEUR = 400;
     private GraphicsContext gcF;
     private boolean popupBool = true;
     private ArrayList<CardDraggable> arrayCards = new ArrayList<>();
 
 
+    /**Hérité de Initializable, sera notre classe sera initialiser graphiquement/visuellement ici**/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Dimension dim = new Dimension(LARGEUR*10, HAUTEUR);
         gcF = viewplayer.getGraphicsContext2D();
-        /*gcF.setFill(Color.RED);
-        gcF.fillRect(0, 0, LARGEUR,HAUTEUR);*/
-
-
-
     }
 
+    /**Hérité de Observer, sera appelé ç chaque notification du modèle pour redessiner notre pane selon les nouvelles infos**/
     @Override
     public void update() {
         this.repaint();
@@ -58,18 +54,15 @@ public class CVuePlayer implements Initializable, Observer {
         }
     }
 
+    /**On généralise ici ce qui sera redessiner à chaque fois**/
     public void repaint(){
         updateCard();
-        Color c = Color.PINK;
+        Color c = Color.PINK; //Couleurs standard que nous avons choisit
         gcF.setFill(c);
-       // gcF.strokeLineJoin(new BasicStroke(4));
-        //gcF.fillRect(0, 0, viewplayer.getWidth(), viewplayer.getHeight());
         if(getPlayer() == modele.getRoundOf())
-            gcF.setFill(Color.MEDIUMSEAGREEN);
-        gcF.fillRoundRect(0, 0, LARGEUR,HAUTEUR,50,50);
-        //gcF.setStroke(s);
+            gcF.setFill(Color.MEDIUMSEAGREEN); //Si est au tour du joueur associer à l'instance de cette classe, le fond sera vert si non il sera rouge
+        gcF.fillRoundRect(0, 0, LARGEUR,HAUTEUR,50,50); // Si non le fond sera de la couleurs Standard (derrière chaque interface joueurs)
         paintCard();
-        paintPlayer(getPlayer().getColor());
 
         for(int i = 0; i<arrayCards.size(); i++){
             arrayCards.get(i).translateSafeX();
@@ -78,26 +71,16 @@ public class CVuePlayer implements Initializable, Observer {
 
 
     }
-    private void paintPlayer(Color c) {
-        /** Sélection d'une couleur. */
-        gcF.setFill(c);
-        /** Coloration d'un rectangle. */
-        //*gcF.fillOval(LARGEUR/2, 20, 20, 20);
-        //gcF.fillOval(10, 30, 80, 80);
 
-    }
 
+    /**On associe les Cartes du joueurs avec des CardDraggable qu'on pourra Drag and Drop**/
     public void updateCard(){
         ArrayList<TresorCard> listecard = getPlayer().getCards();
         for(int i =0; i< getPlayer().getPlayerCardsDragtgable().size(); i++){
-            //System.out.println(listecard.size());
-            //System.out.println(arrayCards.size());
 
             TresorCard c = listecard.get(i);
-            //arrayCards.get(i).setCard(listecard.get(i));
             CardDraggable ere = arrayCards.get(i);
             ere.setCard(c);
-            ere.setColor(c.getColor());
             ere.setImageURL(c.getURLForPlayersCards());
 
         }
@@ -110,9 +93,6 @@ public class CVuePlayer implements Initializable, Observer {
         for(int i = 0; i < 5; i++){
             if(listecard.size() > i) {
                 TresorCard card = listecard.get(i);
-                gcF.setFill(card.getColor());
-                //TresorCard a = arrayCards.get(i).getCard();
-                //gcF.setFill(a .getColor());
                 arrayCards.get(i).setStyle(CVueIsland.colorToStyleCard(card.getURLForPlayersCards()));
             }else{
                 gcF.setFill(Color.WHITE);
@@ -128,10 +108,6 @@ public class CVuePlayer implements Initializable, Observer {
 
     public void setModel(Island modele){
         this.modele = modele;
-        //repaint();
-
-
-
         modele.notifyObservers();
     }
 
@@ -161,8 +137,6 @@ public class CVuePlayer implements Initializable, Observer {
 
 
     public Player getPlayer(){
-        //System.out.println("player: "+  this.modele.getListPlayers().get(this.indicePlayer));
-
         return this.modele.getListPlayers().get(this.indicePlayer);
     }
 
