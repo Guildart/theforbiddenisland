@@ -68,11 +68,11 @@ public class CVueGame implements Observer{
 
         URL imageURL = getClass().getResource("/image/jauge.png");
         Image image = new Image(imageURL.toExternalForm());
-        gcF.drawImage(image, 250,30);
+        gcF.drawImage(image, 320,30);
         int seaLevel = modele.getSeaLevel();
 
         Image pointeur = new Image(getClass().getResource("/image/pointer.png").toExternalForm());
-        gcF.drawImage(pointeur, 250-5+(30*(seaLevel-1)),30-20);
+        gcF.drawImage(pointeur, 320-5+(30*(seaLevel-1)),30-20);
 
         int compteur = 0;
         for( Artefacts a : artefactsList){
@@ -83,7 +83,7 @@ public class CVueGame implements Observer{
                 image1 = a.getImageGris();
 
             ImageView img =  new ImageView(image1);
-            gcF.drawImage(image1,200+100*compteur,100);
+            gcF.drawImage(image1,300+100*compteur,100);
             compteur++;
         }
 
