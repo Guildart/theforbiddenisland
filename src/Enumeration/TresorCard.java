@@ -65,7 +65,7 @@ public enum TresorCard {
 
     }
 
-    public String getImageForCard(){
+    public String getURLForPlayersCards(){
         switch (this){
             case clef_air:
                 return "/image/clef_vent2.png";
@@ -76,9 +76,31 @@ public enum TresorCard {
             case clef_terre:
                 return "/image/clef_terre2.png";
             case sandbag:
-                return "/image/clef_vent2.png";
+                return "/image/sandbag2.png";
             case helicopter:
-                return "/image/clef_vent2.png";
+                return "/image/helico2.png";
+            case empty:
+                return "/image/carte_vide2.png";
+        }
+        return "inconu";
+    }
+
+    public String getURLForPlayersDiscard(){
+        switch (this){
+            case clef_air:
+                return "/image/clef_vent.png";
+            case clef_eau:
+                return "/image/clef_eau.png";
+            case clef_feu:
+                return "/image/clef_feu.png";
+            case clef_terre:
+                return "/image/clef_terre.png";
+            case sandbag:
+                return "/image/sandbag.png";
+            case helicopter:
+                return "/image/helico.png";
+            case empty:
+                return "/image/carte_vide.png";
         }
         return "inconu";
     }

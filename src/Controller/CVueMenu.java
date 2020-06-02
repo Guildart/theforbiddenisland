@@ -66,12 +66,6 @@ public class CVueMenu implements Initializable, Observer {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        /*GraphicsContext g = canvas.getGraphicsContext2D();
-        g.setFill(Color.BLUE);
-        g.fillRect(0,0,ancre.getWidth(),ancre.getHeight());
-        repaint();*/
-        //repaint();
-
 
     }
 
