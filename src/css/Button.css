@@ -1,4 +1,4 @@
-#selectAction, #butTakeTresor,#butNextRound {
+#selectAction, #butTakeTresor,#butNextRound,#btn1 {
     /*-fx-background-color:#44c767;
 
     -fx-border-radius:28px;
@@ -54,10 +54,10 @@
     	text-shadow:0px 1px 0px #2f6627;*/
 }
 
-#selectAction:hover, #butTakeTresor:hover,#butNextRound:hover {
+#selectAction:hover, #butTakeTresor:hover,#butNextRound:hover,#btn1:hover {
 	-fx-background-color:#5cbf2a;
 }
-#butTakeTresor:pressed,#butNextRound:pressed {
+#butTakeTresor:pressed,#butNextRound:pressed,#btn1:pressed {
 	-fx-background-color:#FF0000;
 	-fx-position:relative;
 	-fx-top:1px;

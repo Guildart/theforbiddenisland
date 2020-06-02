@@ -8,14 +8,14 @@
 <AnchorPane fx:id="ancre" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" stylesheets="@../css/Menu.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CVueMenu">
    <children>
        <Canvas fx:id="canvas" height="800.0" width="1000.0" />
-      <Button fx:id="btn1" layoutX="415.0" layoutY="229.0" mnemonicParsing="false" onAction="#handleButtonAction" text="JOUER" />
-      <RadioButton fx:id="Explorateur" layoutX="400.0" layoutY="445.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Explorateur" />
-      <RadioButton fx:id="Ingénireur" layoutX="504.0" layoutY="445.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Ingénireur" />
-      <RadioButton fx:id="Plongeur" layoutX="620.0" layoutY="445.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Plongeur" />
-      <RadioButton fx:id="Pilote" layoutX="400.0" layoutY="482.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Pilote" />
-      <RadioButton fx:id="Navigateur" layoutX="504.0" layoutY="482.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Navigateur" />
-      <RadioButton fx:id="Messager" layoutX="620.0" layoutY="482.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Messager" />
-      <Text fx:id="text" layoutX="450" layoutY="400" strokeType="OUTSIDE" strokeWidth="0.0" text="Sélectionez entre 2 et 4 joueurs" />
+      <Button fx:id="btn1" layoutX="458.0" layoutY="280.0" mnemonicParsing="false" onAction="#handleButtonAction" stylesheets="@../css/Button.css" text="JOUER" />
+      <RadioButton fx:id="Explorateur" layoutX="279.0" layoutY="433.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Explorateur" />
+      <RadioButton fx:id="Ingénireur" layoutX="442.0" layoutY="433.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Ingénireur" />
+      <RadioButton fx:id="Plongeur" layoutX="622.0" layoutY="433.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Plongeur" />
+      <RadioButton fx:id="Pilote" layoutX="295.0" layoutY="506.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Pilote" />
+      <RadioButton fx:id="Navigateur" layoutX="456.0" layoutY="506.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Navigateur" />
+      <RadioButton fx:id="Messager" layoutX="621.0" layoutY="518.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Messager" />
+      <Text fx:id="text" layoutX="400.0" layoutY="374.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sélectionez entre 2 et 4 joueurs" />
    </children>
 
 </AnchorPane>
