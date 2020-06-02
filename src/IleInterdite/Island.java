@@ -94,7 +94,7 @@ public class Island extends Observable {
         tasCarteInnondation.addAll(defausseCarteInnondation);
         defausseCarteInnondation.clear();
 
-        Color c1 = Color.RED;
+        /*Color c1 = Color.RED;
         //addPlayer(c1);
         int[] tab = getRandomPoint();
         Player p = new Explorateur(zones[tab[0]][tab[1]],c1, this);
@@ -115,7 +115,7 @@ public class Island extends Observable {
 
         Color c4 = Color.GREY;
         addPlayer(c4);
-        this.setRoundOf(listPlayers.get(0));
+        this.setRoundOf(listPlayers.get(0));*/
 
     }
 
@@ -164,7 +164,7 @@ public class Island extends Observable {
     * Fonction qui renvoie les coordonnées dans un tab
     * de trois zones à modifier se situant dans la croix
     */
-     private int[] getRandomPoint(){
+     public int[] getRandomPoint(){
         int[] tab= new int[2];
         int j = randomGen.nextInt(HAUTEUR);
         int j_p;

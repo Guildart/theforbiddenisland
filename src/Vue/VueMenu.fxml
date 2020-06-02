@@ -3,14 +3,19 @@
 <?import javafx.scene.canvas.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane fx:id="ancre" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CVueMenu">
    <children>
-      <Button layoutX="400.0" layoutY="341.0" mnemonicParsing="false" text="Exemple mode 2 joueurs" />
-      <Button layoutX="400.0" layoutY="289.0" mnemonicParsing="false" text="Exemple mode 3 joueurs" />
-      <Button layoutX="400.0" layoutY="388.0" mnemonicParsing="false" text="Exemple mode 4 joueurs" />
        <Canvas fx:id="canvas" height="800.0" width="1000.0" />
       <Button fx:id="btn1" layoutX="415.0" layoutY="229.0" mnemonicParsing="false" onAction="#handleButtonAction" text="JOUER (hardcode)" />
+      <RadioButton fx:id="Explorateur" layoutX="400.0" layoutY="445.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Explorateur" />
+      <RadioButton fx:id="Ingénireur" layoutX="504.0" layoutY="445.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Ingénireur" />
+      <RadioButton fx:id="Plongeur" layoutX="620.0" layoutY="445.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Plongeur" />
+      <RadioButton fx:id="Pilote" layoutX="400.0" layoutY="482.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Pilote" />
+      <RadioButton fx:id="Navigateur" layoutX="504.0" layoutY="482.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Navigateur" />
+      <RadioButton fx:id="Messager" layoutX="620.0" layoutY="482.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Messager" />
+      <Text fx:id="text" layoutX="450" layoutY="400" strokeType="OUTSIDE" strokeWidth="0.0" text="Sélectionez entre 2 et 4 joueurs" />
    </children>
 
 </AnchorPane>

@@ -38,12 +38,16 @@ public class CPlayerPanel{
         this.canvasPlayer2Controller.setModel(this.modele);
         this.canvasPlayer2Controller.setIndicePlayer(1);
 
-        this.canvasPlayer3Controller.setModel(this.modele);
-        this.canvasPlayer3Controller.setIndicePlayer(2);
+        if(modele.getListPlayers().size()>2){
+            this.canvasPlayer3Controller.setModel(this.modele);
+            this.canvasPlayer3Controller.setIndicePlayer(2);
+        }
 
-        this.canvasPlayer4Controller.setModel(this.modele);
-        this.canvasPlayer4Controller.setIndicePlayer(3);
+        if(modele.getListPlayers().size()>3){
 
+            this.canvasPlayer4Controller.setModel(this.modele);
+            this.canvasPlayer4Controller.setIndicePlayer(3);
+        }
     }
 
 }

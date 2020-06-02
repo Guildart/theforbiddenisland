@@ -55,21 +55,28 @@ public class CVue implements Initializable, Observer {
 
     public int TAILLE = 100;
 
+    @FXML
+    private URL location;
+    @FXML
+    private ResourceBundle resources;
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-       /* System.out.println(butVBOX);
+        /*System.out.println(butVBOX);
         System.out.println(grille);
         System.out.println(CVueIslandController);
         System.out.println("gridTest "+gridTest);
         System.out.println("griplayer0ControllerdTest "+player0Controller );*/
-        maVAR=213;
+
+        /*maVAR=213;
         modele = new Island();
         modele.addObserver(this);
         System.out.println("test");
         vueButtonController.setModele(this.modele);
         vueIslandController.setModel(this.modele); // ici je set le model dans la grille
         vuePlayersController.setModel(this.modele);
-        vueGameController.setModele(this.modele);
+        vueGameController.setModele(this.modele);*/
 
         //vueMenu.toFront();
         //vuePlayersController.setModel(this.modele);
@@ -79,14 +86,32 @@ public class CVue implements Initializable, Observer {
         player3Controller.setIndicePlayer(3);
         */
 
+       /*Island mod = vueButtonController.getModele();
+        Island mod2 = vueIslandController.getModele();
+        System.out.println(mod);
+        System.out.println(mod2);
+        ancreParent.getParent();*/
+    }
+
+
+    public void setModele(Island modele){
+        this.modele = modele;
+        modele.addObserver(this);
+
+        System.out.println("setModele");
+        vueButtonController.setModele(this.modele);
+        vueIslandController.setModel(this.modele); // ici je set le model dans la grille
+        vuePlayersController.setModel(this.modele);
+        vueGameController.setModele(this.modele);
+
+
+
         Island mod = vueButtonController.getModele();
         Island mod2 = vueIslandController.getModele();
         System.out.println(mod);
         System.out.println(mod2);
         ancreParent.getParent();
     }
-
-
     @Override
     public void update() {
 

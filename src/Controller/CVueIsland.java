@@ -45,7 +45,6 @@ public class CVueIsland implements Initializable, Observer {
 
     GraphicsContext gc1;
     double orgSceneX, orgSceneY , orgTranslateX , orgTranslateY;
-    final int numNodes   =  4; // nombre de Joueurs
 
 
     @Override
@@ -180,7 +179,7 @@ public class CVueIsland implements Initializable, Observer {
 
         ArrayList<Player> liste = modele.getListPlayers();
 
-        for (int i = 0; i < numNodes; i++) {
+        for (int i = 0; i < liste.size(); i++) {
             PionsDraggable node = new PionsDraggable(liste.get(i), modele);
             node.setPrefSize(TAILLE/2, TAILLE/2);
             node.setStyle(colorToStylePion(liste.get(i).getColor()));
