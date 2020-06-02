@@ -143,13 +143,7 @@ public class CVueIsland implements Initializable, Observer {
 
     }
 
-    private void paintPlayer(GraphicsContext g, Color c, int x, int y) {
-        /** Sélection d'une couleur. */
-        g.setFill(c);
-        /** Coloration d'un rectangle. */
-        g.fillOval(x, y, TAILLE/2, TAILLE/2);
 
-    }
 
     private void paintSafeZone(GraphicsContext g, Color c, int x, int y) {
         /** Sélection d'une couleur. */

@@ -105,4 +105,9 @@ public class Explorateur extends Player {
             res=d;
         return res;
     }
+
+    @Override
+    public String toString() {
+        return "Explorateur";
+    }
 }
