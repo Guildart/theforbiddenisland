@@ -135,11 +135,12 @@ public class Player{
     }
 
     public void discardCard(ArrayList<Integer> toDiscard){
+        ArrayList<TresorCard> toRemove = new ArrayList();
         for(int i : toDiscard){
-            TresorCard card = playerCards.get(i);
-            this.getCards().remove(i);
-            modele.addToDefausseCarteTresor(card);
+            toRemove.add(playerCards.get(i));
         }
+        this.getCards().removeAll(toRemove);
+        modele.getDefausseTresorCard().addAll(toRemove);
     }
 
 
@@ -203,5 +204,9 @@ public class Player{
 
     public String toString(){
         return "Player";
+    }
+
+    public int getNbActionsRestant(){
+        return this.nbActionsRestant;
     }
 }

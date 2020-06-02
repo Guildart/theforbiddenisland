@@ -67,7 +67,7 @@ public class CVueDefausse implements Initializable {
 
         //Parent root = FXMLLoader.load(getClass().getResource("/Vue/VueDiscard.fxml"));
 
-        Font font = Font.loadFont(getClass().getResourceAsStream("/image/treamd.ttf"),30);
+        Font font = Font.loadFont(getClass().getResourceAsStream("/image/treamd.ttf"),25);
         System.out.println(font);
         vbox = new VBox();
         vbox.setAlignment(Pos.TOP_CENTER);
@@ -93,7 +93,7 @@ public class CVueDefausse implements Initializable {
 
         container.getChildren().add(canvas);
 
-        label = new Label("Vous devez encore deffauser " + nbCardTodrop + " cartes");
+        label = new Label(player.toString() + ": Vous devez defausser " + nbCardTodrop + " cartes");
         label.setFont(font);
         vbox.setSpacing(30);
 
@@ -145,7 +145,8 @@ public class CVueDefausse implements Initializable {
                     if(indiceToDiscard.contains(x)){
                         URL url = getClass().getResource(card.getURLForPlayersDiscard());
                         gcF.drawImage(new Image(url.toExternalForm()), x * (gap+cardH),10);
-                        indiceToDiscard.remove(x);
+                        int indice = indiceToDiscard.indexOf(x);
+                        indiceToDiscard.remove(indice);
                         nbCardTodrop++;
                     }else{
                         gcF.setLineWidth(4);
@@ -158,10 +159,10 @@ public class CVueDefausse implements Initializable {
 
                     if(player.nombreCarte() - indiceToDiscard.size() < 6) {
                         continueButton.setCancelButton(false);
-                        label.setText("Vous devez encore deffauser " + 0 + " cartes");
+                        label.setText(player.toString() + ": Vous devez encore defausser " + 0 + " cartes");
                     }else {
                         continueButton.setCancelButton(true);
-                        label.setText("Vous devez encore deffauser " + nbCardTodrop + " cartes");
+                        label.setText(player.toString() + ": Vous devez encore defausser " + nbCardTodrop + " cartes");
                     }
                     System.out.println("discard size : " + indiceToDiscard.size());
                 }
