@@ -1,10 +1,14 @@
 package Enumeration;
 
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+
+import java.awt.*;
 
 //Todo: Modif TresorCard
 public enum TresorCard {
     clef_air, clef_eau, clef_feu, clef_terre, helicopter, sandbag, rising_water, empty;
+
 
     public Color getColor(){
         switch (this){
@@ -56,6 +60,25 @@ public enum TresorCard {
                 return "clef helico";
             case rising_water:
                 return "rising water";
+        }
+        return "inconu";
+
+    }
+
+    public String getImageForCard(){
+        switch (this){
+            case clef_air:
+                return "/image/clef_vent2.png";
+            case clef_eau:
+                return "/image/clef_eau2.png";
+            case clef_feu:
+                return "/image/clef_feu2.png";
+            case clef_terre:
+                return "/image/clef_terre2.png";
+            case sandbag:
+                return "/image/clef_vent2.png";
+            case helicopter:
+                return "/image/clef_vent2.png";
         }
         return "inconu";
     }

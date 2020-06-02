@@ -30,6 +30,8 @@ public class CardDraggable extends Pane {
     public boolean released;
     private Player player;
 
+    private String imageURL;
+
 
 
     private Color c;
@@ -45,6 +47,14 @@ public class CardDraggable extends Pane {
     private double safeY = 0;
 
 
+
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
+    }
 
     public CardDraggable(Node view) {
 
@@ -79,6 +89,7 @@ public class CardDraggable extends Pane {
     public Color getColor() {
         return c;
     }
+
 
     CardDraggable(Player player, Island modele, TresorCard card){
         this.player = player;

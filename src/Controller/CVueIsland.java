@@ -226,7 +226,7 @@ public class CVueIsland implements Initializable, Observer {
 
 
                 node.setPrefSize(TAILLE/2, 8*TAILLE/10);
-                node.setStyle(colorToStyleCard(Color.GRAY));
+                //node.setStyle(colorToStyleCard(Color.GRAY));
                 node.setModel(this.modele);
                 node.setColor(c);
                 node.setCard(TresorCard.empty);
@@ -271,10 +271,8 @@ public class CVueIsland implements Initializable, Observer {
                 + "-fx-border-color: black;";
     }
 
-    public static String colorToStyleCard(Color c){
-        return "-fx-background-color:"+toRGBCode(c) +"; "
-                + "-fx-text-fill: black; "
-                + "-fx-border-color: black;";
+    public static String colorToStyleCard(String s){
+        return "-fx-background-image: url(\"" + s + "\");";
     }
 
     public static String toRGBCode( Color color ) {
