@@ -15,24 +15,24 @@ Ce git est celui de notre projet de POGL de DL Math-Info du S4.
     
 
 
-But du Porjet : 
+## But du Porjet : 
     
        Implémenter le jeu L'Ile Interdite de Matt Leacock en respectant au mieux la structure MVC
        pour une meilleurs gestion de projet.
 
-Notre Objectif Personnel : 
+## Notre Objectif Personnel : 
 
     Faire une version la plus fidèle possible du jeu de plateau avec Java FX.
 
-Originalité :
+## Originalité :
 
     - Nous avons utilisé Java FX pour la partie graphique en alliant le plus possible le
-    code java, FXML et l'utilisation de scene builder.
+    code java, FXML, CSS et l'utilisation de scene builder.
     
     - Notre gameplay plutôt intuitif et facile d'accès.
     
     
-Comment ça se joue :
+## Comment ça se joue :
 
     - Le joueur peut se deplacer (ou deplacer les autres dans le cas du navigateur) en faisant un
     Drag and Drop, il suffit donc de faire glisser les pions.
@@ -46,7 +46,7 @@ Comment ça se joue :
     - Nous avons implémenté les différents rôles du jeux, le joueur devra au lancement du jeux
     sélectionner 2 à 4 rôles (selon le nombre de joueurs voulut) pour lancer une partie.
     
-    - Nous avons implementer les packets de cartes ainsi que la fonctionnalitée montée des eaux, quand une
+    - Nous avons implementer les paquets de cartes ainsi que la fonctionnalitée montée des eaux, quand une
     carte montée des eaux est tirée ont mélange la defausse des cartes innondation au tas de carte
     innondation (Attention des zones vont commencer à sombrer!!!). Selon la zone ou est le curseur,
     sur la règle montée des eaux (panneaux du bas dans la fênetre), 2 à 5 cartes inondation seront tirées.
@@ -54,7 +54,7 @@ Comment ça se joue :
     - De même les Cartes tresors sont implémentés, quand le tas est vide on mélange la défausse qui
     devient la nouvelle main.
     
-    - Pour coller au mieux aux règles officiels, un joueur ne peut avoir plus de 5 cartes en mains,
+    - Pour coller au mieux aux règles officielles, un joueur ne peut avoir plus de 5 cartes en mains,
     aussi à chaque debut de tours si un joueurs à trop cartes une fenetre pop up s'ouvrira 
     et le joueur sera obligé de défausser un nombre minimale de carte.
     
@@ -71,7 +71,7 @@ Comment ça se joue :
     - Un joueur peut arrêter sont tour et passer au prochain joueur quand il le veut en cliquant
     sur "Next Round", aucune obligation de réaliser des actions.
     
-    - Sur la grille sont représenter par des logo eau, vent, air, feu les zones contenant des artefacts
+    - Sur la grille sont représenteés par des logo eau, vent, air, feu les zones contenant des artefacts
 
     - Quand un joueur prend un artefacts celui ci disparait de la zone où elle se trouvait et
     l'artefacts correspondant sur le panneau en bas de l'île se colorisera
@@ -84,18 +84,23 @@ Comment ça se joue :
     récupéré, si un joueur se noie, si l'héliport sombre ou si le niveau de l'eau atteint la tête
     de mort.
     
-Difficulté :
+## Difficultés rencontrées :
     
     - Gestion d'un nouvelle outiles encore inconnue jsuque là : Java Fx
     
     - Application aux nombreuse fonctionnalité qui nous ont parfois ammener 
     à revoir une grande partie du code et à le réaménager plusieurs fois
     
-    - Concepte MVC encore flou parfois (qui fait quoi ?)
+    - Concepte MVC encore flou parfois (qui fait quoi ?), dû à l'utilisation indéite de JavaFX, dont l'apport des FXML et des Controller, 
+      cependant l'utilisation des classes abtrasitres et interfaces Observable et Observer a rendu la tâche moins ardu.
    
-Séparation du travail :
+## Séparation du travail :
     
-    Il n'y a pas vraiment eu de spération claire est nette du travail, nous communiquions beaucoup 
+    Au tout début du projet nousa vons fait un brainStorming de ce qu'allait être le projet, nous en avons extrait une structure
+    MVC et d'un ensemble de classes, nous avons ensuite réflechis aux différents attributs et méthodes de chaque classses possibles.
+    Une fois la majorité des classes principales dont nous allions avoir besoin crées, le reste s'est complété, comme les nouvelles fonctionnalités
+    que nous voulioons implémenter.
+    Quant à la réalisation, il n'y a pas vraiment eu de spération claire et nette du travail, nous communiquions beaucoup 
     à l'oral sur les prochaines taches à faires et chacun faisait ce qu'il pensait être utile en 
     expliquant par avance ce qui serait fait et en ajoutant toutes les modifications faite au jour 
     le jour dans le readme (visible à la fin pour l'historique des modifs) ce qui permettait de 
@@ -117,22 +122,24 @@ Séparation du travail :
         - Drag and Drop sur la grille et la main du joueur
         - Gestion du menu/ecran de debut de game
         - Gestion pop up de fin de partie, methode win, loose ..
-        - Gestion de l'échange de carte
+        - Gestion de l'échange de carte (Drag and Drop sur les panels joueurs 
+          et sur la carte pour les cartes helicoptere et sac de sable)
         - Realisation des roles Explorateur et Pilote
         
        
        Globalement l'un comme l'autre nous avons quasi toujours eu à modifier le code de l'autre 
-       pour y ajouter une fonctionnalité a un moment ou a un autre
+       pour y ajouter une fonctionnalité à un moment ou à un autre en fonction des besoins ( à l'ajout de nouvelles
+       fonctionnalités).
     
     
-Un mots sur les graphismes :
-
+## Un mots sur les graphismes :
+    
     - Merci a Marius qui a dessiné pour nous les Cartes représentant les différents rôles et les pions.
     - Une quantité non negligeable des resources graphique provienne du site freepik.com
     
     
     
-Ci-Dessous la liste des updates fait au jour le jour, qui nous a permis une meilleur communication
+## Ci-Dessous la liste des updates fait au jour le jour, qui nous a permis une meilleur communication
 entre nous dans la réalisation du projet:        
         
 Update Romain 20/05/2020:
@@ -254,7 +261,7 @@ Update Ramdane 27/05/2020:
     - modification des proportions (dans le main, cvuefxml etc )
     - erreur player Observable ??? => à modifier
     - ajout de Cvueplayer et cvueplayer.fxml
-    - mdofication de TresorCard
+    - modification de TresorCard
      
 Update Romain 27/05/2020:
 
