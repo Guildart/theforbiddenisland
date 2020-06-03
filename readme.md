@@ -3,9 +3,11 @@
 
 Ce git est celui de notre projet de POGL de DL Math-Info du S4.
 
-Update : Rajout des règles officiels dans le git
+#### Update : Rajout des règles officiels dans le git
 
-**IMPORTANT !!!!! Pour Compiler : **
+
+
+## IMPORTANT !!!!! Pour Compiler :
     
     Comme nous utilison java fx comme interface graphique des packages sont à téléharger et il faudra réglé 
     votre IDE. 
