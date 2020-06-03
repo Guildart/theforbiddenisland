@@ -34,6 +34,9 @@ Ce git est celui de notre projet de POGL de DL Math-Info du S4.
     
 ## Comment ça se joue :
 
+[Règles du jeu](https://github.com/Guildart/theforbiddenisland/blob/master/regle.pdf "Règles de L'ile Interdite")
+
+
     - Le joueur peut se deplacer (ou deplacer les autres dans le cas du navigateur) en faisant un
     Drag and Drop, il suffit donc de faire glisser les pions.
     
